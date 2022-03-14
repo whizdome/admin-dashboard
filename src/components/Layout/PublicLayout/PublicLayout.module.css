@@ -1,0 +1,128 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.screen_layout {
+  background: #fff url("../../../assets/images/login-bg.png") no-repeat center;
+  background-size: cover;
+  position: relative;
+  width: 97%;
+  min-height: 100vh;
+  margin: 2rem auto;
+}
+.screen_layout .logo {
+  width: 100px;
+}
+.screen_layout hr {
+  border: 0.1px solid rgba(0, 0, 0, 0.05);
+  margin: 2rem auto;
+}
+.screen_layout .children {
+  width: 30%;
+  margin: 1rem auto;
+}
+.screen_layout .reset {
+  position: absolute;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  bottom: 25%;
+  left: 8%;
+}
+.screen_layout .reset .doughnut {
+  position: absolute;
+  right: -2.5rem;
+  top: -2.5rem;
+  background: radial-gradient(circle, #fff 25%, #d90b2c 0%);
+  border-radius: 100%;
+  height: 5.6rem;
+  width: 5.6rem;
+}
+.screen_layout .reset .reset_container {
+  position: relative;
+  width: 27.6rem;
+  height: 7.13rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fff;
+  box-shadow: 0px 3px 50px #00000010;
+  border-radius: 10px;
+  z-index: 2;
+}
+.screen_layout .reset .reset_container img {
+  width: 4.4rem;
+  height: 4.4rem;
+}
+.screen_layout .reset .reset_container .text p:first-child {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: #6f7689;
+}
+.screen_layout .reset .reset_container .text p:nth-child(2) {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #101010;
+  margin: 0;
+}
+.screen_layout .password_container {
+  position: absolute;
+  bottom: 8%;
+  right: 3%;
+  width: 27.6rem;
+  height: 7.13rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #2b2b2b;
+  box-shadow: 0px 3px 50px #00000010;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.screen_layout .password_container .text {
+  color: #fff;
+  margin-left: 3rem;
+}
+.screen_layout .password_container .text p:first-child {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  font-weight: 400;
+}
+.screen_layout .password_container .text p:nth-child(2) {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .screen_layout {
+    padding: 0 2rem;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 1rem;
+  }
+  .screen_layout .children {
+    width: 100%;
+  }
+  .screen_layout .reset {
+    display: none;
+    position: static;
+  }
+  .screen_layout .reset .doughnut {
+    position: static;
+  }
+  .screen_layout .password_container {
+    position: static;
+    margin-top: 5rem;
+  }
+}/*# sourceMappingURL=PublicLayout.module.css.map */
