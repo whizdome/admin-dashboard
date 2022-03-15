@@ -1,0 +1,140 @@
+import React, { useState } from "react";
+import { connect } from "react-redux";
+
+import { RiLockPasswordLine } from "react-icons/ri";
+import { AiOutlineMail } from "react-icons/ai";
+
+import { useFormValidation } from "../../../hooks/useFormValidation";
+import { AdminForgotPassword } from "../../../redux/actions/authAct";
+
+import PublicLayout from "../../../components/Layout/Public/PublicLayout";
+import Header from "../../../components/Header/Header";
+import InputField from "../../../components/InputField/Input";
+import Button from "../../../components/Button/Button";
+import CustomModal from "../../../components/Modal/Modal";
+
+export const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+
+const stateSchema = {
+  email: {
+    value: "",
+    error: "",
+  },
+};
+
+const validateSchema = {
+  email: {
+    required: true,
+    validator: {
+      regEx: isEmail,
+      error: "Invalid email address",
+    },
+  },
+};
+
+const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSend = async () => {
+    const { email } = state;
+    const body = {
+      email: email.value,
+    };
+    setLoading(true);
+    try {
+      AdminForgotPassword(body);
+      console.log(forgotPasswordRes, body);
+      setData(forgotPasswordRes);
+      setShowModal(true);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const { state, disable, handleChange, handleSubmit } = useFormValidation(
+    stateSchema,
+    validateSchema,
+    handleSend
+  );
+
+  const { email } = state;
+
+  return (
+    <PublicLayout password="true">
+      <section className="login_container">
+        <Header
+          headerIcon={<RiLockPasswordLine />}
+          headerTitle="Forgot Password"
+          headerSubtitle="A verification reset password link will be sent to your email address"
+        />
+        <hr />
+        <form onSubmit={handleSubmit} className="form" noValidate>
+          <div className="form_group">
+            <InputField
+              id="email"
+              type="email"
+              value={email.value}
+              name="email"
+              label="Enter Your Email Address"
+              onChange={handleChange}
+              leftIcon={<AiOutlineMail />}
+            />
+            {email.error ? (
+              <span className="error">{email.error}</span>
+            ) : email.value ? (
+              <span style={{ color: "green" }} className="error">
+                Email ✔
+              </span>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="footer">
+            <Button
+              btnTitle="Reset Password"
+              type="outline"
+              onClick={handleSubmit}
+            />
+          </div>
+        </form>
+        <CustomModal
+          visible={showModal}
+          closeModal={() => setShowModal(false)}
+          children={
+            <div>
+              <div className="modal_icon">
+                <RiLockPasswordLine />
+              </div>
+              <h1>Check Your Mail</h1>
+              <p>
+                A Password resent Link has been sent to your mail for
+                verification, Kindly check your email Lanre********@gmail.com
+              </p>
+              <Button
+                btnTitle="Okay, Thank you"
+                type="fill"
+                onClick={() => setShowModal(false)}
+              />
+            </div>
+          }
+        />
+      </section>
+    </PublicLayout>
+  );
+};
+
+const mapPropsToState = (state) => {
+  return {
+    forgotPasswordRes: state.forgotPasswordRes,
+  };
+};
+
+export default connect(mapPropsToState, {
+  AdminForgotPassword,
+})(ForgotPassword);
