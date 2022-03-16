@@ -1,0 +1,28 @@
+// @import "../../../styles/abstracts/mixins";
+@import "../../styles/abstracts/mixins";
+
+.notification {
+  position: relative;
+  display: inline-block;
+
+  svg {
+    font-size: 35px;
+    color: #1a1a1a;
+    transition: 0.3s;
+  }
+
+  .badge {
+    position: absolute;
+    top: 1px;
+    left: 18px;
+    padding: 0 5px;
+    font-size: 14px;
+    height: 16px;
+    background: #d90b2c;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+    color: #fff;
+    white-space: nowrap;
+  }
+}

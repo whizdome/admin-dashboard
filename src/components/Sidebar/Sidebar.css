@@ -1,0 +1,17 @@
+#content .menu_item {
+  position: relative;
+}
+#content .menu_item .pro-inner-item:hover {
+  background-color: red;
+}
+#content .menu_item .pro-icon-wrapper {
+  background-color: #313131;
+  padding: 0.5rem;
+}
+#content .menu_item .pro-icon-wrapper .pro-icon {
+  border: 1px solid #fff;
+  border-radius: 50px;
+}
+#content .menu_item .pro-item-content {
+  font-size: 1.4rem;
+}
