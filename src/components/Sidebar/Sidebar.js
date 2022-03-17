@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ProSidebar,
@@ -16,9 +16,9 @@ import style from "./Sidebar.module.scss";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Sidebar.css";
 
-const SidebarComponent = () => {
+const SidebarComponent = ({ closeSidebar }) => {
   return (
-    <ProSidebar className={style.sidebar}>
+    <ProSidebar className={style.sidebar} id="sidebar" collapsed={closeSidebar}>
       <SidebarHeader className={style.header}>
         <img src={Logo} alt="logo" />
       </SidebarHeader>

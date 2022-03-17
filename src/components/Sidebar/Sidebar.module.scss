@@ -1,10 +1,11 @@
 $sidebar-bg-color: #1a1a1a;
 $sidebar-color: #fff;
+@import "../../styles/abstracts/mixins";
 
+.pro-sidebar,
 .sidebar {
   background: $sidebar-bg-color;
   color: $sidebar-color;
-  height: 100vh;
 }
 .header {
   img {
@@ -16,21 +17,6 @@ $sidebar-color: #fff;
   margin-top: 2rem;
 }
 svg {
-  height: 1.1rem;
-  width: 1.1rem;
+  height: 1.2rem;
+  width: 1.2rem;
 }
-
-.pro-inner-item {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-// .pro-inner-item:after {
-//     content: "";
-//     height: 5.1rem;
-//     width: 0.4rem;
-//     background: #d90b2c;
-//     position: absolute;
-//     /* margin-left: 5rem; */
-//     right: 0;
-// }
