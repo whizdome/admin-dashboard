@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React from "react";
 
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
@@ -10,6 +9,7 @@ import {
 import { VscKey } from "react-icons/vsc";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
+import { useAxios } from "../../../hooks/useAxios";
 import { AdminLogin } from "../../../redux/actions/authAct";
 import Spinner from "../../../components/Loader";
 
@@ -21,9 +21,16 @@ import Header from "../../../components/Header/Header";
 import "./Login.scss";
 
 export const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+export const isStrongPassword = RegExp(
+  "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+);
 
 const stateSchema = {
   email: {
+    value: "",
+    error: "",
+  },
+  password: {
     value: "",
     error: "",
   },
@@ -37,37 +44,37 @@ const validateSchema = {
       error: "Invalid email address",
     },
   },
+  password: {
+    required: true,
+    validator: {
+      regEx: isStrongPassword,
+      error: "Password is not strong enough",
+    },
+  },
 };
 
-const Login = ({ AdminLogin, loginRes }) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+const Login = () => {
+  const { state, disable, handleChange } = useFormValidation(
+    stateSchema,
+    validateSchema
+    // handleSend
+  );
 
-  const handleSend = async () => {
-    const { email } = state;
-    const body = {
-      email: email.value,
-    };
-    setLoading(true);
-    try {
-      AdminLogin(body);
-      console.log(loginRes, body);
-      setData(loginRes);
-    } catch (err) {
-      console.log(err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
+  const { email, password } = state;
+  const body = {
+    email: email.value,
+    password: password.value,
   };
 
-  const { state, disable, handleChange, handleSubmit } = useFormValidation(
-    stateSchema,
-    validateSchema,
-    handleSend
-  );
-  const { email, password } = state;
+  const { loading, error, onClick } = useAxios({
+    path: AdminLogin,
+    params: body,
+  });
+
+  const handleSubmit = async () => {
+    onClick();
+    error && state({ email: { value: "" }, password: { value: "" } });
+  };
 
   return (
     <PublicLayout link="/forgot-password">
@@ -78,7 +85,7 @@ const Login = ({ AdminLogin, loginRes }) => {
           headerSubtitle="Login to APEMS Administrative Panel"
         />
         <hr />
-        <form onSubmit={handleSubmit} className="form" noValidate>
+        <form className="form" noValidate>
           <div className="form_group">
             <InputField
               type="email"
@@ -102,7 +109,7 @@ const Login = ({ AdminLogin, loginRes }) => {
           <div className="form_group">
             <InputField
               type="password"
-              value={password}
+              value={password.value}
               name="password"
               id="password"
               label="Enter Password"
@@ -111,12 +118,22 @@ const Login = ({ AdminLogin, loginRes }) => {
               visibleRightIcon={<AiOutlineEyeInvisible />}
               hiddenRightIcon={<AiOutlineEye />}
             />
+            {password.error ? (
+              <span className="error">{password.error}</span>
+            ) : password.value ? (
+              <span style={{ color: "green" }} className="error">
+                Password ✔
+              </span>
+            ) : (
+              ""
+            )}
           </div>
           <div className="footer">
             <PublicButton
               icon="true"
               btnTitle="Sign In"
               onClick={handleSubmit}
+              disabled={disable}
             />
           </div>
           <Spinner visible={loading} />
@@ -126,12 +143,4 @@ const Login = ({ AdminLogin, loginRes }) => {
   );
 };
 
-const mapPropsToState = (state) => {
-  return {
-    loginRes: state.loginRes,
-  };
-};
-
-export default connect(mapPropsToState, {
-  AdminLogin,
-})(Login);
+export default Login;

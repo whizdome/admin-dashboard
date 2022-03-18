@@ -6,6 +6,8 @@ import { AiOutlineMail } from "react-icons/ai";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AdminForgotPassword } from "../../../redux/actions/authAct";
+import { useAxios } from "../../../hooks/useAxios";
+import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
 import Header from "../../../components/Header/Header";
@@ -32,38 +34,30 @@ const validateSchema = {
   },
 };
 
-const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const ForgotPassword = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleSend = async () => {
-    const { email } = state;
-    const body = {
-      email: email.value,
-    };
-    setLoading(true);
-    try {
-      AdminForgotPassword(body);
-      console.log(forgotPasswordRes, body);
-      setData(forgotPasswordRes);
-      setShowModal(true);
-    } catch (err) {
-      console.log(err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const { state, disable, handleChange, handleSubmit } = useFormValidation(
+  const { state, disable, handleChange } = useFormValidation(
     stateSchema,
-    validateSchema,
-    handleSend
+    validateSchema
+    // handleSend
   );
 
   const { email } = state;
+  const body = {
+    email: email.value,
+  };
+
+  const { loading, response, error, onClick } = useAxios({
+    path: AdminForgotPassword,
+    params: body,
+  });
+
+  const handleSubmit = async () => {
+    onClick();
+    response && setShowModal(true);
+    error && state({ email: { value: "" }, password: { value: "" } });
+  };
 
   return (
     <PublicLayout password="true">
@@ -74,7 +68,7 @@ const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
           headerSubtitle="A verification reset password link will be sent to your email address"
         />
         <hr />
-        <form onSubmit={handleSubmit} className="form" noValidate>
+        <form className="form" noValidate>
           <div className="form_group">
             <InputField
               id="email"
@@ -100,8 +94,10 @@ const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
               btnTitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
+              disabled={disable}
             />
           </div>
+          <Spinner visible={loading} />
         </form>
         <CustomModal
           visible={showModal}

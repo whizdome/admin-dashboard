@@ -23,6 +23,7 @@ export const useFormValidation = (stateSchema, validationSchema, callback) => {
     const { name = "", value = "" } = target;
 
     const field = validationSchema[name];
+
     let error = "";
 
     if (field?.required) {
@@ -36,6 +37,11 @@ export const useFormValidation = (stateSchema, validationSchema, callback) => {
         } else if (field.validator.length) {
           if (field.validator.length > value.length) {
             error = field.validator.error;
+          }
+        } else if (field.validator.match) {
+          if (state.password.value !== value) {
+            error = field.validator.error;
+            console.log("field", error, state.password.value === value);
           }
         }
       }

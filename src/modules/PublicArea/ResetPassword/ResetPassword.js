@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 
 import { RiLockPasswordLine, RiCheckLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
+import { useAxios } from "../../../hooks/useAxios";
 import { AdminResetPassword } from "../../../redux/actions/authAct";
-// import Spinner from "../../../components/Loader";
+import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
 import Header from "../../../components/Header/Header";
@@ -42,44 +44,36 @@ const validateSchema = {
   confirmPassword: {
     required: true,
     validator: {
-      regEx: isStrongPassword,
-      error: "Please provide a strong password",
+      match: isStrongPassword,
+      error: "Passwords do not match",
     },
   },
 };
 
-const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const ResetPassword = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleSend = async () => {
-    const { password, confirmPassword } = state;
-    const body = {
-      password: password.value,
-      confirmPassword: confirmPassword.value,
-    };
-    setLoading(true);
-    try {
-      AdminResetPassword(body);
-      console.log(resetPasswordRes, body);
-      setData(resetPasswordRes);
-      setShowModal(true);
-    } catch (err) {
-      console.log(err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const { state, disable, handleChange, handleSubmit } = useFormValidation(
+  const { state, disable, handleChange } = useFormValidation(
     stateSchema,
-    validateSchema,
-    handleSend
+    validateSchema
+    // handleSend
   );
   const { password, confirmPassword } = state;
+  const body = {
+    password: password.value,
+    confirmPassword: confirmPassword.value,
+  };
+
+  const { loading, response, error, onClick } = useAxios({
+    path: AdminResetPassword,
+    params: body,
+  });
+
+  const handleSubmit = async () => {
+    onClick();
+    response && setShowModal(true);
+    error && state({ email: { value: "" }, password: { value: "" } });
+  };
 
   return (
     <PublicLayout reset="false" password="false">
@@ -90,7 +84,7 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
           headerSubtitle="A verification reset password link will be sent to your email address"
         />
         <hr />
-        <form onSubmit={handleSubmit} className="form" noValidate>
+        <form className="form" noValidate>
           <div className="form_group">
             <InputField
               value={password.value}
@@ -100,6 +94,8 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
               leftIcon={<VscKey />}
               label="New Password"
               onChange={handleChange}
+              visibleRightIcon={<AiOutlineEyeInvisible />}
+              hiddenRightIcon={<AiOutlineEye />}
             />
             {password.error ? (
               <span className="error">{password.error}</span>
@@ -120,12 +116,14 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
               leftIcon={<VscKey />}
               label="Confirm Password"
               onChange={handleChange}
+              visibleRightIcon={<AiOutlineEyeInvisible />}
+              hiddenRightIcon={<AiOutlineEye />}
             />
             {confirmPassword.error ? (
               <span className="error">{confirmPassword.error}</span>
             ) : confirmPassword.value ? (
               <span style={{ color: "green" }} className="error">
-                Strong Password ✔
+                Password Match✔
               </span>
             ) : (
               ""
@@ -136,8 +134,10 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
               btnTitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
+              disabled={disable}
             />
           </div>
+          <Spinner loading={loading} />
         </form>
         <CustomModal
           visible={showModal}

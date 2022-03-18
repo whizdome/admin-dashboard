@@ -4,10 +4,12 @@ import { BsCaretRightFill } from "react-icons/bs";
 
 import "./Button.scss";
 
-export const PublicButton = ({ icon, btnTitle, type, onClick }) => {
+export const PublicButton = ({ icon, btnTitle, type, onClick, disabled }) => {
   return (
     <div
-      className={`button ${type === "fill" ? "button_fill" : "button_outline"}`}
+      className={`button ${disabled && "disabled"} ${
+        type === "fill" ? "button_fill" : "button_outline"
+      }`}
       onClick={onClick}
     >
       <span className="button_text">{btnTitle}</span>
