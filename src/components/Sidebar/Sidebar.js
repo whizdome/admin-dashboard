@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { withRouter } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 import {
   ProSidebar,
   Menu,
@@ -25,12 +26,13 @@ const SidebarComponent = ({ closeSidebar }) => {
       <SidebarContent className={style.content} id="content">
         {SidebarData.map(({ id, name, icon, path }) => {
           return (
-            <Menu iconShape="circle" key={id} className="menu">
-              <MenuItem icon={icon} className="menu_item">
-                {name}
-                <Link to={path} />
-              </MenuItem>
-            </Menu>
+            <NavLink to={path} exact activeClassName="active" key={id}>
+              <Menu iconShape="circle" className="menu">
+                <MenuItem icon={icon} className="menu_item">
+                  {name}
+                </MenuItem>
+              </Menu>
+            </NavLink>
           );
         })}
       </SidebarContent>
@@ -38,4 +40,4 @@ const SidebarComponent = ({ closeSidebar }) => {
   );
 };
 
-export default SidebarComponent;
+export default withRouter(SidebarComponent);

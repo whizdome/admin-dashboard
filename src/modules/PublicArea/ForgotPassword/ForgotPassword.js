@@ -10,7 +10,7 @@ import { AdminForgotPassword } from "../../../redux/actions/authAct";
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
 import Header from "../../../components/Header/Header";
 import InputField from "../../../components/InputField/Input";
-import Button from "../../../components/Button/Button";
+import { PublicButton } from "../../../components/Button/Button";
 import CustomModal from "../../../components/Modal/Modal";
 
 export const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
@@ -96,7 +96,7 @@ const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
             )}
           </div>
           <div className="footer">
-            <Button
+            <PublicButton
               btnTitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
@@ -116,7 +116,7 @@ const ForgotPassword = ({ AdminForgotPassword, forgotPasswordRes }) => {
                 A Password resent Link has been sent to your mail for
                 verification, Kindly check your email Lanre********@gmail.com
               </p>
-              <Button
+              <PublicButton
                 btnTitle="Okay, Thank you"
                 type="fill"
                 onClick={() => setShowModal(false)}

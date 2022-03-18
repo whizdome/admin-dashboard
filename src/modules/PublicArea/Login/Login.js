@@ -14,7 +14,7 @@ import { AdminLogin } from "../../../redux/actions/authAct";
 import Spinner from "../../../components/Loader";
 
 import InputField from "../../../components/InputField/Input";
-import Button from "../../../components/Button/Button";
+import { PublicButton } from "../../../components/Button/Button";
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
 import Header from "../../../components/Header/Header";
 
@@ -113,7 +113,11 @@ const Login = ({ AdminLogin, loginRes }) => {
             />
           </div>
           <div className="footer">
-            <Button icon="true" btnTitle="Sign In" onClick={handleSubmit} />
+            <PublicButton
+              icon="true"
+              btnTitle="Sign In"
+              onClick={handleSubmit}
+            />
           </div>
           <Spinner visible={loading} />
         </form>

@@ -4,7 +4,7 @@ import { BsCaretRightFill } from "react-icons/bs";
 
 import "./Button.scss";
 
-const Button = ({ icon, btnTitle, type, onClick }) => {
+export const PublicButton = ({ icon, btnTitle, type, onClick }) => {
   return (
     <div
       className={`button ${type === "fill" ? "button_fill" : "button_outline"}`}
@@ -16,4 +16,11 @@ const Button = ({ icon, btnTitle, type, onClick }) => {
   );
 };
 
-export default Button;
+export const OutlineIconButton = ({ icon, btnTitle, onClick }) => {
+  return (
+    <div className="button_outline_private" onClick={onClick}>
+      {icon}
+      <span className="button_text">{btnTitle}</span>
+    </div>
+  );
+};

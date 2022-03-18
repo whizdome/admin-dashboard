@@ -1,28 +1,85 @@
-// @import "../../../styles/abstracts/mixins";
 @import "../../styles/abstracts/mixins";
 
-.notification {
-  position: relative;
-  display: inline-block;
-
-  svg {
-    font-size: 35px;
-    color: #1a1a1a;
-    transition: 0.3s;
+.top_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 13.5%;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0px 10px 50px #0000000d;
+  .right {
+    svg {
+      font-size: 30px;
+      margin-top: 0.8rem;
+    }
   }
-
-  .badge {
-    position: absolute;
-    top: 1px;
-    left: 18px;
-    padding: 0 5px;
-    font-size: 14px;
-    height: 16px;
-    background: #d90b2c;
-    box-shadow: 0px 3px 6px #00000029;
-    border: 2px solid #ffffff;
-    border-radius: 12px;
-    color: #fff;
-    white-space: nowrap;
+  .left {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    .notification {
+      position: relative;
+      display: inline-block;
+      margin-right: 5rem;
+      svg {
+        font-size: 25px;
+        color: #1a1a1a;
+        margin-top: 0.5rem;
+      }
+      .badge {
+        position: absolute;
+        top: 4px;
+        left: 18px;
+        padding: 0 0.4rem;
+        line-height: 1.5;
+        font-size: 10px;
+        background: #d90b2c;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 2px solid #ffffff;
+        border-radius: 12px;
+        color: #fff;
+        white-space: nowrap;
+      }
+    }
+    .user_info {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      .user_avatar {
+        border: 3px solid #b9b9b9;
+        border-radius: 50px;
+        height: 3rem;
+        width: 3rem;
+        object-fit: cover;
+        object-position: center;
+      }
+      .user_name {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin-left: 0.5rem;
+        margin-right: 0.7rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+  @include respond(phone) {
+    .left {
+      .notification {
+        margin-right: 0;
+      }
+      justify-content: space-between;
+      width: 55%;
+      padding: 0;
+    }
+    .user_info {
+      .user_name {
+        display: none;
+      }
+    }
   }
 }

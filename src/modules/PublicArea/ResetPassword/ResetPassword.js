@@ -6,12 +6,12 @@ import { VscKey } from "react-icons/vsc";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AdminResetPassword } from "../../../redux/actions/authAct";
-import Spinner from "../../../components/Loader";
+// import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
 import Header from "../../../components/Header/Header";
 import InputField from "../../../components/InputField/Input";
-import Button from "../../../components/Button/Button";
+import { PublicButton } from "../../../components/Button/Button";
 import CustomModal from "../../../components/Modal/Modal";
 
 import "./ResetPassword.scss";
@@ -132,7 +132,7 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
             )}
           </div>
           <div className="footer">
-            <Button
+            <PublicButton
               btnTitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
@@ -153,7 +153,7 @@ const ResetPassword = ({ AdminResetPassword, resetPasswordRes }) => {
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
                 aliquyam erat, sed diam"
               </p>
-              <Button
+              <PublicButton
                 btnTitle="Sign me in"
                 type="fill"
                 onClick={() => setShowModal(false)}

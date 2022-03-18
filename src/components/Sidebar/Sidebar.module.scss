@@ -2,8 +2,8 @@ $sidebar-bg-color: #1a1a1a;
 $sidebar-color: #fff;
 @import "../../styles/abstracts/mixins";
 
-.pro-sidebar,
-.sidebar {
+.pro-sidebar > .pro-sidebar-inner,
+.sidebar > .pro-sidebar-inner {
   background: $sidebar-bg-color;
   color: $sidebar-color;
 }
@@ -16,7 +16,7 @@ $sidebar-color: #fff;
 .content {
   margin-top: 2rem;
 }
-svg {
+.sidebar svg {
   height: 1.2rem;
   width: 1.2rem;
 }

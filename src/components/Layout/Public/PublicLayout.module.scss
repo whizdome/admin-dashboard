@@ -5,7 +5,8 @@
   background-size: cover;
   position: relative;
   width: 97%;
-  min-height: 100vh;
+  // min-height: 100vh;
+  height: 100%;
   margin: 2rem auto;
   .logo {
     width: 100px;
@@ -108,7 +109,7 @@
     }
     .password_container {
       position: static;
-      margin-top: 5rem;
+      // margin-top: 5rem;
       margin-left: auto;
       margin-right: auto;
     }

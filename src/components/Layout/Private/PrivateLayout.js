@@ -22,10 +22,10 @@ const PrivateLayout = ({ children }) => {
   return (
     <div className={style.private_layout}>
       <SidebarComponent closeSidebar={menuCollapse} />
-      <div className={style.content}>
+      <main className={style.content}>
         <TopBar toggle={minimizeSidebar} width={width} />
         {children}
-      </div>
+      </main>
     </div>
   );
 };
