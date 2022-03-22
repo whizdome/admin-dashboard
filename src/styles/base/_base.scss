@@ -37,6 +37,11 @@ html {
   @include respond(tab-pro) {
     font-size: 50%;
   }
+
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+
   @include respond(tab-land) {
     font-size: 56.25%;
   }
@@ -70,13 +75,13 @@ a:visited {
 ul {
   list-style: none;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:active,
-input:-webkit-autofill:focus {
-  background-color: #ffffff !important;
-  color: #222 !important;
-  box-shadow: 0 0 0 1000px white inset !important;
-  -webkit-box-shadow: 0 0 0 1000px white inset !important;
-  -webkit-text-fill-color: #555555 !important;
-}
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover,
+// input:-webkit-autofill:active,
+// input:-webkit-autofill:focus {
+//   background-color: inherit !important;
+//   color: #222 !important;
+//   box-shadow: 0 0 0 1000px white inset !important;
+//   -webkit-box-shadow: 0 0 0 1000px white inset !important;
+//   -webkit-text-fill-color: #555555 !important;
+// }

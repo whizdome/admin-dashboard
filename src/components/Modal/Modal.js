@@ -3,12 +3,12 @@ import { Modal } from "antd";
 
 import "./Modal.scss";
 
-const CustomModal = ({ closeModal, visible, children }) => {
+const CustomModal = ({ closeModal, visible, children, style }) => {
   return (
     <Modal
       visible={visible}
       // onCancel={() => closeModal()}
-      width={"80%"}
+      width={style.width}
       bodyStyle={{
         textAlign: "center",
       }}
@@ -16,6 +16,8 @@ const CustomModal = ({ closeModal, visible, children }) => {
       header={null}
       position="relative"
       maskClosable={false}
+      wrapClassName="public_modal"
+      style={{ top: style.top }}
     >
       {children}
     </Modal>

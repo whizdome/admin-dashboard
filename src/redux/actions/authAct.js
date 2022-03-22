@@ -2,12 +2,12 @@ import { login, reset_password, forgot_password } from "../services/auth";
 
 export const AdminLogin = (payload) => {
   return async (dispatch) => {
-    console.log("admin login");
     const res = await login(payload);
+    console.log("admin login", res);
 
     dispatch({
       type: "ADMIN_LOGIN",
-      payload: res,
+      payload: res.data,
     });
   };
 };

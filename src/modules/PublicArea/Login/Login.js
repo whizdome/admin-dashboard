@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
   AiOutlineMail,
@@ -44,37 +45,41 @@ const validateSchema = {
       error: "Invalid email address",
     },
   },
-  password: {
-    required: true,
-    validator: {
-      regEx: isStrongPassword,
-      error: "Password is not strong enough",
-    },
-  },
 };
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const { state, disable, handleChange } = useFormValidation(
     stateSchema,
     validateSchema
     // handleSend
   );
+  const history = useHistory();
 
   const { email, password } = state;
-  const body = {
-    email: email.value,
-    password: password.value,
-  };
 
-  const { loading, error, onClick } = useAxios({
-    path: AdminLogin,
-    params: body,
-  });
+  const loginState = useSelector((state) => state.loginRes);
+  const dispatch = useDispatch();
 
-  const handleSubmit = async () => {
-    onClick();
-    error && state({ email: { value: "" }, password: { value: "" } });
-  };
+  const body = useMemo(() => {
+    return {
+      email: email.value,
+      password: password.value,
+    };
+  }, [email, password]);
+
+  const handleSubmit = useCallback(async () => {
+    setLoading(true);
+    try {
+      const result = await dispatch(AdminLogin(body));
+      console.log("loginState", loginState, result);
+      history.push("/dashboard");
+    } catch (error) {
+      console.log("err", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [body, dispatch, history]);
 
   return (
     <PublicLayout link="/forgot-password">
@@ -118,7 +123,7 @@ const Login = () => {
               visibleRightIcon={<AiOutlineEyeInvisible />}
               hiddenRightIcon={<AiOutlineEye />}
             />
-            {password.error ? (
+            {/* {password.error ? (
               <span className="error">{password.error}</span>
             ) : password.value ? (
               <span style={{ color: "green" }} className="error">
@@ -126,12 +131,12 @@ const Login = () => {
               </span>
             ) : (
               ""
-            )}
+            )} */}
           </div>
           <div className="footer">
             <PublicButton
               icon="true"
-              btnTitle="Sign In"
+              btntitle="Sign In"
               onClick={handleSubmit}
               disabled={disable}
             />

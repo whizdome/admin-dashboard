@@ -1,7 +1,7 @@
 @import "../../styles/abstracts/mixins";
 
 .ant-modal {
-  width: 50% !important;
+  // width: 50% !important;
   @include respond(phone) {
     width: 90% !important;
     .ant-modal-content {
@@ -9,8 +9,11 @@
     }
   }
 }
-.ant-modal-content {
+.public_modal .ant-modal-content {
   padding: 4rem;
+}
+.private_modal .ant-modal-content {
+  padding: 0 2rem;
 }
 
 .ant-modal-body {
@@ -39,10 +42,10 @@
     color: #707070;
     font-size: 1.5rem;
   }
-  div {
-    width: fit-content;
-    margin: 4rem auto 1rem;
-  }
+}
+.public_modal .ant-modal-body div {
+  width: fit-content;
+  margin: 4rem auto 1rem;
 }
 
 .ant-modal-mask {
@@ -50,4 +53,7 @@
 }
 .ant-modal-close {
   display: none;
+}
+.ant-modal-wrap {
+  z-index: 1000000 !important;
 }

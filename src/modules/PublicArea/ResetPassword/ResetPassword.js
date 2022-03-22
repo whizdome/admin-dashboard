@@ -131,7 +131,7 @@ const ResetPassword = () => {
           </div>
           <div className="footer">
             <PublicButton
-              btnTitle="Reset Password"
+              btntitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
               disabled={disable}
@@ -141,6 +141,10 @@ const ResetPassword = () => {
         </form>
         <CustomModal
           visible={showModal}
+          style={{
+            width: "50%",
+            top: "100px",
+          }}
           closeModal={() => setShowModal(false)}
           children={
             <div>
@@ -154,7 +158,7 @@ const ResetPassword = () => {
                 aliquyam erat, sed diam"
               </p>
               <PublicButton
-                btnTitle="Sign me in"
+                btntitle="Sign me in"
                 type="fill"
                 onClick={() => setShowModal(false)}
               />

@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Login, ForgotPassword, ResetPassword } from "./modules/PublicArea";
 import Dashboard from "./modules/PrivateArea/Dashboard/Dashboard";
 import AccountManagement from "./modules/PrivateArea/AccountManagement/AccountManagement";
+import AccountManagementProfile from "./modules/PrivateArea/Profile/MainProfile";
 import PrivateRoute from "./Routes/PrivateRoute";
+
+import { ToastContainer } from "react-toastify";
 
 import "./App.css";
 
@@ -19,12 +22,18 @@ function App() {
 
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute
-            path="/account-management"
             exact
+            path="/account-management"
             component={AccountManagement}
+          />
+          <PrivateRoute
+            // path={`/account-management/profile/${id}`}
+            path="/account-management/profile"
+            component={AccountManagementProfile}
           />
         </Switch>
       </Router>
+      <ToastContainer />
     </div>
   );
 }

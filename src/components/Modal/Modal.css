@@ -57,7 +57,10 @@ Breakpoint aurgument
   margin: 0 0 1.2rem;
 }
 
-.ant-modal-confirm-body > .anticon + .ant-modal-confirm-title + .ant-modal-confirm-content {
+.ant-modal-confirm-body
+  > .anticon
+  + .ant-modal-confirm-title
+  + .ant-modal-confirm-content {
   margin-left: 0;
 }
 
@@ -92,4 +95,4 @@ Breakpoint aurgument
 
 .ant-modal-mask {
   background-color: #00000080;
-}/*# sourceMappingURL=Modal.css.map */
+} /*# sourceMappingURL=Modal.css.map */

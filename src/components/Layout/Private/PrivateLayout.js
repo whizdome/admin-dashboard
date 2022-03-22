@@ -23,7 +23,11 @@ const PrivateLayout = ({ children }) => {
     <div className={style.private_layout}>
       <SidebarComponent closeSidebar={menuCollapse} />
       <main className={style.content}>
-        <TopBar toggle={minimizeSidebar} width={width} />
+        <TopBar
+          toggle={minimizeSidebar}
+          width={width}
+          menuCollapse={menuCollapse}
+        />
         {children}
       </main>
     </div>

@@ -24,12 +24,16 @@ Breakpoint aurgument
       @content;
     }
   }
+  @if $breakpoint == tab-port {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
   @if $breakpoint == tab-pro {
     @media (max-width: 900px) {
       @content;
     }
   }
-
   @if $breakpoint == tab-land {
     @media (max-width: 1200px) {
       @content;

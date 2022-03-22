@@ -1,7 +1,7 @@
 import { AuthApi } from "./Api";
 
 export const login = (body) => {
-  const res = AuthApi.post("Login/", JSON.stringify(body));
+  const res = AuthApi.post("login", JSON.stringify(body));
 
   return res;
 };

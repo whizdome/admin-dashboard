@@ -2,7 +2,7 @@ import React from "react";
 
 import { TiArrowSortedDown } from "react-icons/ti";
 import { FaBell } from "react-icons/fa";
-import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { HiMenuAlt2, HiMenuAlt3 } from "react-icons/hi";
 
 import style from "./TopBar.module.scss";
 
@@ -12,14 +12,28 @@ const initialState = {
   account_type: "APEMS Admin",
 };
 
-const TopBar = ({ toggle, width }) => {
+const TopBar = ({ toggle, width, menuCollapse }) => {
   return (
     <div className={style.top_bar}>
       <div
         className={style.right}
         style={{ display: width < 768 ? "block" : "none" }}
       >
-        <HiOutlineMenuAlt1 onClick={toggle} />
+        {!menuCollapse ? (
+          <HiMenuAlt3
+            onClick={toggle}
+            style={{
+              zIndex: "9999",
+              left: "22rem",
+              color: "#fff",
+              top: "2rem",
+              position: "absolute",
+            }}
+          />
+        ) : (
+          <HiMenuAlt2 onClick={toggle} />
+        )}
+        {/* <HiOutlineMenuAlt1 onClick={toggle} /> */}
       </div>
       <div className={style.left}>
         <div className={style.notification}>

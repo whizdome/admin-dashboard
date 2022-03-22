@@ -1,7 +1,7 @@
 export const isLoggedIn = () => {
-  const token = JSON.parse(localStorage.getItem("data"));
+  const token = localStorage.getItem("token");
 
-  if (!token) return true;
+  if (token) return true;
 
   return true;
 };

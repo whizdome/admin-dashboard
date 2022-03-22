@@ -18,6 +18,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
+    "react-toastify": "^8.2.0",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
@@ -28,8 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "proxy": "http://localhost:3000"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

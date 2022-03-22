@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { BiExport, BiBriefcaseAlt2 } from "react-icons/bi";
 import { FaUserTie } from "react-icons/fa";
@@ -17,6 +18,14 @@ const initialState = {
 };
 
 const Dashboard = () => {
+  const loginState = useSelector((state) => state.loginRes);
+
+  useEffect(() => {
+    console.log(loginState);
+    localStorage.setItem("token", loginState.data.access_token);
+    localStorage.setItem("user", JSON.stringify(loginState.data.user));
+  }, [loginState]);
+
   return (
     <PrivateLayout>
       <div className="dashboard">
@@ -30,7 +39,7 @@ const Dashboard = () => {
           </div>
           <div>
             <OutlineIconButton
-              btnTitle="Export Analytic Report"
+              btntitle="Export Analytic Report"
               icon={<BiExport />}
               onClick={() => console.log("clicked")}
             />

@@ -26,7 +26,18 @@ const SidebarComponent = ({ closeSidebar }) => {
       <SidebarContent className={style.content} id="content">
         {SidebarData.map(({ id, name, icon, path }) => {
           return (
-            <NavLink to={path} exact activeClassName="active" key={id}>
+            <NavLink
+              to={path}
+              exact
+              activeClassName="active"
+              // isActive={(matchPath, location) => {
+              //   if (!match) {
+              //     console.log(match, location.pathname);
+              //     return false;
+              //   }
+              // }}
+              key={id}
+            >
               <Menu iconShape="circle" className="menu">
                 <MenuItem icon={icon} className="menu_item">
                   {name}
