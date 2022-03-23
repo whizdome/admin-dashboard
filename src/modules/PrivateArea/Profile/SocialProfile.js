@@ -42,30 +42,45 @@ const SocialProfile = () => {
   const dispatch = useDispatch();
 
   const fetchSocialProfile = () => {
-    dispatch(showUserSocialsAction());
-    console.log(socialState);
-    const social_state = socialState?.data?.data;
-    setState({
-      inputLinkedin: social_state?.linkedin_url,
-      inputTwitter: social_state?.twitter_url,
-      inputFacebook: social_state?.facebook_url,
-    });
+    try {
+      dispatch(showUserSocialsAction());
+      console.log(socialState);
+      const social_state = socialState?.data?.data;
+      setState({
+        inputLinkedin: social_state?.linkedin_url,
+        inputTwitter: social_state?.twitter_url,
+        inputFacebook: social_state?.facebook_url,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateSocialProfile = () => {
     setLoading(true);
-    dispatch(updateUserSocialsAction(state));
-    if (updateSocials?.data?.status === 200) {
-      toast.success("Social profiles updated successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setLoading(false);
+    try {
+      dispatch(updateUserSocialsAction(state));
+    } catch (error) {
+      console.log("err", error);
     }
   };
 
   useEffect(() => {
     fetchSocialProfile();
   }, []);
+
+  useEffect(() => {
+    if (updateSocials?.data?.status === 200) {
+      toast.success("Social profiles updated successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else if (updateSocials?.data?.status === 400) {
+      toast.error("Something went wrong", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setLoading(false);
+    }
+  }, [updateSocials]);
 
   return (
     <div id="social_profile" className="profile_body_content">
@@ -161,7 +176,7 @@ const SocialProfile = () => {
               <FillButton
                 btntitle="Update Social Profile"
                 bgColor="#5C6574"
-                onClick={() => console.log("clicked")}
+                onClick={updateSocialProfile}
               />
             </div>
           </div>

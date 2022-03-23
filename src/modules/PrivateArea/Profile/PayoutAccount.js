@@ -20,22 +20,33 @@ const PayoutAccount = () => {
   const updateState = useSelector((state) => state.updateUserDetailsRes);
   const dispatch = useDispatch();
 
+  const updateAccount = () => {
+    setLoading(true);
+    try {
+      dispatch(updateUserDetailsAction(account));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchUserDetailsAction());
     console.log(accountState);
     setAccount(accountState?.data?.data);
   }, []);
 
-  const updateAccount = () => {
-    setLoading(true);
-    dispatch(updateUserDetailsAction(account));
+  useEffect(() => {
     if (updateState?.data?.status === 200) {
       toast.success("Account updated successfully", {
         position: toast.POSITION.TOP_RIGHT,
       });
+    } else if (updateState?.data?.status === 400) {
+      toast.error("Account not updated", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       setLoading(false);
     }
-  };
+  }, [updateState]);
 
   return (
     <div id="payout_account" className="profile_body_content">
