@@ -1,0 +1,136 @@
+.table_container {
+  margin: 2rem 0;
+  table {
+    border-collapse: separate;
+    border-spacing: 0 0.7rem;
+    width: 100%;
+    thead {
+      th {
+        color: #1a1a1a;
+        font-size: 1.4rem;
+        font-weight: 500;
+        padding-bottom: 0.8rem;
+        &:first-child {
+          padding-left: 2rem;
+          text-align: left;
+        }
+        &:last-child {
+          padding-right: 2rem;
+        }
+      }
+    }
+    tbody {
+      td {
+        color: #707070;
+      }
+
+      tr {
+        border: 1px solid #e8e7e7;
+        background-color: #fff;
+        cursor: pointer;
+        td {
+          border: 1px solid #e8e7e7;
+          border-right: 0;
+          border-left: 0;
+          padding: 1rem 0;
+          font-size: 1.28rem;
+          &:first-child {
+            border-left: 1px solid #e8e7e7;
+            padding-left: 2rem;
+          }
+          &:last-child {
+            border-right: 1px solid #e8e7e7;
+            padding-right: 2rem;
+          }
+        }
+      }
+    }
+    input {
+      pointer-events: none;
+    }
+    .align_left {
+      text-align: left;
+    }
+    .align_right {
+      text-align: right;
+    }
+  }
+  .ant-pagination {
+    text-align: end;
+    margin: 3.5rem 0;
+    .ant-pagination-disabled {
+      display: none;
+    }
+    .ant-pagination-item {
+      border: none;
+      margin-right: 0;
+      a {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+      &:hover {
+        a {
+          color: #d9363e;
+        }
+      }
+    }
+    .ant-pagination-item-active a {
+      color: #d9363e;
+    }
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      font-weight: 700;
+      font-size: 1.5rem;
+      &:hover {
+        color: #d9363e;
+      }
+    }
+    .ant-pagination-prev {
+      span {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 0.8rem;
+        }
+      }
+    }
+    .ant-pagination-next {
+      span {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-left: 0.8rem;
+        }
+      }
+    }
+  }
+}
+.rmd-toggle:hover {
+  background-color: transparent;
+  --rmd-states-background-color: transparent;
+}
+
+// Table footer
+.table_footer {
+  text-align: right;
+  margin: 2rem 0;
+
+  .button {
+    border: none;
+    padding: 7px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .activeButton {
+    color: white;
+    background: #185adb;
+  }
+
+  .inactiveButton {
+    color: #2c3e50;
+    background: #f9f9f9;
+  }
+}

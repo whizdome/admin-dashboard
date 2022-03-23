@@ -1,0 +1,145 @@
+@import "../../../styles/abstracts/mixins";
+
+.dashboard {
+  padding: 4rem 2rem;
+  .dashboard_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .user_details {
+      display: flex;
+      align-items: center;
+      img,
+      svg {
+        height: 4.5rem;
+        width: 4.5rem;
+        border: 3px solid #b9b9b9;
+        border-radius: 50px;
+        object-fit: cover;
+        object-position: center;
+        margin-right: 1.2rem;
+      }
+      p:first-child {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #1a1a1a;
+        margin-bottom: 0;
+      }
+      p:nth-child(2) {
+        font-size: 1.3rem;
+        color: #707070;
+        margin: 0;
+      }
+    }
+  }
+  .dashboard_body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 3rem;
+    width: 95%;
+    margin: 3rem 0;
+    .card_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .card_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      .card_icon_wrapper {
+        background-color: #3ea200;
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .card_icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 2.8rem;
+          width: 2.8rem;
+          border: 1.5px solid #fff;
+          border-radius: 50px;
+          svg {
+            height: 1.5rem;
+            width: 1.5rem;
+          }
+        }
+      }
+      .card_text_wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left {
+          position: relative;
+          .card_divider {
+            border-left: 1px solid #fff;
+            position: absolute;
+            top: 0;
+            right: -1rem;
+            height: -webkit-fill-available;
+          }
+        }
+        .right {
+          margin-left: 2rem;
+        }
+        .card_title {
+          font-size: 1.25rem;
+        }
+        .card_value {
+          font-weight: 700;
+          font-size: 1.1rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .card_footer {
+      margin-top: 2rem;
+
+      .card_title {
+        font-size: 1.15rem;
+        margin-bottom: 0.6rem;
+      }
+      .card_value {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .card_footer_content {
+        display: flex;
+        .left,
+        .right,
+        .center {
+          position: relative;
+        }
+        .right,
+        .center {
+          margin-left: 2rem;
+        }
+        .card_divider {
+          border-left: 1px solid #fff;
+          position: absolute;
+          top: 0;
+          right: -1rem;
+          height: -webkit-fill-available;
+        }
+      }
+    }
+  }
+  @include respond(phone) {
+    padding: 2rem;
+    .dashboard_header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .dashboard_body {
+      width: 100%;
+    }
+  }
+}

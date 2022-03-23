@@ -1,0 +1,43 @@
+@import "../../../styles/abstracts/mixins";
+
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 2rem;
+  hr {
+    border: 1px dashed #cecece;
+    width: 100%;
+  }
+  .form {
+    width: 100%;
+    padding: 2rem 0;
+    .form_group {
+      margin-bottom: 4rem;
+      .error {
+        display: flex;
+        justify-content: end;
+        color: #d80b2c;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  @include respond(phone) {
+    padding: 0;
+    .footer {
+      justify-content: center;
+    }
+  }
+  @include respond(tab-pro) {
+    .footer {
+      justify-content: center;
+    }
+  }
+}

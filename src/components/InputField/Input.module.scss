@@ -1,0 +1,51 @@
+@import "../../styles/abstracts/mixins";
+
+.input_group {
+  display: flex;
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+  label {
+    font-size: 1.3rem;
+    color: #707070;
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+    font-weight: 300;
+    width: 40%;
+  }
+  .input {
+    position: relative;
+    width: 70%;
+    .input_left_icon {
+      position: absolute;
+      width: 1.9rem;
+      height: 1.9rem;
+      color: #666;
+      left: 0.3rem;
+      z-index: 2;
+    }
+    input {
+      border: none;
+      border-bottom: 1px solid #2b2b2b;
+      width: 100%;
+      padding-left: 2.2rem;
+      &:focus {
+        outline: none !important;
+        border-bottom: 2px solid #3ea200;
+      }
+      &-internal-autofill-selected {
+        background-color: transparent !important;
+      }
+    }
+    .input_right_icon {
+      position: absolute;
+      right: 0.3rem;
+      width: 1.9rem;
+      height: 1.9rem;
+      cursor: pointer;
+      color: #666;
+    }
+  }
+  @include respond(phone) {
+  }
+}

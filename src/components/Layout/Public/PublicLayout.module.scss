@@ -1,0 +1,125 @@
+@import "../../../styles/abstracts/mixins";
+
+.screen_layout {
+  background: #fff url("../../../assets/images/login-bg.png") no-repeat center;
+  background-size: cover;
+  position: relative;
+  width: 97%;
+  // min-height: 100vh;
+  height: 100%;
+  margin: 2rem auto;
+  .logo {
+    width: 100px;
+  }
+  hr {
+    border: 0.1px solid rgba(0, 0, 0, 0.05);
+    margin: 2rem auto;
+  }
+  .children {
+    width: 35%;
+    margin: 1rem auto;
+  }
+  .reset {
+    position: absolute;
+    width: fit-content;
+    bottom: 25%;
+    left: 8%;
+    .doughnut {
+      position: absolute;
+      right: -2.5rem;
+      top: -2.5rem;
+      background: radial-gradient(circle, #fff 25%, #d90b2c 0%);
+      border-radius: 100%;
+      height: 5.6rem;
+      width: 5.6rem;
+    }
+    .reset_container {
+      position: relative;
+      width: 27.6rem;
+      height: 7.13rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      background-color: #fff;
+      box-shadow: 0px 3px 50px #00000010;
+      border-radius: 10px;
+      z-index: 2;
+      img {
+        width: 4.4rem;
+        height: 4.4rem;
+      }
+      .text {
+        p:first-child {
+          font-size: 1.1rem;
+          margin-bottom: 0.4rem;
+          color: #6f7689;
+        }
+        p:nth-child(2) {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: #101010;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .password_container {
+    position: absolute;
+    bottom: 8%;
+    right: 3%;
+    width: 27.6rem;
+    height: 7.13rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #2b2b2b;
+    box-shadow: 0px 3px 50px #00000010;
+    border-radius: 10px;
+    cursor: pointer;
+    .text {
+      color: #fff;
+      margin-left: 3rem;
+      p:first-child {
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+        font-weight: 400;
+      }
+      p:nth-child(2) {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+  }
+
+  @include respond(phone) {
+    padding: 0 2rem;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 1rem;
+    .children {
+      width: 100%;
+    }
+    .reset {
+      display: none;
+      position: static;
+      .doughnut {
+        position: static;
+      }
+    }
+    .password_container {
+      position: static;
+      // margin-top: 5rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @include respond(tab-pro) {
+    .children {
+      width: 80%;
+    }
+    .reset {
+      display: none;
+    }
+  }
+}

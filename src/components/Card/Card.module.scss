@@ -1,0 +1,13 @@
+@import "../../styles/abstracts/mixins";
+
+.dashboard_card {
+  background-color: #1a1a1a;
+  background-image: url("../../assets/images/dashboard-card.png");
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  color: #fff;
+  padding: 2rem;
+  height: 20rem;
+}

@@ -1,0 +1,162 @@
+// Step One
+.corporate_step {
+  text-align: start;
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0d0f12;
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+  }
+  p {
+    font-size: 1.3rem;
+    width: 70%;
+    color: #565371;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 3rem;
+  }
+}
+#admin_user_steps_one {
+  .admin_step_inputs {
+    .admin_step_input {
+      margin: 1.5rem 0;
+      label {
+        color: #1a1a1a;
+        font-size: 1.2rem;
+      }
+      input {
+        border: none;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        width: 100%;
+        height: 40px;
+        margin-top: 0.6rem;
+        padding: 0 2rem;
+      }
+      input:hover,
+      input:focus,
+      input:active,
+      select:hover,
+      select:focus,
+      select:active {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #d90b27;
+      }
+    }
+  }
+}
+
+// Step Two
+#corporate_user_steps_two,
+#corporate_user_steps_three {
+  .corporate_step_inputs {
+    .plan_step {
+      display: grid;
+      grid-template-columns: 40% 20% 40%;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .corporate_step_input {
+      margin: 1.5rem 0;
+      label {
+        color: #1a1a1a;
+        font-size: 1.2rem;
+      }
+      input,
+      select {
+        border: 1px solid #b7b7b7;
+        background-color: #fff;
+        border-radius: 5px;
+        width: 100%;
+        height: 40px;
+        margin-top: 0.6rem;
+        padding: 0 2rem;
+      }
+      &:nth-of-type(4) {
+        width: 40%;
+      }
+      input:hover,
+      input:focus,
+      input:active,
+      select:hover,
+      select:focus,
+      select:active {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #d90b27;
+      }
+    }
+    .checkbox_input {
+      margin-top: 3rem;
+      align-self: center;
+      justify-self: center;
+      input {
+        height: auto;
+        width: auto;
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        border: 1px solid #000;
+      }
+      label {
+        color: #1a1a1a;
+        font-size: 1.2rem;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}
+
+// Step Three
+#admin_user_steps_three {
+  p {
+    color: #8d8d8d;
+  }
+  .step_three_user_details,
+  .user_permissions {
+    > p {
+      color: #8d8d8d;
+      font-weight: 300;
+      font-size: 1.3rem;
+      margin: 0;
+      line-height: 1.8;
+      &:first-of-type {
+        margin: 3rem 0 0.5rem;
+        color: #0d0f12;
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+    }
+    .user_name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      p {
+        color: #8d8d8d;
+        font-weight: 300;
+        font-size: 1.3rem;
+        margin: 0;
+        line-height: 2;
+      }
+    }
+  }
+  .corporate_subs_plan {
+    p {
+      color: #8d8d8d;
+      font-weight: 300;
+      font-size: 1.3rem;
+      margin: 0;
+      line-height: 2;
+    }
+  }
+  .admin_step_inputs:first-of-type {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.8rem;
+    .admin_step_input {
+      margin-bottom: 0;
+    }
+  }
+}
