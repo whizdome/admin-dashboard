@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import style from "./CorporateUser.module.scss";
 
@@ -6,7 +6,7 @@ const eventPlanOptions = [];
 const emailIdOptions = [];
 const smsIdOptions = [];
 
-const CorporateStepTwo = () => {
+const CorporateStepTwo = ({ parentCallback }) => {
   const [state, setState] = useState({
     plan_id: "",
     custom_attendee_limit: 50000,
@@ -21,6 +21,13 @@ const CorporateStepTwo = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const stateRef = useRef(null);
+  stateRef.current = state;
+
+  useEffect(() => {
+    return () => parentCallback(stateRef.current);
+  }, []);
 
   const {
     plan_id,

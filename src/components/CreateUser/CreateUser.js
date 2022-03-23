@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import AdminStepOne from "./AdminUser/Step1";
 import AdminStepTwo from "./AdminUser/Step2";
 import AdminStepThree from "./AdminUser/Step3";
@@ -10,6 +13,12 @@ import CorporateStepThree from "./CorporateUser/Step3";
 import IndividualStepOne from "./IndividualUser/Step1";
 import IndividualStepTwo from "./IndividualUser/Step2";
 import IndividualStepThree from "./IndividualUser/Step3";
+
+import {
+  createIndividualAccountAction,
+  createCorporateAccountAction,
+  createAdminAccountAction,
+} from "../../redux/actions/adminAct";
 
 import { BsCaretRightFill } from "react-icons/bs";
 import { HiCheck } from "react-icons/hi";
@@ -26,11 +35,6 @@ const NewUser = ({ user }) => {
   const [current, setCurrent] = React.useState(0);
   const [step1Data, setStep1Data] = useState({});
   const [step2Data, setStep2Data] = useState({});
-
-  const handleCallback = (childData) => {
-    setStep1Data(childData);
-    console.log(childData);
-  };
 
   const AdminSteps = [
     {
@@ -54,11 +58,19 @@ const NewUser = ({ user }) => {
   const CorporateSteps = [
     {
       title: "User Basics",
-      content: <CorporateStepOne />,
+      content: (
+        <CorporateStepOne
+          parentCallback={(childData) => setStep1Data(childData)}
+        />
+      ),
     },
     {
       title: "Subscription",
-      content: <CorporateStepTwo />,
+      content: (
+        <CorporateStepTwo
+          parentCallback={(childData) => setStep2Data(childData)}
+        />
+      ),
     },
     {
       title: "Finish Setup",
@@ -69,11 +81,19 @@ const NewUser = ({ user }) => {
   const IndividualSteps = [
     {
       title: "User Basics",
-      content: <IndividualStepOne />,
+      content: (
+        <IndividualStepOne
+          parentCallback={(childData) => setStep1Data(childData)}
+        />
+      ),
     },
     {
       title: "Subscription",
-      content: <IndividualStepTwo />,
+      content: (
+        <IndividualStepTwo
+          parentCallback={(childData) => setStep2Data(childData)}
+        />
+      ),
     },
     {
       title: "Finish Setup",
@@ -102,6 +122,54 @@ const NewUser = ({ user }) => {
   const prev = () => {
     setCurrent(current - 1);
   };
+
+  let action;
+  let newUser;
+
+  const dispatch = useDispatch();
+  const individualRes = useSelector(
+    (state) => state.createIndividualAccountRes
+  );
+  const corporateRes = useSelector((state) => state.createCorporateAccountRes);
+  const adminRes = useSelector((state) => state.createAdminAccountRes);
+
+  switch (user) {
+    case "admin":
+      action = createAdminAccountAction(step1Data);
+      newUser = adminRes;
+      break;
+    case "corporate":
+      action = createCorporateAccountAction(step1Data);
+      newUser = corporateRes;
+      break;
+    case "individual":
+      action = createIndividualAccountAction(step1Data);
+      newUser = individualRes;
+      break;
+    default:
+      break;
+  }
+
+  const createUser = () => {
+    try {
+      dispatch(action);
+      console.log("new user", newUser);
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
+
+  useEffect(() => {
+    if (newUser?.status === 200) {
+      toast.success("User Created Successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else if (newUser?.status === 400 || newUser?.status === 500) {
+      toast.error("User Creation Failed", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  }, [newUser]);
 
   return (
     <div>
@@ -148,7 +216,7 @@ const NewUser = ({ user }) => {
               )}
               {current === getCurrentUser(user).length - 1 && (
                 <button
-                  onClick={() => console.log("clicked")}
+                  onClick={createUser}
                   btntitle="Next"
                   className={style.btn_done}
                 >

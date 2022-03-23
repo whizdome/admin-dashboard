@@ -3,8 +3,17 @@ import { Divider } from "antd";
 
 import style from "./Individual.module.scss";
 
-const CorporateStepThree = () => {
+const CorporateStepThree = ({ step1, step2 }) => {
   const [checked, setChecked] = React.useState(false);
+
+  const { first_name, last_name, email, phone_number } = step1;
+  const {
+    plan_id,
+    custom_attendee_limit,
+    user_id,
+    email_sender_id,
+    sms_sender_id,
+  } = step2;
   return (
     <div id={style.admin_user_steps_three} className={style.admin_step}>
       <h1>Finishing up user role setup</h1>
@@ -12,22 +21,21 @@ const CorporateStepThree = () => {
       <div className={style.step_three_user_details}>
         <p>User Details</p>
         <div className={style.user_name}>
-          <p>First Name: Johnny</p>
-          <p>Last Name: Jackson</p>
+          <p>First Name: {first_name}</p>
+          <p>Last Name: {last_name}</p>
         </div>
-        <p>Company Address: 220B, Palmgroove Bus Stop, Ikorodu Rd, Lagos</p>
 
-        <p>Phone Number: 0800 00 0000</p>
-        <p>Email Address: seun@africaprudential.com</p>
+        <p>Phone Number: {phone_number}</p>
+        <p>Email Address: {email}</p>
       </div>
       <div className={style.user_permissions}>
         <p>Subscription Plan</p>
         <div className={style.corporate_subs_plan}>
-          <p>Event Type: AGM</p>
+          <p>Event Type: {plan_id}</p>
           <p>Plan: Gold</p>
-          <p>No of Attendees: 20,000</p>
-          <p>SMS ID: Apems</p>
-          <p>Email ID: hello@apems.co</p>
+          <p>No of Attendees: {custom_attendee_limit}</p>
+          <p>SMS ID: {sms_sender_id}</p>
+          <p>Email ID: {email_sender_id}</p>
         </div>
       </div>
       <Divider />

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import style from "../AdminUser/AdminUser.module.scss";
 
-const CorporateStepOne = () => {
+const CorporateStepOne = ({ parentCallback }) => {
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -16,6 +16,13 @@ const CorporateStepOne = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const stateRef = useRef(null);
+  stateRef.current = state;
+
+  useEffect(() => {
+    return () => parentCallback(stateRef.current);
+  }, []);
 
   const { name, email, phone_number, street_address } = state;
   return (
