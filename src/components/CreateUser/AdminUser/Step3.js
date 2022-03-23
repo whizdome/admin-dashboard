@@ -3,8 +3,18 @@ import { Divider } from "antd";
 
 import style from "./AdminUser.module.scss";
 
-const AdminStepThree = () => {
+const AdminStepThree = ({ step1, step2 }) => {
   const [checked, setChecked] = React.useState(false);
+  const { first_name, last_name, email, phone_number } = step1;
+  const {
+    event_creation,
+    dashboard,
+    analytics,
+    account_management,
+    subscription_events,
+    campaign_management,
+    resource_center,
+  } = step2;
   return (
     <div id={style.admin_user_steps_three} className={style.admin_step}>
       <h1>Finishing up user role setup</h1>
@@ -12,25 +22,25 @@ const AdminStepThree = () => {
       <div className={style.step_three_user_details}>
         <p>User Details</p>
         <div className={style.user_name}>
-          <p>First Name: Johnny</p>
-          <p>Last Name: Jackson</p>
+          <p>First Name: {first_name}</p>
+          <p>Last Name: {last_name}</p>
         </div>
-        <p>Phone Number: 0800 00 0000</p>
-        <p>Email Address: seun@africaprudential.com</p>
+        <p>Phone Number: {phone_number}</p>
+        <p>Email Address: {email}</p>
       </div>
       <div className={style.user_permissions}>
         <p>User Permissions</p>
         <div className={style.admin_step_inputs}>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={event_creation} disabled />
             <label>Event Creation</label>
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={dashboard} disabled />
             <label>Dashboard</label>
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={analytics} disabled />
             {checked ? (
               <label>Generate and send login details to user via email</label>
             ) : (
@@ -38,7 +48,7 @@ const AdminStepThree = () => {
             )}
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={account_management} disabled />
             {checked ? (
               <label>Require user to change password upon Login</label>
             ) : (
@@ -46,7 +56,7 @@ const AdminStepThree = () => {
             )}
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={subscription_events} disabled />
             {checked ? (
               <label>Generate and send login details to user via email</label>
             ) : (
@@ -54,7 +64,7 @@ const AdminStepThree = () => {
             )}
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={campaign_management} disabled />
             {checked ? (
               <label>Require user to change password upon Login</label>
             ) : (
@@ -62,7 +72,7 @@ const AdminStepThree = () => {
             )}
           </div>
           <div className={style.admin_step_input}>
-            <input type="checkbox" value="" />
+            <input type="checkbox" checked={resource_center} disabled />
             {checked ? (
               <label>Generate and send login details to user via email</label>
             ) : (

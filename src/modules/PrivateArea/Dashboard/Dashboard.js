@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 
 import { BiExport, BiBriefcaseAlt2 } from "react-icons/bi";
 import { FaUserTie } from "react-icons/fa";
-import { CgStack } from "react-icons/cg";
+import { CgStack, CgProfile } from "react-icons/cg";
 
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
 import { OutlineIconButton } from "../../../components/Button/Button";
@@ -11,29 +10,26 @@ import { DashboardCard } from "../../../components/Card/Card";
 
 import "./Dashboard.scss";
 
-const initialState = {
-  name: "Chijindu Amadi",
-  image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFcCciWsDR4Qjsp2et36-KDeuKttIknti2-g&usqp=CAU",
-};
-
 const Dashboard = () => {
-  const loginState = useSelector((state) => state.loginRes);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log(loginState);
-    localStorage.setItem("token", loginState.data.access_token);
-    localStorage.setItem("user", JSON.stringify(loginState.data.user));
-  }, [loginState]);
-
+    const data = JSON.parse(localStorage.getItem("user"));
+    console.log(data);
+    setData(data);
+  }, []);
   return (
     <PrivateLayout>
       <div className="dashboard">
         <div className="dashboard_header">
           <div className="user_details">
-            <img src={initialState.image} alt="user" />
+            {data.profile_picture_path ? (
+              <img src={data.profile_picture_path} alt="user" />
+            ) : (
+              <CgProfile />
+            )}{" "}
             <div>
-              <p className="user_name">Hi {initialState.name}</p>
+              <p className="user_name">Hi {data.name}</p>
               <p className="welcome_message">Welcome to your Admin dashboard</p>
             </div>
           </div>

@@ -34,6 +34,16 @@
         margin-top: 0.6rem;
         padding: 0 2rem;
       }
+      input:hover,
+      input:focus,
+      input:active,
+      select:hover,
+      select:focus,
+      select:active {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #d90b27;
+      }
     }
   }
 }

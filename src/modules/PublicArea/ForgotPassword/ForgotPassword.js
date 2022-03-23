@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AdminForgotPassword } from "../../../redux/actions/authAct";
-import { useAxios } from "../../../hooks/useAxios";
 import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
@@ -36,6 +35,10 @@ const validateSchema = {
 
 const ForgotPassword = () => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const forgotState = useSelector((state) => state.forgotPasswordRes);
 
   const { state, disable, handleChange } = useFormValidation(
     stateSchema,
@@ -48,16 +51,23 @@ const ForgotPassword = () => {
     email: email.value,
   };
 
-  const { loading, response, error, onClick } = useAxios({
-    path: AdminForgotPassword,
-    params: body,
-  });
-
   const handleSubmit = async () => {
-    onClick();
-    response && setShowModal(true);
-    error && state({ email: { value: "" }, password: { value: "" } });
+    setLoading(true);
+    try {
+      dispatch(AdminForgotPassword(body));
+    } catch (error) {
+      console.log("err", error);
+    }
   };
+
+  useEffect(() => {
+    if (forgotState?.status === 200) {
+      const data = forgotState?.data?.data;
+      data && setShowModal(true);
+
+      setLoading(false);
+    }
+  }, [forgotState]);
 
   return (
     <PublicLayout password="true">
@@ -129,12 +139,4 @@ const ForgotPassword = () => {
   );
 };
 
-const mapPropsToState = (state) => {
-  return {
-    forgotPasswordRes: state.forgotPasswordRes,
-  };
-};
-
-export default connect(mapPropsToState, {
-  AdminForgotPassword,
-})(ForgotPassword);
+export default ForgotPassword;

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { login, resetPassword, forgotPassword } from "./authRdx";
+import { login, forgotPassword, resetPassword } from "./authRdx";
 import {
   showUserReducer,
   updateUserReducer,

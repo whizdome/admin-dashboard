@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
@@ -10,7 +10,6 @@ import {
 import { VscKey } from "react-icons/vsc";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { useAxios } from "../../../hooks/useAxios";
 import { AdminLogin } from "../../../redux/actions/authAct";
 import Spinner from "../../../components/Loader";
 
@@ -58,28 +57,34 @@ const Login = () => {
 
   const { email, password } = state;
 
-  const loginState = useSelector((state) => state.loginRes);
+  const loginState = useSelector((state) => state.loginRes, shallowEqual);
+
   const dispatch = useDispatch();
 
-  const body = useMemo(() => {
-    return {
-      email: email.value,
-      password: password.value,
-    };
-  }, [email, password]);
+  const body = {
+    email: "savicsly@gmail.com",
+    password: "password",
+  };
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = () => {
     setLoading(true);
     try {
-      const result = await dispatch(AdminLogin(body));
-      console.log("loginState", loginState, result);
-      history.push("/dashboard");
+      dispatch(AdminLogin(body));
     } catch (error) {
       console.log("err", error);
-    } finally {
-      setLoading(false);
     }
-  }, [body, dispatch, history]);
+  };
+
+  useEffect(() => {
+    if (loginState?.status === 200) {
+      setLoading(false);
+      const data = loginState?.data?.data;
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      history.push("/dashboard", data);
+      console.log("loginState", data);
+    }
+  }, [loginState]);
 
   return (
     <PublicLayout link="/forgot-password">

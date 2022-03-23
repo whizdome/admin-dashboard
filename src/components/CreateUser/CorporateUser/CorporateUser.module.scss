@@ -34,13 +34,23 @@
         margin-top: 0.6rem;
         padding: 0 2rem;
       }
+      input:hover,
+      input:focus,
+      input:active,
+      select:hover,
+      select:focus,
+      select:active {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #d90b27;
+      }
     }
   }
 }
 
 // Step Two
 #corporate_user_steps_two,
-#admin_user_steps_three {
+#corporate_user_steps_three {
   .corporate_step_inputs {
     .plan_step {
       display: grid;
@@ -66,6 +76,16 @@
       }
       &:nth-of-type(4) {
         width: 40%;
+      }
+      input:hover,
+      input:focus,
+      input:active,
+      select:hover,
+      select:focus,
+      select:active {
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #d90b27;
       }
     }
     .checkbox_input {
@@ -131,21 +151,6 @@
       line-height: 2;
     }
   }
-  // .user_permissions {
-  //   > p {
-  //     margin: 3rem 0 0.5rem;
-  //     color: #0d0f12;
-  //     font-weight: 400;
-  //     font-size: 1.3rem;
-  //   }
-  //   p {
-  //     color: #8d8d8d;
-  //     font-weight: 300;
-  //     font-size: 1.3rem;
-  //     margin: 0;
-  //     line-height: 2;
-  //   }
-  // }
   .admin_step_inputs:first-of-type {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

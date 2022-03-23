@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import style from "./AdminUser.module.scss";
 
-const AdminStepTwo = () => {
+const AdminStepTwo = ({ parentCallback }) => {
   const [event_creation, setEventCreation] = useState(false);
   const [dashboard, setDashboard] = useState(false);
   const [analytics, setAnalytics] = useState(false);
@@ -10,6 +10,23 @@ const AdminStepTwo = () => {
   const [subscription_events, setSubscriptionEvents] = useState(false);
   const [campaign_management, setCampaignManagement] = useState(false);
   const [resource_center, setResourceCenter] = useState(false);
+
+  const state = {
+    event_creation,
+    dashboard,
+    analytics,
+    account_management,
+    subscription_events,
+    campaign_management,
+    resource_center,
+  };
+
+  const stateRef = useRef(null);
+  stateRef.current = state;
+
+  useEffect(() => {
+    return () => parentCallback(stateRef.current);
+  }, []);
 
   return (
     <div id={style.admin_user_steps_two} className={style.admin_step}>

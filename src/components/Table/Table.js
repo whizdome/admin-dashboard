@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
+
+import { fetchAllUsersAction } from "../../redux/actions/adminAct";
+
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
 
@@ -11,11 +15,15 @@ const pageSize = 8;
 const UsersTable = ({ tableData, headers }) => {
   const history = useHistory();
 
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [maxIndex, setMaxIndex] = useState(0);
   const [minIndex, setMinIndex] = useState(0);
+
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.fetchAllUsersRes);
 
   const itemRender = (current, type, originalElement) => {
     if (type === "prev") {
@@ -42,6 +50,24 @@ const UsersTable = ({ tableData, headers }) => {
     setMinIndex((page - 1) * pageSize);
     setMaxIndex(page * pageSize);
   };
+
+  const fetchUsers = () => {
+    setLoading(true);
+    try {
+      dispatch(fetchAllUsersAction());
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+    if (userState?.status === 200) {
+      setLoading(false);
+      const data = userState?.data?.data;
+      console.log("state", data);
+    }
+  }, [userState]);
 
   useEffect(() => {
     setData(tableData);

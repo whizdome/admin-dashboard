@@ -22,64 +22,66 @@ import style from "./CreateUser.module.scss";
 
 const { Step } = Steps;
 
-const AdminSteps = [
-  {
-    title: "User Basics",
-    content: <AdminStepOne />,
-  },
-  {
-    title: "User Role",
-    content: <AdminStepTwo />,
-  },
-  {
-    title: "Finish Setup",
-    content: <AdminStepThree />,
-  },
-];
-
-const CorporateSteps = [
-  {
-    title: "User Basics",
-    content: <CorporateStepOne />,
-  },
-  {
-    title: "Subscription",
-    content: <CorporateStepTwo />,
-  },
-  {
-    title: "Finish Setup",
-    content: <CorporateStepThree />,
-  },
-];
-
-const IndividualSteps = [
-  {
-    title: "User Basics",
-    content: <IndividualStepOne />,
-  },
-  {
-    title: "Subscription",
-    content: <IndividualStepTwo />,
-  },
-  {
-    title: "Finish Setup",
-    content: <IndividualStepThree />,
-  },
-];
-
 const NewUser = ({ user }) => {
   const [current, setCurrent] = React.useState(0);
+  const [step1Data, setStep1Data] = useState({});
+  const [step2Data, setStep2Data] = useState({});
 
-  const next = () => {
-    setCurrent(current + 1);
+  const handleCallback = (childData) => {
+    setStep1Data(childData);
+    console.log(childData);
   };
 
-  const prev = () => {
-    setCurrent(current - 1);
-  };
+  const AdminSteps = [
+    {
+      title: "User Basics",
+      content: (
+        <AdminStepOne parentCallback={(childData) => setStep1Data(childData)} />
+      ),
+    },
+    {
+      title: "User Role",
+      content: (
+        <AdminStepTwo parentCallback={(childData) => setStep2Data(childData)} />
+      ),
+    },
+    {
+      title: "Finish Setup",
+      content: <AdminStepThree step1={step1Data} step2={step2Data} />,
+    },
+  ];
+
+  const CorporateSteps = [
+    {
+      title: "User Basics",
+      content: <CorporateStepOne />,
+    },
+    {
+      title: "Subscription",
+      content: <CorporateStepTwo />,
+    },
+    {
+      title: "Finish Setup",
+      content: <CorporateStepThree />,
+    },
+  ];
+
+  const IndividualSteps = [
+    {
+      title: "User Basics",
+      content: <IndividualStepOne />,
+    },
+    {
+      title: "Subscription",
+      content: <IndividualStepTwo />,
+    },
+    {
+      title: "Finish Setup",
+      content: <IndividualStepThree />,
+    },
+  ];
 
   const getCurrentUser = (userType) => {
-    console.log("userType", userType);
     switch (userType) {
       case "admin":
         return AdminSteps;
@@ -92,12 +94,27 @@ const NewUser = ({ user }) => {
     }
   };
 
+  const next = () => {
+    console.log("current", step1Data);
+    setCurrent(current + 1);
+  };
+
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
   return (
     <div>
       <h1 id={style.add_new_user}>Add New User</h1>
       <div className={style.steps}>
         <div className={style.user_step}>
-          <Steps current={current} direction="vertical" size="small">
+          <Steps
+            current={current}
+            direction="vertical"
+            size="small"
+            responsive
+            onChange={() => console.log("changed")}
+          >
             {getCurrentUser(user).map((item) => (
               <Step key={item.title} title={item.title} icon={<HiCheck />} />
             ))}
@@ -112,7 +129,6 @@ const NewUser = ({ user }) => {
             }}
           />
           <div className={style.form_container}>
-            {/* {AdminSteps[current].content} */}
             {getCurrentUser(user)[current].content}
             <div className="steps-action">
               {current > 0 && (
@@ -120,7 +136,7 @@ const NewUser = ({ user }) => {
                   Back
                 </button>
               )}
-              {current < AdminSteps.length - 1 && (
+              {current < getCurrentUser(user).length - 1 && (
                 <button
                   onClick={() => next()}
                   btntitle="Next"
@@ -130,7 +146,7 @@ const NewUser = ({ user }) => {
                   <BsCaretRightFill />
                 </button>
               )}
-              {current === AdminSteps.length - 1 && (
+              {current === getCurrentUser(user).length - 1 && (
                 <button
                   onClick={() => console.log("clicked")}
                   btntitle="Next"

@@ -110,10 +110,6 @@ const Profile = () => {
     });
   };
 
-  const loginState = useSelector((state) => state.loginRes);
-  const userState = useSelector((state) => state.userRes);
-
-  const { history } = useHistory();
   const updateUserState = useSelector((state) => state.updateUserRes);
   const dispatch = useDispatch();
 
@@ -140,32 +136,35 @@ const Profile = () => {
     return dayOptions;
   };
 
-  const updateUserProfile = useCallback(async () => {
+  const updateUserProfile = () => {
     setLoading(true);
     try {
-      await dispatch(updateUserAction(state));
+      dispatch(updateUserAction(state));
       console.log("result", updateUserState, state);
-      if (updateUserState.status === 200) {
-        toast.success("Profile updated successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        localStorage.setItem("user", JSON.stringify(updateUserState.data.data));
-        setLoading(false);
-      }
     } catch (error) {
       console.log("err", error);
+    }
+  };
+
+  useEffect(() => {
+    if (updateUserState.status === 200) {
+      toast.success("Profile updated successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      localStorage.setItem("user", JSON.stringify(updateUserState.data.data));
+      setLoading(false);
+    } else if (
+      updateUserState.status === 400 ||
+      updateUserState.status === 500
+    ) {
       toast.error("Error updating profile", {
         position: toast.POSITION.TOP_RIGHT,
       });
       setLoading(false);
-    } finally {
-      setLoading(false);
     }
-  }, [dispatch]);
+  }, [updateUserState]);
 
   useEffect(() => {
-    // fetchUserProfile();
-
     dispatch(listStatesAction());
     dispatch(listCountriesAction());
     console.log("states", states);

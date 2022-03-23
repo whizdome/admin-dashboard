@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AdminLogin } from "../redux/actions/authAct";
 
 export const useAxios = ({ path, params, stateRes }) => {
   const [response, setResponse] = useState(undefined);
@@ -9,26 +8,19 @@ export const useAxios = ({ path, params, stateRes }) => {
 
   let isApiSubscribed = true;
 
-  const res = useSelector((state) => {
-    return state[stateRes];
-  });
+  const res = useSelector((state) => state.loginRes);
 
   const dispatch = useDispatch();
 
-  const param = params === undefined ? null : params;
   const resolver = async () => {
     setLoading(true);
     if (isApiSubscribed) {
       try {
-        path(param);
+        await dispatch(path(params));
         console.log("resolver", res);
-        setResponse(res);
-        setLoading(false);
       } catch (error) {
         console.log("err", error);
         setError(error);
-      } finally {
-        setLoading(false);
       }
     }
   };
@@ -39,10 +31,14 @@ export const useAxios = ({ path, params, stateRes }) => {
 
   // Cleanup function
   useEffect(() => {
+    if (res?.status === 200) {
+      setResponse(res);
+      setLoading(false);
+    }
     return () => {
       isApiSubscribed = false;
     };
-  }, []);
+  }, [res]);
 
   return { response, error, loading, onClick };
 };

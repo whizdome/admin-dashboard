@@ -7,7 +7,7 @@ import style from "./CorporateUser.module.scss";
 const CorporateStepThree = () => {
   const [checked, setChecked] = React.useState(false);
   return (
-    <div id={style.admin_user_steps_three} className={style.admin_step}>
+    <div id={style.admin_user_steps_three} className={style.corporate_step}>
       <h1>Finishing up user role setup</h1>
       <p>Assigned user settings</p>
       <div className={style.step_three_user_details}>

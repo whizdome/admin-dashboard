@@ -7,7 +7,7 @@ export const AdminLogin = (payload) => {
 
     dispatch({
       type: "ADMIN_LOGIN",
-      payload: res.data,
+      payload: res,
     });
   };
 };

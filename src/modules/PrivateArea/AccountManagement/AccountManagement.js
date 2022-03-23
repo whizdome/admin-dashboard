@@ -6,7 +6,6 @@ import { FiUsers } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { BsSearch } from "react-icons/bs";
 
-import { useAxios } from "../../../hooks/useAxios";
 import { fetchAllUsersAction } from "../../../redux/actions/adminAct";
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
 import {
@@ -25,11 +24,6 @@ const AccountManagement = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [userType, setUserType] = useState(1);
-
-  const { response, loading, error, onClick } = useAxios({
-    path: fetchAllUsersAction,
-    stateRes: "fetchAllUsersRes",
-  });
 
   const handleOpenModal = (type) => {
     setShowModal(true);

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine, RiCheckLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { useAxios } from "../../../hooks/useAxios";
 import { AdminResetPassword } from "../../../redux/actions/authAct";
 import Spinner from "../../../components/Loader";
 
@@ -52,6 +51,10 @@ const validateSchema = {
 
 const ResetPassword = () => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const resetState = useSelector((state) => state.resetPasswordRes);
 
   const { state, disable, handleChange } = useFormValidation(
     stateSchema,
@@ -64,16 +67,22 @@ const ResetPassword = () => {
     confirmPassword: confirmPassword.value,
   };
 
-  const { loading, response, error, onClick } = useAxios({
-    path: AdminResetPassword,
-    params: body,
-  });
-
   const handleSubmit = async () => {
-    onClick();
-    response && setShowModal(true);
-    error && state({ email: { value: "" }, password: { value: "" } });
+    setLoading(true);
+    try {
+      dispatch(AdminResetPassword(body));
+    } catch (error) {
+      console.log("err", error);
+    }
   };
+
+  useEffect(() => {
+    if (resetState?.status === 200) {
+      const data = resetState?.data?.data;
+      data && setShowModal(true);
+      setLoading(false);
+    }
+  }, [resetState]);
 
   return (
     <PublicLayout reset="false" password="false">
@@ -188,12 +197,4 @@ const ResetPassword = () => {
   );
 };
 
-const mapPropsToState = (state) => {
-  return {
-    resetPasswordRes: state.resetPasswordRes,
-  };
-};
-
-export default connect(mapPropsToState, {
-  AdminResetPassword,
-})(ResetPassword);
+export default ResetPassword;
