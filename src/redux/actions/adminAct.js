@@ -3,6 +3,12 @@ import {
   createIndividualAccount,
   createCorporateAccount,
   createAdminAccount,
+  fetchRoles,
+  fetchPlans,
+  fetchUserById,
+  fetchUserSocials,
+  assignRole,
+  createSubscription,
 } from "../services/admin";
 
 export const fetchAllUsersAction = () => {
@@ -48,6 +54,72 @@ export const createAdminAccountAction = (body) => {
 
     dispatch({
       type: "CREATE_ADMIN_ACCOUNT",
+      payload: res,
+    });
+  };
+};
+
+export const fetchRolesAction = () => {
+  return async (dispatch) => {
+    const res = await fetchRoles();
+
+    dispatch({
+      type: "FETCH_ROLES",
+      payload: res,
+    });
+  };
+};
+
+export const fetchPlansAction = (plan_type) => {
+  return async (dispatch) => {
+    const res = await fetchPlans(plan_type);
+
+    dispatch({
+      type: "FETCH_PLANS",
+      payload: res,
+    });
+  };
+};
+
+export const fetchUserByIdAction = (id) => {
+  return async (dispatch) => {
+    const res = await fetchUserById(id);
+
+    dispatch({
+      type: "FETCH_USER_BY_ID",
+      payload: res,
+    });
+  };
+};
+
+export const fetchUserSocialsAction = (id) => {
+  return async (dispatch) => {
+    const res = await fetchUserSocials(id);
+
+    dispatch({
+      type: "FETCH_USER_SOCIALS",
+      payload: res,
+    });
+  };
+};
+
+export const assignRoleAction = (body) => {
+  return async (dispatch) => {
+    const res = await assignRole(body);
+
+    dispatch({
+      type: "ASSIGN_ROLE",
+      payload: res,
+    });
+  };
+};
+
+export const createSubscriptionAction = (body) => {
+  return async (dispatch) => {
+    const res = await createSubscription(body);
+
+    dispatch({
+      type: "CREATE_SUBSCRIPTION",
       payload: res,
     });
   };

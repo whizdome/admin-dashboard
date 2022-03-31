@@ -29,11 +29,23 @@ const PayoutAccount = () => {
     }
   };
 
+  const fetchAccount = () => {
+    setLoading(true);
+    try {
+      dispatch(fetchUserDetailsAction());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchUserDetailsAction());
+    fetchAccount();
+  }, []);
+
+  useEffect(() => {
     console.log(accountState);
     setAccount(accountState?.data?.data);
-  }, []);
+  }, [accountState]);
 
   useEffect(() => {
     if (updateState?.data?.status === 200) {

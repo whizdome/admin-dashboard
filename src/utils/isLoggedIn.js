@@ -3,5 +3,5 @@ export const isLoggedIn = () => {
 
   if (token) return true;
 
-  return true;
+  return false;
 };

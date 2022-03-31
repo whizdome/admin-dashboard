@@ -114,18 +114,6 @@ const NewUser = ({ user }) => {
     }
   };
 
-  const next = () => {
-    console.log("current", step1Data);
-    setCurrent(current + 1);
-  };
-
-  const prev = () => {
-    setCurrent(current - 1);
-  };
-
-  let action;
-  let newUser;
-
   const dispatch = useDispatch();
   const individualRes = useSelector(
     (state) => state.createIndividualAccountRes
@@ -133,43 +121,61 @@ const NewUser = ({ user }) => {
   const corporateRes = useSelector((state) => state.createCorporateAccountRes);
   const adminRes = useSelector((state) => state.createAdminAccountRes);
 
-  switch (user) {
-    case "admin":
-      action = createAdminAccountAction(step1Data);
-      newUser = adminRes;
-      break;
-    case "corporate":
-      action = createCorporateAccountAction(step1Data);
-      newUser = corporateRes;
-      break;
-    case "individual":
-      action = createIndividualAccountAction(step1Data);
-      newUser = individualRes;
-      break;
-    default:
-      break;
-  }
-
-  const createUser = () => {
-    try {
-      dispatch(action);
-      console.log("new user", newUser);
-    } catch (error) {
-      console.log("err", error);
-    }
+  const next = () => {
+    console.log("current", step1Data);
+    setCurrent(current + 1);
+    // if(current === 0) {
+    //   if(user === "admin") {
+    //     dispatch(createAdminAccountAction(step1Data));
+    //   } else if(user === "corporate") {
+    //     dispatch(createCorporateAccountAction(step1Data));
+    //   } else if(user === "individual") {
+    //     dispatch(createIndividualAccountAction(step1Data));
+    //   }
+    // }
   };
 
-  useEffect(() => {
-    if (newUser?.status === 200) {
-      toast.success("User Created Successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else if (newUser?.status === 400 || newUser?.status === 500) {
-      toast.error("User Creation Failed", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  }, [newUser]);
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  // switch (user) {
+  //   case "admin":
+  //     action = createAdminAccountAction(step1Data);
+  //     newUser = adminRes;
+  //     break;
+  //   case "corporate":
+  //     action = createCorporateAccountAction(step1Data);
+  //     newUser = corporateRes;
+  //     break;
+  //   case "individual":
+  //     action = createIndividualAccountAction(step1Data);
+  //     newUser = individualRes;
+  //     break;
+  //   default:
+  //     break;
+  // }
+
+  const createUser = () => {
+  //   try {
+  //     dispatch(action);
+  //     console.log("new user", newUser);
+  //   } catch (error) {
+  //     console.log("err", error);
+  //   }
+  };
+
+  // useEffect(() => {
+  //   if (newUser?.status === 200) {
+  //     toast.success("User Created Successfully", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //   } else if (newUser?.status === 400 || newUser?.status === 500) {
+  //     toast.error("User Creation Failed", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //   }
+  // }, [newUser]);
 
   return (
     <div>

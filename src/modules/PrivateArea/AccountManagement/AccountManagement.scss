@@ -54,6 +54,18 @@
   .acct_management_body {
     padding: 3rem 2rem;
     position: relative;
+    .no_data {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+      p {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 0;
+      }
+    }
   }
   .acct_management_buttons {
     display: flex;

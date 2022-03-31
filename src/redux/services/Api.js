@@ -6,6 +6,7 @@ export const AuthApi = axios.create({
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer " + process.env.REACT_APP_ACCESS_TOKEN,
+    "Access-Control-Allow-Origin": "*",
   },
 });
 
@@ -14,6 +15,7 @@ const access_token = localStorage.getItem("token");
 const headers = {
   "Content-Type": "application/json",
   Authorization: "Bearer " + access_token,
+  "Access-Control-Allow-Origin": "*",
 };
 
 export const AdminApi = axios.create({

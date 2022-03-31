@@ -1,3 +1,5 @@
+@import "../CreateUser.module.scss";
+
 // Step One
 .admin_step {
   text-align: start;
@@ -20,7 +22,7 @@
 #admin_user_steps_one {
   .admin_step_inputs {
     .admin_step_input {
-      margin: 1.5rem 0;
+      margin: 2rem 0;
       label {
         color: #1a1a1a;
         font-size: 1.2rem;

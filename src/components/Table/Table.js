@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
+import { FaLongArrowAltRight, FaLongArrowAltLeft,FaRegUser } from "react-icons/fa";
 
-import { fetchAllUsersAction } from "../../redux/actions/adminAct";
 
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
@@ -15,15 +13,12 @@ const pageSize = 8;
 const UsersTable = ({ tableData, headers }) => {
   const history = useHistory();
 
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [maxIndex, setMaxIndex] = useState(0);
   const [minIndex, setMinIndex] = useState(0);
 
-  const dispatch = useDispatch();
-  const userState = useSelector((state) => state.fetchAllUsersRes);
 
   const itemRender = (current, type, originalElement) => {
     if (type === "prev") {
@@ -51,23 +46,6 @@ const UsersTable = ({ tableData, headers }) => {
     setMaxIndex(page * pageSize);
   };
 
-  const fetchUsers = () => {
-    setLoading(true);
-    try {
-      dispatch(fetchAllUsersAction());
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsers();
-    if (userState?.status === 200) {
-      setLoading(false);
-      const data = userState?.data?.data;
-      console.log("state", data);
-    }
-  }, [userState]);
 
   useEffect(() => {
     setData(tableData);
@@ -93,7 +71,7 @@ const UsersTable = ({ tableData, headers }) => {
         </thead>
         <tbody align="right">
           {data?.map((user, i) => {
-            const { id, name, email, type, img, date } = user;
+            const { id, name, email, type, img, date, first_name, last_name } = user;
             return (
               i >= minIndex &&
               i < maxIndex && (
@@ -111,6 +89,7 @@ const UsersTable = ({ tableData, headers }) => {
                   <td className="align_left">{id}</td>
                   <td className="align_left">
                     <div style={{ display: "flex", alignItems: "center" }}>
+                      {img ? (
                       <img
                         style={{
                           borderRadius: "50px",
@@ -122,7 +101,18 @@ const UsersTable = ({ tableData, headers }) => {
                         src={img}
                         alt="user"
                       />
-                      <span>{name}</span>
+                      ) : (
+                        <FaRegUser
+                        style={{
+                          borderRadius: "50px",
+                          height: "2.5rem",
+                          width: "2.5rem",
+                          marginRight: ".5rem",
+                          padding: "0.3rem",
+                          border: "1px solid #E0E0E0",
+                        }} />
+                      )}
+                      <span>{name ? name : `${first_name} ${last_name}`}</span>
                     </div>
                   </td>
                   <td className="align_left">{email}</td>

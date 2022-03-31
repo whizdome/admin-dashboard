@@ -1,18 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { TiArrowSortedDown } from "react-icons/ti";
-import { FaBell } from "react-icons/fa";
+import { FaBell,FaRegUser } from "react-icons/fa";
 import { HiMenuAlt2, HiMenuAlt3 } from "react-icons/hi";
 
 import style from "./TopBar.module.scss";
 
 const initialState = {
-  image:
+  profile_picture_path:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFcCciWsDR4Qjsp2et36-KDeuKttIknti2-g&usqp=CAU",
   account_type: "APEMS Admin",
 };
 
 const TopBar = ({ toggle, width, menuCollapse }) => {
+  const [user, setUser] = useState(initialState);
+
+  const fetchAccount = () => {
+    const data = localStorage.getItem("user");
+    if (data) {
+      setUser(JSON.parse(data));
+    }
+  };
+
+  useEffect(() => {
+    fetchAccount();
+  }, []);
+
   return (
     <div className={style.top_bar}>
       <div
@@ -41,11 +54,16 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
           <div className={style.badge}>234</div>
         </div>
         <div className={style.user_info}>
+          {user.profile_picture_path ? (
           <img
             className={style.user_avatar}
-            src={initialState.image}
+            src={user.profile_picture_path}
             alt="user"
           />
+          ) : (
+            <FaRegUser
+            className={style.user_avatar} style={{padding: "0.3rem", color: "#b9b9b9"}} />
+          )}
           <div className={style.user_info_text}>
             <p className={style.user_name}>{initialState.account_type}</p>
           </div>

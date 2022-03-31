@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
+import {Form} from "antd";
 
 import style from "./AdminUser.module.scss";
+
+const {Item} = Form
 
 const AdminStepOne = ({ parentCallback }) => {
   const [state, setState] = useState({
@@ -15,13 +18,20 @@ const AdminStepOne = ({ parentCallback }) => {
       ...state,
       [e.target.name]: e.target.value,
     });
+    console.log(form.getFieldsValue(), form.getFieldsError());
   };
 
   const stateRef = useRef(null);
   stateRef.current = state;
 
+  const [form] = Form.useForm();
+
   useEffect(() => {
-    return () => parentCallback(stateRef.current);
+    return () => {
+     form.validateFields();
+     console.log(form.getFieldsValue());
+      parentCallback(stateRef.current);
+    };
   }, []);
 
   const { first_name, last_name, email, phone_number } = state;
@@ -33,25 +43,51 @@ const AdminStepOne = ({ parentCallback }) => {
         Donec dapibus mauris id odio ornare tempus. Duis sit amet accumsan
         justo, quis tempor ligula.
       </p>
+      <Form form={form}
+      >
       <div className={style.admin_step_inputs}>
-        <div className={style.admin_step_input}>
-          <label>First Name</label>
+          <Item
+            name="first_name"
+            label="First Name"
+            className={style.admin_step_input}
+            rules={[
+              {
+                required: true,
+                message: "Please input your first name!",
+              },
+            ]}
+          >
+        {/* <div label="First Name" className={style.admin_step_input}> */}
+          {/* <label>First Name</label> */}
           <input
             type="text"
             name="first_name"
             value={first_name}
             onChange={handleStateChange}
           />
-        </div>
-        <div className={style.admin_step_input}>
-          <label>Last Name</label>
+        {/* </div> */}
+        </Item>
+        <Item
+            name="last_name"
+            label="Last Name"
+            className={style.admin_step_input}
+            rules={[
+              {
+                required: true,
+                message: "Please input your last name!",
+              },
+            ]}
+          >
+        {/* <div className={style.admin_step_input}>
+          <label>Last Name</label> */}
           <input
             type="text"
             name="last_name"
             value={last_name}
             onChange={handleStateChange}
           />
-        </div>
+        {/* </div> */}
+        </Item>
         <div className={style.admin_step_input}>
           <label>Email Address</label>
           <input
@@ -71,6 +107,7 @@ const AdminStepOne = ({ parentCallback }) => {
           />
         </div>
       </div>
+      </Form>
     </div>
   );
 };

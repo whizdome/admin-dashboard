@@ -167,18 +167,18 @@ const Profile = () => {
   useEffect(() => {
     dispatch(listStatesAction());
     dispatch(listCountriesAction());
+  }, []);
+
+  useEffect(() => {
     console.log("states", states);
     if (states !== undefined || countries !== undefined) {
       setStateOptions(states?.data?.data);
       setCountryOptions(countries?.data?.data);
-    } else {
-      dispatch(listStatesAction());
-      dispatch(listCountriesAction());
     }
     const user = JSON.parse(localStorage.getItem("user"));
     setState({
-      first_name: user.name.split(" ")[0],
-      last_name: user.name.split(" ")[1],
+      first_name: user.name ? user.name.split(" ")[0] : user.first_name,
+      last_name: user.name ? user.name.split(" ")[1] : user.last_name,
       email: user.email,
       gender: user.gender,
       user_type: user.user_type,
@@ -190,10 +190,10 @@ const Profile = () => {
       state_id: user.state_id,
       country_id: user.country_id,
     });
-    setDay(user.date_of_birth.split("/")[1]);
-    setMonth(user.date_of_birth.split("/")[0]);
-    setYear(user.date_of_birth.split("/")[2]);
-  }, []);
+    setDay(user.date_of_birth?.split("/")[1]);
+    setMonth(user.date_of_birth?.split("/")[0]);
+    setYear(user.date_of_birth?.split("/")[2]);
+  }, [states, countries]);
 
   const {
     first_name,

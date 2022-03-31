@@ -62,8 +62,8 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const body = {
-    email: "savicsly@gmail.com",
-    password: "password",
+    email: email.value,
+    password: password.value,
   };
 
   const handleSubmit = () => {

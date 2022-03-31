@@ -23,6 +23,12 @@ import {
   createIndividualAccountReducer,
   createCorporateAccountReducer,
   createAdminAccountReducer,
+  fetchRolesReducer,
+  fetchPlansReducer,
+  fetchUserByIdReducer,
+  fetchUserSocialsReducer,
+  assignRoleReducer,
+  createSubscriptionReducer,
 } from "./adminRdx";
 
 export default combineReducers({
@@ -49,4 +55,10 @@ export default combineReducers({
   createIndividualAccountRes: createIndividualAccountReducer,
   createCorporateAccountRes: createCorporateAccountReducer,
   createAdminAccountRes: createAdminAccountReducer,
+  fetchRolesRes: fetchRolesReducer,
+  fetchPlansRes: fetchPlansReducer,
+  fetchUserByIdRes: fetchUserByIdReducer,
+  fetchUserSocialsRes: fetchUserSocialsReducer,
+  assignRoleRes: assignRoleReducer,
+  createSubscriptionRes: createSubscriptionReducer,
 });
