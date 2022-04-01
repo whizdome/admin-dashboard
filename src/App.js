@@ -27,8 +27,7 @@ function App() {
             component={AccountManagement}
           />
           <PrivateRoute
-            // path={`/account-management/profile/${id}`}
-            path="/account-management/profile"
+            path="/account-management/profile/:id"
             component={AccountManagementProfile}
           />
         </Switch>
