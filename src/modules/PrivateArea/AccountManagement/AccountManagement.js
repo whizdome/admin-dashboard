@@ -53,7 +53,7 @@ const AccountManagement = () => {
       setIndividualUser(data.filter((user) => user.user_type === "personal"));
       setCorporateUser(data.filter((user) => user.user_type === "corporate"));
     }
-    // console.log("catch-err", res);
+    console.log("catch-err", res);
     if (res?.errors) {
       toast.error(res?.errors[0].message, {
         position: "top-right",

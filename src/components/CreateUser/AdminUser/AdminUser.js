@@ -306,7 +306,11 @@ const NewAdminUser = ({ closeModal }) => {
                 errors &&
                 Object.values(errors)
                   .flat()
-                  .map((err) => <p className={style.err}>{err}</p>)
+                  .map((err) => (
+                    <p key={err} className={style.err}>
+                      {err}
+                    </p>
+                  ))
               )}
               {current < 2 && (
                 <button

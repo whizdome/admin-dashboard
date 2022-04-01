@@ -1,17 +1,11 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Radio, Select } from "antd";
 
 import { toast } from "react-toastify";
-import {
-  showUserAction,
-  updateUserAction,
-} from "../../../redux/actions/userAct";
-import {
-  listStatesAction,
-  listCountriesAction,
-} from "../../../redux/actions/otherAct";
+import { fetchUserById } from "../../../redux/services/admin";
+import { updateUser } from "../../../redux/services/user";
+import { listCountries, listStates } from "../../../redux/services/other";
 
 import { FillButton } from "../../../components/Button/Button";
 import Spinner from "../../../components/Loader";
@@ -77,6 +71,7 @@ const months = [
 
 const Profile = () => {
   const { Option } = Select;
+  const location = useLocation();
 
   const [userPicture, setUserPicture] = useState("");
   const [loading, setLoading] = useState(false);
@@ -85,6 +80,8 @@ const Profile = () => {
   const [year, setYear] = useState("");
   const [stateOptions, setStateOptions] = useState();
   const [countryOptions, setCountryOptions] = useState();
+  const [user, setUser] = useState();
+  const [errors, setErrors] = useState({});
 
   const [state, setState] = useState({
     first_name: "",
@@ -110,12 +107,6 @@ const Profile = () => {
     });
   };
 
-  const updateUserState = useSelector((state) => state.updateUserRes);
-  const dispatch = useDispatch();
-
-  const states = useSelector((state) => state.listStatesRes);
-  const countries = useSelector((state) => state.listCountriesRes);
-
   const getYearOptions = () => {
     const currentYear = new Date().getFullYear();
     const yearOptions = [];
@@ -136,64 +127,50 @@ const Profile = () => {
     return dayOptions;
   };
 
-  const updateUserProfile = () => {
+  const updateUserProfile = async () => {
+    // setLoading(true);
+    // const res = await updateUser(state);
+  };
+
+  const getUserProfile = async (id) => {
     setLoading(true);
-    try {
-      dispatch(updateUserAction(state));
-      console.log("result", updateUserState, state);
-    } catch (error) {
-      console.log("err", error);
+    const res = await fetchUserById(id);
+    if (res.status === 200) {
+      setUser(res.data);
     }
+    if (res.errors) setErrors(res.errors);
+    setLoading(false);
+  };
+
+  const getCountryOptions = async () => {
+    setLoading(true);
+    const res = await listCountries();
+    // if (res.status === 200) {
+    //   setCountryOptions(res.data);
+    // }
+    if (res.errors) setErrors(res.errors);
+    setLoading(false);
+    console.log(res);
+  };
+
+  const getStateOptions = async () => {
+    setLoading(true);
+    const res = await listStates();
+    // if (res.status === 200) {
+    //   setStateOptions(res.data);
+    // }
+    if (res.errors) setErrors(res.errors);
+    setLoading(false);
+    console.log(res);
   };
 
   useEffect(() => {
-    if (updateUserState.status === 200) {
-      toast.success("Profile updated successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      localStorage.setItem("user", JSON.stringify(updateUserState.data.data));
-      setLoading(false);
-    } else if (
-      updateUserState.status === 400 ||
-      updateUserState.status === 500
-    ) {
-      toast.error("Error updating profile", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setLoading(false);
-    }
-  }, [updateUserState]);
-
-  useEffect(() => {
-    dispatch(listStatesAction());
-    dispatch(listCountriesAction());
+    const path = window.location.pathname.split("/")[3];
+    console.log(path);
+    getUserProfile(path);
+    getCountryOptions();
+    getStateOptions();
   }, []);
-
-  useEffect(() => {
-    console.log("states", states);
-    if (states !== undefined || countries !== undefined) {
-      setStateOptions(states?.data?.data);
-      setCountryOptions(countries?.data?.data);
-    }
-    const user = JSON.parse(localStorage.getItem("user"));
-    setState({
-      first_name: user.name ? user.name.split(" ")[0] : user.first_name,
-      last_name: user.name ? user.name.split(" ")[1] : user.last_name,
-      email: user.email,
-      gender: user.gender,
-      user_type: user.user_type,
-      date_of_birth: user.date_of_birth,
-      street_address: user.street_address,
-      phone_number: user.phone_number,
-      city: user.city,
-      postal_code: user.postal_code,
-      state_id: user.state_id,
-      country_id: user.country_id,
-    });
-    setDay(user.date_of_birth?.split("/")[1]);
-    setMonth(user.date_of_birth?.split("/")[0]);
-    setYear(user.date_of_birth?.split("/")[2]);
-  }, [states, countries]);
 
   const {
     first_name,

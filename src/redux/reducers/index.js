@@ -1,18 +1,7 @@
 import { combineReducers } from "redux";
 import { login, forgotPassword, resetPassword } from "./authRdx";
-import {
-  showUserReducer,
-  updateUserReducer,
-  confirmPasswordReducer,
-  changePasswordReducer,
-  showUserSocialsReducer,
-  updateUserSocialsReducer,
-} from "./userRdx";
-import {
-  listBanksReducer,
-  listCountriesReducer,
-  listStatesReducer,
-} from "./otherRdx";
+import userReducer from "./userRdx";
+import otherReducer from "./otherRdx";
 import {
   fetchUserDetailsReducer,
   updateUserDetailsReducer,
@@ -25,16 +14,9 @@ export default combineReducers({
   resetPasswordRes: resetPassword,
   forgotPasswordRes: forgotPassword,
 
-  showUserRes: showUserReducer,
-  updateUserRes: updateUserReducer,
-  confirmPasswordRes: confirmPasswordReducer,
-  changePasswordRes: changePasswordReducer,
-  showUserSocialsRes: showUserSocialsReducer,
-  updateUserSocialsRes: updateUserSocialsReducer,
+  userReducer,
 
-  listBanksRes: listBanksReducer,
-  listCountriesRes: listCountriesReducer,
-  listStatesRes: listStatesReducer,
+  otherReducer,
 
   fetchUserDetailsRes: fetchUserDetailsReducer,
   updateUserDetailsRes: updateUserDetailsReducer,

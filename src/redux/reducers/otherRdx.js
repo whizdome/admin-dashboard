@@ -1,20 +1,27 @@
-export const listBanksReducer = (state = [], action) => {
-  if (action.type === "LIST_BANKS") {
-    return action.payload;
-  }
-  return state;
+const initialState = {
+  banks: [],
+  states: [],
+  countries: [],
 };
 
-export const listCountriesReducer = (state = [], action) => {
-  if (action.type === "LIST_COUNTRIES") {
-    return action.payload;
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "LIST_BANKS":
+      return {
+        ...state,
+        banks: action.payload,
+      };
+    case "LIST_STATES":
+      return {
+        ...state,
+        states: action.payload,
+      };
+    case "LIST_COUNTRIES":
+      return {
+        ...state,
+        countries: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
-};
-
-export const listStatesReducer = (state = [], action) => {
-  if (action.type === "LIST_STATES") {
-    return action.payload;
-  }
-  return state;
-};
+}

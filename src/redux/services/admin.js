@@ -66,6 +66,17 @@ export const fetchPlans = async (plan_type) => {
   }
 };
 
+export const showUserSocials = async (user_id) => {
+  try {
+    const res = AdminApi.get(`users/socials/${user_id}`);
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
+};
+
 export const fetchUserById = async (id) => {
   try {
     const res = await AdminApi.get(`users/account/${id}`);

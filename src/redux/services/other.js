@@ -1,19 +1,34 @@
 import { OtherApi } from "./Api";
 
-export const listBanks = () => {
-  const res = OtherApi.get("/banks");
-
-  return res;
+export const listBanks = async () => {
+  try {
+    const res = await OtherApi.get("/banks");
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const listCountries = () => {
-  const res = OtherApi.get("/countries");
-
-  return res;
+export const listCountries = async () => {
+  try {
+    const res = OtherApi.get("/countries");
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const listStates = () => {
-  const res = OtherApi.get("/states");
-
-  return res;
+export const listStates = async () => {
+  try {
+    const res = OtherApi.get("/states");
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };

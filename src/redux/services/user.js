@@ -1,37 +1,56 @@
 import { UserApi } from "./Api";
 
-export const showUser = () => {
-  const res = UserApi.get("");
-
-  return res;
+export const showUser = async () => {
+  try {
+    const res = UserApi.get("");
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const updateUser = (body) => {
-  const res = UserApi.patch("update", JSON.stringify(body));
-
-  return res;
+export const updateUser = async (body) => {
+  try {
+    const res = UserApi.patch("update", JSON.stringify(body));
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const confirmPassword = (body) => {
-  const res = UserApi.post("confirm-password", JSON.stringify(body));
-
-  return res;
+export const confirmPassword = async (body) => {
+  try {
+    const res = UserApi.post("confirm-password", JSON.stringify(body));
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const changePassword = (body) => {
-  const res = UserApi.patch("change-password", JSON.stringify(body));
-
-  return res;
+export const changePassword = async (body) => {
+  try {
+    const res = UserApi.patch("change-password", JSON.stringify(body));
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };
 
-export const showUserSocials = () => {
-  const res = UserApi.get("socials");
-
-  return res;
-};
-
-export const updateUserSocials = (body) => {
-  const res = UserApi.patch("socials/update", JSON.stringify(body));
-
-  return res;
+export const updateUserSocials = async (body) => {
+  try {
+    const res = UserApi.patch("socials/update", JSON.stringify(body));
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
 };

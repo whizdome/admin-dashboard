@@ -1,41 +1,36 @@
-export const showUserReducer = (state = {}, action) => {
-  if (action.type === "SHOW_USER") {
-    return action.payload;
-  }
-  return state;
+const initialState = {
+  users: [],
+  socials: [],
 };
 
-export const updateUserReducer = (state = {}, action) => {
-  if (action.type === "UPDATE_USER") {
-    return action.payload;
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "SHOW_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "CONFIRM_PASSWORD":
+      return {
+        ...state,
+        payload: action.payload,
+      };
+    case "CHANGE_PASSWORD":
+      return {
+        ...state,
+        payload: action.payload,
+      };
+    case "UPDATE_USER_SOCIALS":
+      return {
+        ...state,
+        socials: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
-};
-
-export const confirmPasswordReducer = (state = {}, action) => {
-  if (action.type === "CONFIRM_PASSWORD") {
-    return action.payload;
-  }
-  return state;
-};
-
-export const changePasswordReducer = (state = {}, action) => {
-  if (action.type === "CHANGE_PASSWORD") {
-    return action.payload;
-  }
-  return state;
-};
-
-export const showUserSocialsReducer = (state = {}, action) => {
-  if (action.type === "SHOW_USER_SOCIALS") {
-    return action.payload;
-  }
-  return state;
-};
-
-export const updateUserSocialsReducer = (state = {}, action) => {
-  if (action.type === "UPDATE_USER_SOCIALS") {
-    return action.payload;
-  }
-  return state;
-};
+}

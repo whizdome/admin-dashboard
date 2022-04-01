@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FaLongArrowAltRight, FaLongArrowAltLeft,FaRegUser } from "react-icons/fa";
-
+import {
+  FaLongArrowAltRight,
+  FaLongArrowAltLeft,
+  FaRegUser,
+} from "react-icons/fa";
 
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
@@ -18,7 +21,6 @@ const UsersTable = ({ tableData, headers }) => {
   const [total, setTotal] = useState(0);
   const [maxIndex, setMaxIndex] = useState(0);
   const [minIndex, setMinIndex] = useState(0);
-
 
   const itemRender = (current, type, originalElement) => {
     if (type === "prev") {
@@ -46,7 +48,6 @@ const UsersTable = ({ tableData, headers }) => {
     setMaxIndex(page * pageSize);
   };
 
-
   useEffect(() => {
     setData(tableData);
     setTotal(tableData?.length / pageSize);
@@ -71,17 +72,16 @@ const UsersTable = ({ tableData, headers }) => {
         </thead>
         <tbody align="right">
           {data?.map((user, i) => {
-            const { id, name, email, type, img, date, first_name, last_name } = user;
+            const { id, name, email, type, img, date, first_name, last_name } =
+              user;
             return (
               i >= minIndex &&
               i < maxIndex && (
                 <tr
                   key={id}
-                  onClick={() => {
-                    console.log(`clicked ${name}`);
-                    history.push("/account-management/profile");
-                    return;
-                  }}
+                  onClick={() =>
+                    history.push(`/account-management/profile/${id}`)
+                  }
                 >
                   <td className="align_left">
                     <input type="checkbox" id={`table-checkbox-${i + 1}`} />
@@ -90,27 +90,28 @@ const UsersTable = ({ tableData, headers }) => {
                   <td className="align_left">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       {img ? (
-                      <img
-                        style={{
-                          borderRadius: "50px",
-                          height: "2.5rem",
-                          width: "2.5rem",
-                          marginRight: ".5rem",
-                          border: "1px solid #E0E0E0",
-                        }}
-                        src={img}
-                        alt="user"
-                      />
+                        <img
+                          style={{
+                            borderRadius: "50px",
+                            height: "2.5rem",
+                            width: "2.5rem",
+                            marginRight: ".5rem",
+                            border: "1px solid #E0E0E0",
+                          }}
+                          src={img}
+                          alt="user"
+                        />
                       ) : (
                         <FaRegUser
-                        style={{
-                          borderRadius: "50px",
-                          height: "2.5rem",
-                          width: "2.5rem",
-                          marginRight: ".5rem",
-                          padding: "0.3rem",
-                          border: "1px solid #E0E0E0",
-                        }} />
+                          style={{
+                            borderRadius: "50px",
+                            height: "2.5rem",
+                            width: "2.5rem",
+                            marginRight: ".5rem",
+                            padding: "0.3rem",
+                            border: "1px solid #E0E0E0",
+                          }}
+                        />
                       )}
                       <span>{name ? name : `${first_name} ${last_name}`}</span>
                     </div>

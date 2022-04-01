@@ -77,7 +77,7 @@ const NewCorporateUser = ({ closeModal }) => {
   };
 
   const step2Data = {
-    plan_id: planId,
+    plan_id: !isGold && planId,
     custom_attendee_limit: attendees,
     user_id: step1Data.id,
     email_sender_id,
@@ -93,6 +93,7 @@ const NewCorporateUser = ({ closeModal }) => {
       setCurrent(2);
     }
     console.log("catch-err", res);
+    if (res.errors) setErrors(res.errors);
     setLoading(false);
   };
 
@@ -117,6 +118,7 @@ const NewCorporateUser = ({ closeModal }) => {
   useEffect(() => {
     form.validateFields();
     // getPlans();
+    console.log("current", current);
   }, []);
 
   const { name, email, phone_number, street_address } = step1Data;
@@ -252,6 +254,7 @@ const NewCorporateUser = ({ closeModal }) => {
                           required: true,
                         },
                       ]}
+                      style={{ marginBottom: 0 }}
                     >
                       <Radio.Group
                         value={eventType}
@@ -298,7 +301,7 @@ const NewCorporateUser = ({ closeModal }) => {
                               ).video_meeting_attendees
                             );
                           }}
-                          disabled={gold === "gold"}
+                          disabled={isGold}
                         >
                           <option>Select Plan</option>
                           {allPlans.map((option) => (
@@ -315,7 +318,7 @@ const NewCorporateUser = ({ closeModal }) => {
                       >
                         <Checkbox
                           name="gold"
-                          value={gold}
+                          checked={gold}
                           onChange={(e) => {
                             setIsGold(!isGold);
                             form.setFieldsValue({ gold: !isGold });
@@ -405,7 +408,12 @@ const NewCorporateUser = ({ closeModal }) => {
                   <p>Subscription Plan</p>
                   <div className={style.corporate_subs_plan}>
                     <p>Event Type: {eventType}</p>
-                    <p>Plan: Gold</p>
+                    <p>
+                      Plan:{" "}
+                      {form.getFieldValue("gold") === true
+                        ? "Gold"
+                        : allPlans.find((item) => item.id === planId).name}
+                    </p>
                     <p>No of Attendees: {custom_attendee_limit}</p>
                     <p>SMS ID: {sms_sender_id}</p>
                     <p>Email ID: {email_sender_id}</p>
@@ -454,8 +462,14 @@ const NewCorporateUser = ({ closeModal }) => {
               )}
               {current === 2 && (
                 <button
-                  onClick={() => closeModal()}
-                  btntitle="Next"
+                  onClick={() => {
+                    closeModal();
+                    setCurrent(0);
+                    form.resetFields();
+                    form.setErrors({});
+                    return setCurrent(0);
+                  }}
+                  btntitle="Finish"
                   className={style.btn_done}
                 >
                   Finish
