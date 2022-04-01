@@ -67,6 +67,11 @@
   border-color: #d90b2c;
   color: #fff;
 }
+.user_step .form_container .err {
+  margin: 0 1rem 0 0;
+  color: #d9363e;
+  font-size: 1.2rem;
+}
 
 .admin_step {
   text-align: start;
@@ -165,6 +170,26 @@
 
 #admin_user_steps_three p {
   color: #8d8d8d;
+}
+#admin_user_steps_three .notes p {
+  margin: 0 0 1rem;
+  color: #0d0f12;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+#admin_user_steps_three .notes ul {
+  list-style-type: disc;
+  color: #d9363e;
+  margin-left: 2rem;
+}
+#admin_user_steps_three .notes ul li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+#admin_user_steps_three .notes ul li p {
+  margin-bottom: 0.5rem;
+  color: #d9363e;
+  font-weight: 300;
 }
 #admin_user_steps_three .step_three_user_details > p {
   color: #8d8d8d;

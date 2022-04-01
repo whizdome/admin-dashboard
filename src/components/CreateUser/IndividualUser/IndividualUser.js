@@ -13,13 +13,13 @@ import { HiCheck } from "react-icons/hi";
 import { Steps, Divider, Form, Radio } from "antd";
 import "antd/dist/antd.css";
 
-import style from "./AdminUser.module.scss";
+import style from "./IndividualUser.module.scss";
 import "../index.css";
 
 const { Step } = Steps;
 const { Item } = Form;
 
-const NewAdminUser = ({ closeModal }) => {
+const NewIndividualUser = ({ closeModal }) => {
   const [current, setCurrent] = useState(0);
   const [loading, setLoading] = useState(false);
   const [step1Data, setStep1Data] = useState({
@@ -189,7 +189,6 @@ const NewAdminUser = ({ closeModal }) => {
                       rules={[
                         {
                           required: true,
-                          message: "Please input a valid email!",
                         },
                       ]}
                     >
@@ -339,4 +338,4 @@ const NewAdminUser = ({ closeModal }) => {
   );
 };
 
-export default NewAdminUser;
+export default NewIndividualUser;

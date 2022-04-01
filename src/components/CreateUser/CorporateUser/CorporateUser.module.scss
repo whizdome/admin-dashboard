@@ -1,3 +1,5 @@
+@import "../AdminUser//AdminUser.module.scss";
+
 // Step One
 .corporate_step {
   text-align: start;
@@ -51,7 +53,8 @@
 // Step Two
 #corporate_user_steps_two,
 #corporate_user_steps_three {
-  .corporate_step_inputs {
+  .corporate_step_inputs,
+  .admin_step_inputs {
     .plan_step {
       display: grid;
       grid-template-columns: 40% 20% 40%;
@@ -73,9 +76,6 @@
         height: 40px;
         margin-top: 0.6rem;
         padding: 0 2rem;
-      }
-      &:nth-of-type(4) {
-        width: 40%;
       }
       input:hover,
       input:focus,
@@ -107,6 +107,11 @@
       }
     }
   }
+}
+
+#campaign_sms,
+#campaign_email {
+  width: 40%;
 }
 
 // Step Three

@@ -18,18 +18,7 @@ import {
   updateUserDetailsReducer,
   deleteUserDetailsReducer,
 } from "./bankAccountRdx";
-import {
-  fetchAllUsersReducer,
-  createIndividualAccountReducer,
-  createCorporateAccountReducer,
-  createAdminAccountReducer,
-  fetchRolesReducer,
-  fetchPlansReducer,
-  fetchUserByIdReducer,
-  fetchUserSocialsReducer,
-  assignRoleReducer,
-  createSubscriptionReducer,
-} from "./adminRdx";
+import adminReducer from "./adminRdx";
 
 export default combineReducers({
   loginRes: login,
@@ -51,14 +40,5 @@ export default combineReducers({
   updateUserDetailsRes: updateUserDetailsReducer,
   deleteUserDetailsRes: deleteUserDetailsReducer,
 
-  fetchAllUsersRes: fetchAllUsersReducer,
-  createIndividualAccountRes: createIndividualAccountReducer,
-  createCorporateAccountRes: createCorporateAccountReducer,
-  createAdminAccountRes: createAdminAccountReducer,
-  fetchRolesRes: fetchRolesReducer,
-  fetchPlansRes: fetchPlansReducer,
-  fetchUserByIdRes: fetchUserByIdReducer,
-  fetchUserSocialsRes: fetchUserSocialsReducer,
-  assignRoleRes: assignRoleReducer,
-  createSubscriptionRes: createSubscriptionReducer,
+  adminReducer,
 });

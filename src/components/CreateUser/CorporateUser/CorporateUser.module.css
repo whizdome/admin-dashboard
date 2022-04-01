@@ -1,0 +1,425 @@
+@charset "UTF-8";
+#add_new_user {
+  text-align: start;
+  font-size: 1.6rem;
+  color: #0d0f12;
+}
+#add_new_user::after {
+  content: "";
+  display: block;
+  width: 10%;
+  height: 3px;
+  background-color: #d90b2c;
+  margin-top: 0.5rem;
+}
+
+.user_step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  margin-top: 3rem;
+}
+.user_step .divider {
+  border-left: 1px solid #fa1414;
+  position: absolute;
+  top: 1.35rem;
+  left: 6.3rem;
+  height: 5rem;
+  margin: 0 5rem;
+}
+.user_step .form_container {
+  flex-grow: 1;
+}
+.user_step .form_container button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 1.2rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 5px;
+  width: 15rem;
+  border: 1px solid;
+  transition: all 0.3s ease-out;
+  height: 40px;
+  cursor: pointer;
+}
+.user_step .form_container button span {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+.user_step .form_container .btn_back {
+  background-color: #cdd6dc1f;
+  border: 1px solid #e4e8eb;
+  color: #001737;
+  width: 8rem;
+  padding: 16px 24px;
+  margin-right: 1rem;
+}
+.user_step .form_container .btn_next {
+  background-color: #2b2b2b;
+  border-radius: 4px;
+  color: #fff;
+  width: 10rem;
+}
+.user_step .form_container .btn_done {
+  background-color: #d90b2c;
+  border-color: #d90b2c;
+  color: #fff;
+}
+.user_step .form_container .err {
+  margin: 0 1rem 0 0;
+  color: #d9363e;
+  font-size: 1.2rem;
+}
+
+.admin_step {
+  text-align: start;
+}
+.admin_step h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0d0f12;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
+}
+.admin_step p {
+  font-size: 1.3rem;
+  width: 70%;
+  color: #565371;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+}
+
+#admin_user_steps_one .admin_step_inputs .admin_step_input {
+  margin: 2rem 0;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input label {
+  color: #1a1a1a;
+  font-size: 1.2rem;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input input {
+  border: none;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  margin-top: 0.6rem;
+  padding: 0 2rem;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:hover,
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:focus,
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:active,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:hover,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:focus,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:active {
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #d90b27;
+}
+
+#admin_user_steps_two .admin_step_inputs .admin_step_input,
+#admin_user_steps_three .admin_step_inputs .admin_step_input {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+#admin_user_steps_two .admin_step_inputs .admin_step_input > label,
+#admin_user_steps_three .admin_step_inputs .admin_step_input > label {
+  color: #8d8d8d;
+  padding: 0.5rem 0.25rem;
+}
+#admin_user_steps_two .admin_step_inputs .admin_step_input > input,
+#admin_user_steps_three .admin_step_inputs .admin_step_input > input {
+  height: 25px;
+  width: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  outline: none;
+  transition-duration: 0.3s;
+  background-color: #fff;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+#admin_user_steps_two .admin_step_inputs .admin_step_input > input:checked,
+#admin_user_steps_three .admin_step_inputs .admin_step_input > input:checked {
+  border: 1px solid #d9363e;
+  background-color: #fff;
+}
+#admin_user_steps_two .admin_step_inputs .admin_step_input > input:checked + label::before,
+#admin_user_steps_three .admin_step_inputs .admin_step_input > input:checked + label::before {
+  content: "✓";
+  display: block;
+  text-align: center;
+  color: #d9363e;
+  position: absolute;
+  left: 0.7rem;
+  top: 0.4rem;
+}
+#admin_user_steps_two .admin_step_inputs .admin_step_input > input:active,
+#admin_user_steps_three .admin_step_inputs .admin_step_input > input:active {
+  border: 2px solid #34495e;
+}
+
+#admin_user_steps_three p {
+  color: #8d8d8d;
+}
+#admin_user_steps_three .notes p {
+  margin: 0 0 1rem;
+  color: #0d0f12;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+#admin_user_steps_three .notes ul {
+  list-style-type: disc;
+  color: #d9363e;
+  margin-left: 2rem;
+}
+#admin_user_steps_three .notes ul li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+#admin_user_steps_three .notes ul li p {
+  margin-bottom: 0.5rem;
+  color: #d9363e;
+  font-weight: 300;
+}
+#admin_user_steps_three .step_three_user_details > p {
+  color: #8d8d8d;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.8;
+}
+#admin_user_steps_three .step_three_user_details > p:first-of-type {
+  margin: 3rem 0 0.5rem;
+  color: #0d0f12;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+#admin_user_steps_three .step_three_user_details .user_name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#admin_user_steps_three .step_three_user_details .user_name p {
+  color: #8d8d8d;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.8;
+}
+#admin_user_steps_three .user_permissions p {
+  color: #0d0f12;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 3rem 0 1.5rem;
+}
+#admin_user_steps_three .admin_step_inputs:first-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.8rem;
+}
+#admin_user_steps_three .admin_step_inputs:first-of-type .admin_step_input {
+  margin-bottom: 0;
+}
+
+.corporate_step {
+  text-align: start;
+}
+.corporate_step h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0d0f12;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
+}
+.corporate_step p {
+  font-size: 1.3rem;
+  width: 70%;
+  color: #565371;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+}
+
+#admin_user_steps_one .admin_step_inputs .admin_step_input {
+  margin: 1.5rem 0;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input label {
+  color: #1a1a1a;
+  font-size: 1.2rem;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input input {
+  border: none;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  margin-top: 0.6rem;
+  padding: 0 2rem;
+}
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:hover,
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:focus,
+#admin_user_steps_one .admin_step_inputs .admin_step_input input:active,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:hover,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:focus,
+#admin_user_steps_one .admin_step_inputs .admin_step_input select:active {
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #d90b27;
+}
+
+#corporate_user_steps_two .corporate_step_inputs .plan_step,
+#corporate_user_steps_two .admin_step_inputs .plan_step,
+#corporate_user_steps_three .corporate_step_inputs .plan_step,
+#corporate_user_steps_three .admin_step_inputs .plan_step {
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input {
+  margin: 1.5rem 0;
+}
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input label,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input label,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input label,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input label {
+  color: #1a1a1a;
+  font-size: 1.2rem;
+}
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input input,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input select,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input input,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input select,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input input,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input select,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input input,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input select {
+  border: 1px solid #b7b7b7;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  margin-top: 0.6rem;
+  padding: 0 2rem;
+}
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input input:hover,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input input:focus,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input input:active,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input select:hover,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input select:focus,
+#corporate_user_steps_two .corporate_step_inputs .corporate_step_input select:active,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input input:hover,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input input:focus,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input input:active,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input select:hover,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input select:focus,
+#corporate_user_steps_two .admin_step_inputs .corporate_step_input select:active,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input input:hover,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input input:focus,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input input:active,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input select:hover,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input select:focus,
+#corporate_user_steps_three .corporate_step_inputs .corporate_step_input select:active,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input input:hover,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input input:focus,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input input:active,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input select:hover,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input select:focus,
+#corporate_user_steps_three .admin_step_inputs .corporate_step_input select:active {
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #d90b27;
+}
+#corporate_user_steps_two .corporate_step_inputs .checkbox_input,
+#corporate_user_steps_two .admin_step_inputs .checkbox_input,
+#corporate_user_steps_three .corporate_step_inputs .checkbox_input,
+#corporate_user_steps_three .admin_step_inputs .checkbox_input {
+  margin-top: 3rem;
+  align-self: center;
+  justify-self: center;
+}
+#corporate_user_steps_two .corporate_step_inputs .checkbox_input input,
+#corporate_user_steps_two .admin_step_inputs .checkbox_input input,
+#corporate_user_steps_three .corporate_step_inputs .checkbox_input input,
+#corporate_user_steps_three .admin_step_inputs .checkbox_input input {
+  height: auto;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  border: 1px solid #000;
+}
+#corporate_user_steps_two .corporate_step_inputs .checkbox_input label,
+#corporate_user_steps_two .admin_step_inputs .checkbox_input label,
+#corporate_user_steps_three .corporate_step_inputs .checkbox_input label,
+#corporate_user_steps_three .admin_step_inputs .checkbox_input label {
+  color: #1a1a1a;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+#campaign_sms,
+#campaign_email {
+  width: 40%;
+}
+
+#admin_user_steps_three p {
+  color: #8d8d8d;
+}
+#admin_user_steps_three .step_three_user_details > p,
+#admin_user_steps_three .user_permissions > p {
+  color: #8d8d8d;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.8;
+}
+#admin_user_steps_three .step_three_user_details > p:first-of-type,
+#admin_user_steps_three .user_permissions > p:first-of-type {
+  margin: 3rem 0 0.5rem;
+  color: #0d0f12;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+#admin_user_steps_three .step_three_user_details .user_name,
+#admin_user_steps_three .user_permissions .user_name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#admin_user_steps_three .step_three_user_details .user_name p,
+#admin_user_steps_three .user_permissions .user_name p {
+  color: #8d8d8d;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 2;
+}
+#admin_user_steps_three .corporate_subs_plan p {
+  color: #8d8d8d;
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 2;
+}
+#admin_user_steps_three .admin_step_inputs:first-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.8rem;
+}
+#admin_user_steps_three .admin_step_inputs:first-of-type .admin_step_input {
+  margin-bottom: 0;
+}/*# sourceMappingURL=CorporateUser.module.css.map */

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import {
-  createAdminAccount,
-  fetchRoles,
-  assignRole,
+  createCorporateAccount,
+  fetchPlans,
+  createSubscription,
 } from "../../../redux/services/admin";
 import Spinner from "../../Loader";
 
@@ -13,25 +13,31 @@ import { HiCheck } from "react-icons/hi";
 import { Steps, Divider, Form, Radio } from "antd";
 import "antd/dist/antd.css";
 
-import style from "./AdminUser.module.scss";
+import style from "./CorporateUser.module.scss";
 import "../index.css";
 
 const { Step } = Steps;
 const { Item } = Form;
 
-const NewAdminUser = ({ closeModal }) => {
+const NewCorporateUser = ({ closeModal }) => {
   const [current, setCurrent] = useState(0);
   const [loading, setLoading] = useState(false);
   const [step1Data, setStep1Data] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
     phone_number: "",
+    street_address: "",
   });
-  const [allRoles, setAllRoles] = useState([]);
-  const [role, setRole] = useState("");
+  const [eventType, setEventType] = useState("AGM");
+  const [allPlans, setAllPlans] = useState([]);
+  const [plan, setPlan] = useState("");
+  const [attendees, setAttendees] = useState("");
+  const [planId, setPlanId] = useState("");
   const [errors, setErrors] = useState([]);
   const [step3Data, setStep3Data] = useState([]);
+
+  const email_sender_id = "hello@apems.co";
+  const sms_sender_id = "APEMS";
 
   const [form] = Form.useForm();
 
@@ -44,11 +50,11 @@ const NewAdminUser = ({ closeModal }) => {
     form.getFieldsError();
   };
 
-  const getRoles = async () => {
+  const getPlans = async () => {
     setLoading(true);
-    const res = await fetchRoles();
+    const res = await fetchPlans(eventType);
     console.log(res);
-    if (res) setAllRoles(res);
+    if (res) setAllPlans(res);
     if (res.errors) setErrors(res.errors);
     setLoading(false);
   };
@@ -56,10 +62,10 @@ const NewAdminUser = ({ closeModal }) => {
   const createUser = async () => {
     setLoading(true);
 
-    const res = await createAdminAccount(step1Data);
+    const res = await createCorporateAccount(step1Data);
     if (res.data) {
       setStep1Data(res.data);
-      getRoles();
+      getPlans();
       setCurrent(1);
       setErrors([]);
     }
@@ -69,15 +75,18 @@ const NewAdminUser = ({ closeModal }) => {
   };
 
   const step2Data = {
+    plan_id: planId,
+    custom_attendee_limit: attendees,
     user_id: step1Data.id,
-    role: role,
+    email_sender_id,
+    sms_sender_id,
   };
 
-  const changeRole = async () => {
+  const addSubscription = async () => {
     setLoading(true);
-    const res = await assignRole(step2Data);
+    const res = await createSubscription(step2Data);
     if (res.data) {
-      setRole(res.data.role);
+      setPlan(res.data.role);
       setStep3Data(res.data);
       setCurrent(2);
     }
@@ -93,7 +102,7 @@ const NewAdminUser = ({ closeModal }) => {
       if (current === 0) {
         createUser();
       } else if (current === 1) {
-        changeRole();
+        addSubscription();
       }
     }
     console.log(
@@ -105,11 +114,11 @@ const NewAdminUser = ({ closeModal }) => {
 
   useEffect(() => {
     form.validateFields();
-    getRoles();
+    // getPlans();
   }, []);
 
-  const { first_name, last_name, email, phone_number } = step1Data;
-  const { name, roles } = step3Data;
+  const { name, email, phone_number, street_address } = step1Data;
+  const { plans } = step3Data;
 
   return (
     <div>
@@ -124,7 +133,7 @@ const NewAdminUser = ({ closeModal }) => {
             onChange={() => console.log("changed")}
           >
             <Step title="User Basics" icon={<HiCheck />} />
-            <Step title="User Role" icon={<HiCheck />} />
+            <Step title="Subscription Plan" icon={<HiCheck />} />
             <Step title="Finish Setup" icon={<HiCheck />} />
           </Steps>
 
@@ -147,49 +156,49 @@ const NewAdminUser = ({ closeModal }) => {
                 <Form form={form} layout="vertical" requiredMark={false}>
                   <div className={style.admin_step_inputs}>
                     <Item
-                      name="first_name"
-                      label="First Name"
+                      name="name"
+                      label="Company Name"
                       className={style.admin_step_input}
                       rules={[
                         {
                           required: true,
-                          message: "Please input your first name!",
+                          message: "Please input your company name!",
                         },
                       ]}
                     >
                       <input
                         type="text"
-                        name="first_name"
-                        value={first_name}
+                        name="name"
+                        value={name}
                         onChange={handleStateChange}
                       />
                     </Item>
                     <Item
-                      name="last_name"
-                      label="Last Name"
+                      name="street_address"
+                      label="Corporate Address"
                       className={style.admin_step_input}
                       rules={[
                         {
                           required: true,
-                          message: "Please input your last name!",
+                          message: "Please input your company's address!",
                         },
                       ]}
                     >
                       <input
                         type="text"
-                        name="last_name"
-                        value={last_name}
+                        name="street_address"
+                        value={street_address}
                         onChange={handleStateChange}
                       />
                     </Item>
                     <Item
                       name="email"
-                      label="Email Address"
+                      label="Company Email Address"
                       className={style.admin_step_input}
                       rules={[
                         {
                           required: true,
-                          message: "Please input a valid email!",
+                          message: "Please input a valid company email!",
                         },
                       ]}
                     >
@@ -202,7 +211,7 @@ const NewAdminUser = ({ closeModal }) => {
                     </Item>
                     <Item
                       name="phone_number"
-                      label="Phone Number"
+                      label="Company Phone Number"
                       className={style.admin_step_input}
                       rules={[
                         {
@@ -225,41 +234,140 @@ const NewAdminUser = ({ closeModal }) => {
             )}
 
             {current === 1 && (
-              <div id={style.admin_user_steps_two} className={style.admin_step}>
-                <h1>User Management</h1>
-                <p>Setup user Permission</p>
-                <Form form={form} requiredMark={false}>
+              <div
+                id={style.corporate_user_steps_two}
+                className={style.corporate_step}
+              >
+                <h1>Subscription Plan</h1>
+                <p>Setup user access</p>
+                <h1>Event Type Selection</h1>
+                <Form form={form} layout="vertical" requiredMark={false}>
                   <div className={style.admin_step_inputs}>
                     <Item
-                      name="role"
+                      name="event_type"
                       rules={[
                         {
                           required: true,
                         },
                       ]}
                     >
-                      {allRoles.map((name) => (
-                        <Radio.Group
-                          key={name}
-                          value={role}
-                          className={style.admin_step_input}
+                      <Radio.Group
+                        value={eventType}
+                        className={style.corporate_step_input}
+                        onChange={(e) => {
+                          setEventType(e.target.value);
+                          form.setFieldsValue({ event_type: e.target.value });
+                        }}
+                      >
+                        <Radio
+                          name="event_type"
+                          value="AGM"
+                          checked={eventType === "AGM"}
+                        >
+                          AGM
+                        </Radio>
+
+                        <Radio
+                          name="event_type"
+                          value="corporate"
+                          checked={eventType === "AGM"}
+                        >
+                          Corporate
+                        </Radio>
+                      </Radio.Group>
+                    </Item>
+
+                    <div className={style.plan_step}>
+                      <Item
+                        label="Event Plan"
+                        name="plan_id"
+                        className={style.corporate_step_input}
+                      >
+                        <select
+                          name="plan_id"
+                          value={planId}
                           onChange={(e) => {
-                            setRole(e.target.value);
-                            form.setFieldsValue({ role: e.target.value });
+                            setPlanId(e.target.value);
+                            form.setFieldsValue({ plan_id: e.target.value });
+                            setAttendees(
+                              allPlans?.find(
+                                (item) => item.id === e.target.value
+                              ).video_meeting_attendees
+                            );
                           }}
                         >
-                          <Radio name="role" value={name}>
-                            {name}
-                          </Radio>
-                        </Radio.Group>
-                      ))}
+                          <option>Select Plan</option>
+                          {allPlans.map((option) => (
+                            <option key={option.id} value={option.id}>
+                              {option.name}
+                            </option>
+                          ))}
+                        </select>
+                      </Item>
+                      <Item
+                        name="gold"
+                        label="Gold"
+                        className={style.checkbox_input}
+                      >
+                        <input type="radio" name="gold" checked disabled />
+                      </Item>
+                      <Item
+                        name="custom_attendee_limit"
+                        className={style.corporate_step_input}
+                      >
+                        <input
+                          type="number"
+                          name="custom_attendee_limit"
+                          value={attendees}
+                          onChange={handleStateChange}
+                          placeholder="No. Of Attendees"
+                        />
+                        <p style={{ display: "none" }}>{attendees}</p>
+                      </Item>
+                    </div>
+                    <Item
+                      name="email_sender_id"
+                      label="Campaign"
+                      id="campaign_email"
+                      className={style.corporate_step_input}
+                    >
+                      <select
+                        name="email_sender_id"
+                        value={email_sender_id}
+                        onChange={handleStateChange}
+                      >
+                        <option>Select Campaign</option>
+                        {/* {emailIdOptions.map((option) => (
+                                    <option key={option.id} value={option.id}>
+                                    {option.name}
+                                    </option>
+                                ))} */}
+                      </select>
+                    </Item>
+                    <Item
+                      name="sms_sender_id"
+                      id="campaign_sms"
+                      className={style.corporate_step_input}
+                    >
+                      <select
+                        name="sms_sender_id"
+                        value={sms_sender_id}
+                        onChange={handleStateChange}
+                      >
+                        <option>Select Campaign</option>
+                        {/* {smsIdOptions.map((option) => (
+                                    <option key={option.id} value={option.id}>
+                                    {option.name}
+                                    </option>
+                                ))} */}
+                      </select>
                     </Item>
                   </div>
                 </Form>
               </div>
             )}
 
-            {current === 2 && (
+            {/* {current === 2 && ( 
               <div
                 id={style.admin_user_steps_three}
                 className={style.admin_step}
@@ -297,7 +405,7 @@ const NewAdminUser = ({ closeModal }) => {
                   </ul>
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="steps-action">
               {loading ? (
@@ -339,4 +447,4 @@ const NewAdminUser = ({ closeModal }) => {
   );
 };
 
-export default NewAdminUser;
+export default NewCorporateUser;

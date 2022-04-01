@@ -60,3 +60,30 @@
   justify-content: flex-end;
   align-items: center;
 }
+.steps-action button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.ant-form-item-explain-error {
+  color: #d9363e;
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+.ant-form-item-with-help .ant-form-item-explain {
+  min-height: auto;
+}
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+  border-color: #d9363e;
+}
+.ant-radio-inner::after {
+  background-color: #d9363e;
+}
+.ant-radio-input:focus + .ant-radio-inner {
+  box-shadow: 0 0 0 3px #ffe6e6;
+}
+.ant-radio-wrapper {
+  display: block;
+}

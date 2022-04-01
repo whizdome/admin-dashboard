@@ -1,126 +1,67 @@
-import {
-  fetchAllUsers,
-  createIndividualAccount,
-  createCorporateAccount,
-  createAdminAccount,
-  fetchRoles,
-  fetchPlans,
-  fetchUserById,
-  fetchUserSocials,
-  assignRole,
-  createSubscription,
-} from "../services/admin";
-
 export const fetchAllUsersAction = () => {
-  return async (dispatch) => {
-    const res = await fetchAllUsers();
-    console.log("fetchAllUsersAction", res);
-
-    dispatch({
-      type: "FETCH_ALL_USERS",
-      payload: res,
-    });
+  return {
+    type: "FETCH_ALL_USERS",
   };
 };
 
 export const createIndividualAccountAction = (body) => {
-  return async (dispatch) => {
-    console.log("createIndividualAccountAction", body);
-    const res = await createIndividualAccount(body);
-
-    dispatch({
-      type: "CREATE_INDIVIDUAL_ACCOUNT",
-      payload: res,
-    });
+  return {
+    type: "CREATE_INDIVIDUAL_ACCOUNT",
+    payload: body,
   };
 };
 
 export const createCorporateAccountAction = (body) => {
-  return async (dispatch) => {
-    console.log("createCorporateAccountAction", body);
-    const res = await createCorporateAccount(body);
-
-    dispatch({
-      type: "CREATE_CORPORATE_ACCOUNT",
-      payload: res,
-    });
+  return {
+    type: "CREATE_CORPORATE_ACCOUNT",
+    payload: body,
   };
 };
 
 export const createAdminAccountAction = (body) => {
-  return async (dispatch) => {
-    console.log("createAdminAccountAction", body);
-    const res = await createAdminAccount(body);
-
-    dispatch({
-      type: "CREATE_ADMIN_ACCOUNT",
-      payload: res,
-    });
+  return {
+    type: "CREATE_ADMIN_ACCOUNT",
+    payload: body,
   };
 };
 
 export const fetchRolesAction = () => {
-  return async (dispatch) => {
-    const res = await fetchRoles();
-
-    dispatch({
-      type: "FETCH_ROLES",
-      payload: res,
-    });
+  return {
+    type: "FETCH_ROLES",
   };
 };
 
 export const fetchPlansAction = (plan_type) => {
-  return async (dispatch) => {
-    const res = await fetchPlans(plan_type);
-
-    dispatch({
-      type: "FETCH_PLANS",
-      payload: res,
-    });
+  return {
+    type: "FETCH_PLANS",
+    payload: plan_type,
   };
 };
 
 export const fetchUserByIdAction = (id) => {
-  return async (dispatch) => {
-    const res = await fetchUserById(id);
-
-    dispatch({
-      type: "FETCH_USER_BY_ID",
-      payload: res,
-    });
+  return {
+    type: "FETCH_USER_BY_ID",
+    payload: id,
   };
 };
 
 export const fetchUserSocialsAction = (id) => {
-  return async (dispatch) => {
-    const res = await fetchUserSocials(id);
-
-    dispatch({
-      type: "FETCH_USER_SOCIALS",
-      payload: res,
-    });
+  return {
+    type: "FETCH_USER_SOCIALS",
+    payload: id,
   };
 };
 
 export const assignRoleAction = (body) => {
-  return async (dispatch) => {
-    const res = await assignRole(body);
-
-    dispatch({
-      type: "ASSIGN_ROLE",
-      payload: res,
-    });
+  return {
+    type: "ASSIGN_ROLE",
+    payload: body,
   };
 };
 
 export const createSubscriptionAction = (body) => {
-  return async (dispatch) => {
-    const res = await createSubscription(body);
-
-    dispatch({
-      type: "CREATE_SUBSCRIPTION",
-      payload: res,
-    });
+  return {
+    type: "CREATE_SUBSCRIPTION",
+    payload: body,
   };
 };
