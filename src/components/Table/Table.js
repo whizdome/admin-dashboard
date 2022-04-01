@@ -10,6 +10,7 @@ import "antd/dist/antd.css";
 import { Pagination } from "antd";
 
 import "./Table.scss";
+import { fetchUserAccountById } from "../../redux/services/admin";
 
 const pageSize = 8;
 
@@ -48,6 +49,14 @@ const UsersTable = ({ tableData, headers }) => {
     setMaxIndex(page * pageSize);
   };
 
+  const fetchUser = (id) => {
+    // find array that contains the id
+    const user = tableData.find((user) => user.id === id);
+    history.push(`/account-management/profile/${user.id}`, {
+      user,
+    });
+  };
+
   useEffect(() => {
     setData(tableData);
     setTotal(tableData?.length / pageSize);
@@ -77,12 +86,7 @@ const UsersTable = ({ tableData, headers }) => {
             return (
               i >= minIndex &&
               i < maxIndex && (
-                <tr
-                  key={id}
-                  onClick={() =>
-                    history.push(`/account-management/profile/${id}`)
-                  }
-                >
+                <tr key={id} onClick={() => fetchUser(id)}>
                   <td className="align_left">
                     <input type="checkbox" id={`table-checkbox-${i + 1}`} />
                   </td>

@@ -77,9 +77,9 @@ export const showUserSocials = async (user_id) => {
   }
 };
 
-export const fetchUserById = async (id) => {
+export const fetchUserAccountById = async (id) => {
   try {
-    const res = await AdminApi.get(`users/account/${id}`);
+    const res = await AdminApi.get(`users/accounts/${id}`);
     return res.data;
   } catch (error) {
     if (error.response) {

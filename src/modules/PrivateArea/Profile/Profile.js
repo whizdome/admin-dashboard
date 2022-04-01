@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Radio, Select } from "antd";
 
-import { toast } from "react-toastify";
-import { fetchUserById } from "../../../redux/services/admin";
-import { updateUser } from "../../../redux/services/user";
 import { listCountries, listStates } from "../../../redux/services/other";
 
 import { FillButton } from "../../../components/Button/Button";
@@ -127,38 +124,12 @@ const Profile = () => {
     return dayOptions;
   };
 
-  const updateUserProfile = async () => {
-    // setLoading(true);
-    // const res = await updateUser(state);
-  };
-
-  const getUserProfile = async (id) => {
-    setLoading(true);
-    const res = await fetchUserById(id);
-    if (res.status === 200) {
-      setUser(res.data);
-    }
-    if (res.errors) setErrors(res.errors);
-    setLoading(false);
-  };
-
-  const getCountryOptions = async () => {
-    setLoading(true);
-    const res = await listCountries();
-    // if (res.status === 200) {
-    //   setCountryOptions(res.data);
-    // }
-    if (res.errors) setErrors(res.errors);
-    setLoading(false);
-    console.log(res);
-  };
-
   const getStateOptions = async () => {
     setLoading(true);
     const res = await listStates();
-    // if (res.status === 200) {
-    //   setStateOptions(res.data);
-    // }
+    if (res.data) {
+      setStateOptions(res.data);
+    }
     if (res.errors) setErrors(res.errors);
     setLoading(false);
     console.log(res);
@@ -167,9 +138,36 @@ const Profile = () => {
   useEffect(() => {
     const path = window.location.pathname.split("/")[3];
     console.log(path);
-    getUserProfile(path);
-    getCountryOptions();
     getStateOptions();
+    console.log(location.state.user);
+    const {
+      city,
+      country_id,
+      date_of_birth,
+      email,
+      first_name,
+      gender,
+      last_name,
+      phone_number,
+      postal_code,
+      profile_picture_path,
+      state_id,
+      street_address,
+    } = location?.state?.user;
+    setState({
+      first_name,
+      last_name,
+      email,
+      date_of_birth,
+      gender,
+      street_address,
+      phone_number,
+      city,
+      postal_code,
+      state_id,
+      country_id,
+    });
+    setUserPicture(profile_picture_path);
   }, []);
 
   const {
@@ -197,7 +195,7 @@ const Profile = () => {
           <img
             className="profile_body_image"
             src={
-              userPicture === ""
+              userPicture === "" || userPicture === null
                 ? "https://via.placeholder.com/150"
                 : userPicture
             }
@@ -443,11 +441,7 @@ const Profile = () => {
           <div className="profile_body_details_row">
             <div className="column_left"></div>
             <div className="column_right">
-              <FillButton
-                btntitle="Update Profile"
-                bgColor="#5C6574"
-                onClick={updateUserProfile}
-              />
+              <FillButton btntitle="Update Profile" bgColor="#5C6574" />
             </div>
           </div>
         </div>

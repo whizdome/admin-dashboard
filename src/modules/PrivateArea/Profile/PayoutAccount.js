@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { FillButton } from "../../../components/Button/Button";
 import Spinner from "../../../components/Loader";
-import {
-  fetchUserDetailsAction,
-  updateUserDetailsAction,
-} from "../../../redux/actions/bankAccountAct";
+import { fetchUserAccountById } from "../../../redux/services/admin";
 
 import { HiCheckCircle } from "react-icons/hi";
 import "./Profile.scss";
@@ -16,49 +12,24 @@ const PayoutAccount = () => {
   const [account, setAccount] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const accountState = useSelector((state) => state.fetchUserDetailsRes);
-  const updateState = useSelector((state) => state.updateUserDetailsRes);
-  const dispatch = useDispatch();
-
-  const updateAccount = () => {
+  const fetchAccount = (id) => {
     setLoading(true);
-    try {
-      dispatch(updateUserDetailsAction(account));
-    } catch (error) {
-      console.log(error);
+    const res = fetchUserAccountById(id);
+    if (res?.data) {
+      setAccount(res.data);
     }
-  };
-
-  const fetchAccount = () => {
-    setLoading(true);
-    try {
-      dispatch(fetchUserDetailsAction());
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAccount();
-  }, []);
-
-  useEffect(() => {
-    console.log(accountState);
-    setAccount(accountState?.data?.data);
-  }, [accountState]);
-
-  useEffect(() => {
-    if (updateState?.data?.status === 200) {
-      toast.success("Account updated successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else if (updateState?.data?.status === 400) {
-      toast.error("Account not updated", {
-        position: toast.POSITION.TOP_RIGHT,
+    if (res?.errors) {
+      toast.error(res.errors[0].message, {
+        position: "top-right",
       });
       setLoading(false);
     }
-  }, [updateState]);
+  };
+
+  useEffect(() => {
+    const path = window.location.pathname.split("/")[3];
+    fetchAccount(path);
+  }, []);
 
   return (
     <div id="payout_account" className="profile_body_content">
@@ -82,11 +53,7 @@ const PayoutAccount = () => {
           <div className="profile_body_details_row">
             <div className="column_left"></div>
             <div className="column_right">
-              <FillButton
-                btntitle="Remove Payout Account"
-                bgColor="#5C6574"
-                onClick={updateAccount}
-              />
+              <FillButton btntitle="Remove Payout Account" bgColor="#5C6574" />
             </div>
           </div>
         </div>
