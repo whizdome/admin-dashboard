@@ -10,15 +10,8 @@
     margin-bottom: 1.2rem;
     margin-top: 0;
   }
-  p {
-    font-size: 1.3rem;
-    width: 70%;
-    color: #565371;
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 3rem;
-  }
 }
+
 #admin_user_steps_one {
   .admin_step_inputs {
     .admin_step_input {
@@ -92,6 +85,7 @@
       margin-top: 3rem;
       align-self: center;
       justify-self: center;
+      flex-direction: row-reverse;
       input {
         height: auto;
         width: auto;
@@ -100,7 +94,7 @@
         background: #fff;
         border: 1px solid #000;
       }
-      label {
+      .ant-form-item-label label {
         color: #1a1a1a;
         font-size: 1.2rem;
         margin-left: 0.5rem;
@@ -148,6 +142,8 @@
     }
   }
   .corporate_subs_plan {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     p {
       color: #8d8d8d;
       font-weight: 300;

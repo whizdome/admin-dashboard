@@ -241,14 +241,6 @@
   margin-bottom: 1.2rem;
   margin-top: 0;
 }
-.corporate_step p {
-  font-size: 1.3rem;
-  width: 70%;
-  color: #565371;
-  font-weight: 300;
-  line-height: 1.2;
-  margin-bottom: 3rem;
-}
 
 #admin_user_steps_one .admin_step_inputs .admin_step_input {
   margin: 1.5rem 0;
@@ -350,6 +342,7 @@
   margin-top: 3rem;
   align-self: center;
   justify-self: center;
+  flex-direction: row-reverse;
 }
 #corporate_user_steps_two .corporate_step_inputs .checkbox_input input,
 #corporate_user_steps_two .admin_step_inputs .checkbox_input input,
@@ -362,10 +355,10 @@
   background: #fff;
   border: 1px solid #000;
 }
-#corporate_user_steps_two .corporate_step_inputs .checkbox_input label,
-#corporate_user_steps_two .admin_step_inputs .checkbox_input label,
-#corporate_user_steps_three .corporate_step_inputs .checkbox_input label,
-#corporate_user_steps_three .admin_step_inputs .checkbox_input label {
+#corporate_user_steps_two .corporate_step_inputs .checkbox_input .ant-form-item-label label,
+#corporate_user_steps_two .admin_step_inputs .checkbox_input .ant-form-item-label label,
+#corporate_user_steps_three .corporate_step_inputs .checkbox_input .ant-form-item-label label,
+#corporate_user_steps_three .admin_step_inputs .checkbox_input .ant-form-item-label label {
   color: #1a1a1a;
   font-size: 1.2rem;
   margin-left: 0.5rem;
@@ -407,6 +400,10 @@
   font-size: 1.3rem;
   margin: 0;
   line-height: 2;
+}
+#admin_user_steps_three .corporate_subs_plan {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 #admin_user_steps_three .corporate_subs_plan p {
   color: #8d8d8d;

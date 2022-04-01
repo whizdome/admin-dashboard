@@ -10,7 +10,7 @@ import Spinner from "../../Loader";
 import { BsCaretRightFill } from "react-icons/bs";
 import { HiCheck } from "react-icons/hi";
 
-import { Steps, Divider, Form, Radio } from "antd";
+import { Steps, Divider, Form, Radio, Checkbox } from "antd";
 import "antd/dist/antd.css";
 
 import style from "./CorporateUser.module.scss";
@@ -33,6 +33,8 @@ const NewCorporateUser = ({ closeModal }) => {
   const [plan, setPlan] = useState("");
   const [attendees, setAttendees] = useState("");
   const [planId, setPlanId] = useState("");
+  const [isGold, setIsGold] = useState(false);
+  const [gold, setGold] = useState(false);
   const [errors, setErrors] = useState([]);
   const [step3Data, setStep3Data] = useState([]);
 
@@ -118,7 +120,7 @@ const NewCorporateUser = ({ closeModal }) => {
   }, []);
 
   const { name, email, phone_number, street_address } = step1Data;
-  const { plans } = step3Data;
+  const { custom_attendee_limit, type } = step3Data;
 
   return (
     <div>
@@ -257,6 +259,7 @@ const NewCorporateUser = ({ closeModal }) => {
                         onChange={(e) => {
                           setEventType(e.target.value);
                           form.setFieldsValue({ event_type: e.target.value });
+                          getPlans();
                         }}
                       >
                         <Radio
@@ -270,7 +273,7 @@ const NewCorporateUser = ({ closeModal }) => {
                         <Radio
                           name="event_type"
                           value="corporate"
-                          checked={eventType === "AGM"}
+                          checked={eventType === "corporate"}
                         >
                           Corporate
                         </Radio>
@@ -295,6 +298,7 @@ const NewCorporateUser = ({ closeModal }) => {
                               ).video_meeting_attendees
                             );
                           }}
+                          disabled={gold === "gold"}
                         >
                           <option>Select Plan</option>
                           {allPlans.map((option) => (
@@ -306,10 +310,20 @@ const NewCorporateUser = ({ closeModal }) => {
                       </Item>
                       <Item
                         name="gold"
-                        label="Gold"
                         className={style.checkbox_input}
+                        style={{ margin: "3rem 0 0" }}
                       >
-                        <input type="radio" name="gold" checked disabled />
+                        <Checkbox
+                          name="gold"
+                          value={gold}
+                          onChange={(e) => {
+                            setIsGold(!isGold);
+                            form.setFieldsValue({ gold: !isGold });
+                            setGold(isGold ? e.target.value : "");
+                          }}
+                        >
+                          Gold
+                        </Checkbox>
                       </Item>
                       <Item
                         name="custom_attendee_limit"
@@ -319,8 +333,14 @@ const NewCorporateUser = ({ closeModal }) => {
                           type="number"
                           name="custom_attendee_limit"
                           value={attendees}
-                          onChange={handleStateChange}
+                          onChange={(e) => {
+                            setAttendees(e.target.value);
+                            form.setFieldsValue({
+                              custom_attendee_limit: e.target.value,
+                            });
+                          }}
                           placeholder="No. Of Attendees"
+                          disabled={isGold !== true}
                         />
                         <p style={{ display: "none" }}>{attendees}</p>
                       </Item>
@@ -328,15 +348,18 @@ const NewCorporateUser = ({ closeModal }) => {
                     <Item
                       name="email_sender_id"
                       label="Campaign"
-                      id="campaign_email"
+                      id={style.campaign_email}
                       className={style.corporate_step_input}
                     >
                       <select
                         name="email_sender_id"
                         value={email_sender_id}
-                        onChange={handleStateChange}
+                        // onChange={handleStateChange}
                       >
-                        <option>Select Campaign</option>
+                        {/* <option value="">Select Campaign</option> */}
+                        <option value={email_sender_id}>
+                          {email_sender_id}
+                        </option>
                         {/* {emailIdOptions.map((option) => (
                                     <option key={option.id} value={option.id}>
                                     {option.name}
@@ -346,15 +369,12 @@ const NewCorporateUser = ({ closeModal }) => {
                     </Item>
                     <Item
                       name="sms_sender_id"
-                      id="campaign_sms"
+                      id={style.campaign_sms}
                       className={style.corporate_step_input}
                     >
-                      <select
-                        name="sms_sender_id"
-                        value={sms_sender_id}
-                        onChange={handleStateChange}
-                      >
-                        <option>Select Campaign</option>
+                      <select name="sms_sender_id" value={sms_sender_id}>
+                        {/* <option value="">Select Campaign</option> */}
+                        <option value={sms_sender_id}>{sms_sender_id}</option>
                         {/* {smsIdOptions.map((option) => (
                                     <option key={option.id} value={option.id}>
                                     {option.name}
@@ -367,7 +387,7 @@ const NewCorporateUser = ({ closeModal }) => {
               </div>
             )}
 
-            {/* {current === 2 && ( 
+            {current === 2 && (
               <div
                 id={style.admin_user_steps_three}
                 className={style.admin_step}
@@ -376,17 +396,19 @@ const NewCorporateUser = ({ closeModal }) => {
                 <p>Assigned user settings</p>
                 <div className={style.step_three_user_details}>
                   <p>User Details</p>
-                  <p>Name: {name}</p>
-                  <p>Phone Number: {phone_number}</p>
-                  <p>Email Address: {email}</p>
+                  <p>Company Name: {name}</p>
+                  <p>Company Phone Number: {phone_number}</p>
+                  <p>Company Email Address: {email}</p>
+                  <p>Corporate Street Address: {street_address}</p>
                 </div>
                 <div className={style.user_permissions}>
-                  <p>User Permissions</p>
-                  <div className={style.admin_step_inputs}>
-                    <div className={style.admin_step_input}>
-                      <input type="checkbox" checked disabled />
-                      <label>{roles[0].name}</label>
-                    </div>
+                  <p>Subscription Plan</p>
+                  <div className={style.corporate_subs_plan}>
+                    <p>Event Type: {eventType}</p>
+                    <p>Plan: Gold</p>
+                    <p>No of Attendees: {custom_attendee_limit}</p>
+                    <p>SMS ID: {sms_sender_id}</p>
+                    <p>Email ID: {email_sender_id}</p>
                   </div>
                 </div>
                 <Divider />
@@ -405,7 +427,7 @@ const NewCorporateUser = ({ closeModal }) => {
                   </ul>
                 </div>
               </div>
-            )} */}
+            )}
 
             <div className="steps-action">
               {loading ? (
