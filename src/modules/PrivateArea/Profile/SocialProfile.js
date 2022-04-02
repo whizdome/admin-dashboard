@@ -58,6 +58,17 @@ const SocialProfile = () => {
   const updateSocialProfile = async () => {
     setLoading(true);
     const res = await updateUserSocials(state);
+    if (res?.data) {
+      setState({
+        linkedin_url: "",
+        twitter_url: "",
+        facebook_url: "",
+      });
+      toast.success("Update successfully", { position: "top-right" });
+    }
+    if (res?.errors) {
+      toast.error(res?.errors[0].message, { position: "top-right" });
+    }
     console.log(res, state);
     setLoading(false);
   };

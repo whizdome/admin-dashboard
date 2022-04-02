@@ -353,6 +353,7 @@ const NewCorporateUser = ({ closeModal }) => {
                       label="Campaign"
                       id={style.campaign_email}
                       className={style.corporate_step_input}
+                      style={{ width: "40%" }}
                     >
                       <select
                         name="email_sender_id"
@@ -374,6 +375,7 @@ const NewCorporateUser = ({ closeModal }) => {
                       name="sms_sender_id"
                       id={style.campaign_sms}
                       className={style.corporate_step_input}
+                      style={{ width: "40%" }}
                     >
                       <select name="sms_sender_id" value={sms_sender_id}>
                         {/* <option value="">Select Campaign</option> */}
