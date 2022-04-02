@@ -1,7 +1,7 @@
-export const fetchAllUsersAction = (id) => {
+export const fetchAllUsersAction = (account_type) => {
   return {
     type: "FETCH_ALL_USERS",
-    payload: id,
+    payload: account_type,
   };
 };
 

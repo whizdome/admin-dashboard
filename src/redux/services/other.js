@@ -13,7 +13,7 @@ export const listBanks = async () => {
 
 export const listCountries = async () => {
   try {
-    const res = OtherApi.get("/countries");
+    const res = await OtherApi.get("/countries");
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -24,7 +24,7 @@ export const listCountries = async () => {
 
 export const listStates = async () => {
   try {
-    const res = OtherApi.get("/states");
+    const res = await OtherApi.get("/states");
     return res.data;
   } catch (error) {
     if (error.response) {

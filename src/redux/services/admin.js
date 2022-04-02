@@ -1,8 +1,8 @@
 import { AdminApi } from "./Api";
 
-export const fetchAllUsers = async () => {
+export const fetchAllUsers = async (account_type) => {
   try {
-    const res = await AdminApi.get("users");
+    const res = await AdminApi.get(`users?account_type=${account_type}`);
     return res.data;
   } catch (error) {
     if (error.response) {

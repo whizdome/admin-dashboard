@@ -10,7 +10,6 @@ import "antd/dist/antd.css";
 import { Pagination } from "antd";
 
 import "./Table.scss";
-import { fetchUserAccountById } from "../../redux/services/admin";
 
 const pageSize = 8;
 

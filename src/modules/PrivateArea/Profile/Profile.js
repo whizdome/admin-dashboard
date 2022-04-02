@@ -127,18 +127,28 @@ const Profile = () => {
   const getStateOptions = async () => {
     setLoading(true);
     const res = await listStates();
-    if (res.data) {
-      setStateOptions(res.data);
+    console.log("res", res);
+    if (res?.data) {
+      setStateOptions(res?.data);
     }
-    if (res.errors) setErrors(res.errors);
+    if (res?.errors) setErrors(res?.errors);
     setLoading(false);
-    console.log(res);
+  };
+
+  const getCountryOptions = async () => {
+    setLoading(true);
+    const res = await listCountries();
+    console.log("res", res);
+    if (res?.data) {
+      setCountryOptions(res?.data);
+    }
+    if (res?.errors) setErrors(res?.errors);
+    setLoading(false);
   };
 
   useEffect(() => {
-    const path = window.location.pathname.split("/")[3];
-    console.log(path);
     getStateOptions();
+    getCountryOptions();
     console.log(location.state.user);
     const {
       city,
@@ -153,21 +163,31 @@ const Profile = () => {
       profile_picture_path,
       state_id,
       street_address,
+      name,
     } = location?.state?.user;
     setState({
-      first_name,
-      last_name,
+      first_name: first_name ? first_name : name.split(" ")[0],
+      last_name: last_name ? last_name : name.split(" ")[1],
       email,
-      date_of_birth,
-      gender,
-      street_address,
-      phone_number,
-      city,
-      postal_code,
-      state_id,
-      country_id,
+      date_of_birth: date_of_birth ? date_of_birth : "",
+      gender: gender ? gender : "",
+      street_address: street_address ? street_address : "",
+      phone_number: phone_number ? phone_number : "",
+      city: city ? city : "",
+      postal_code: postal_code ? postal_code : "",
+      state_id: state_id ? state_id : "",
+      country_id: country_id ? country_id : "",
     });
     setUserPicture(profile_picture_path);
+    if (date_of_birth !== null) {
+      const [month, day, year] = new Date(date_of_birth)
+        ?.toLocaleDateString()
+        .split("/");
+
+      setDay(day);
+      setMonth(month);
+      setYear(year);
+    }
   }, []);
 
   const {
@@ -429,13 +449,6 @@ const Profile = () => {
                   </option>
                 ))}
               </select>
-              {/* <input
-                type="text"
-                name="country_id"
-                placeholder="Nigeria"
-                value={country_id}
-                onChange={handleStateChange}
-              /> */}
             </div>
           </div>
           <div className="profile_body_details_row">

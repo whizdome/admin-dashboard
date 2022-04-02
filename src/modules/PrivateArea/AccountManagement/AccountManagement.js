@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Input } from "antd";
+import { Input, Tabs } from "antd";
 import { BiExport } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
@@ -23,16 +23,18 @@ import Spinner from "../../../components/Loader";
 import { headers } from "../../../constants";
 
 import "./AccountManagement.scss";
+import "antd/dist/antd.css";
+import "../../../components/Tabs/Tabs.scss";
+
+const { TabPane } = Tabs;
 
 const AccountManagement = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [userType, setUserType] = useState(1);
+  const [userType, setUserType] = useState("");
+  const [user_tab, setUserTab] = useState("company");
   const [loading, setLoading] = useState(false);
-  const [adminUser, setAdminUser] = useState([]);
-  const [individualUser, setIndividualUser] = useState([]);
-  const [corporateUser, setCorporateUser] = useState([]);
-  const [errors, setErrors] = useState({});
+  const [users, setUsers] = useState([]);
 
   const handleOpenModal = (type) => {
     setShowModal(true);
@@ -44,27 +46,33 @@ const AccountManagement = () => {
     setShowModal(false);
   };
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (user) => {
     setLoading(true);
-    const res = await fetchAllUsers();
-    if (res?.data) {
-      const data = res?.data;
-      setAdminUser(data.filter((user) => user.user_type === "admin"));
-      setIndividualUser(data.filter((user) => user.user_type === "personal"));
-      setCorporateUser(data.filter((user) => user.user_type === "corporate"));
-    }
+    console.log(user);
+    const res = await fetchAllUsers(user);
     console.log("catch-err", res);
+    setUsers(res?.data || []);
     if (res?.errors) {
-      toast.error(res?.errors[0].message, {
-        position: "top-right",
-      });
+      toast.error(
+        Object.values(res?.errors)
+          .flat()
+          .map((err) => err),
+        {
+          position: "top-right",
+        }
+      );
     }
-
     setLoading(false);
   };
 
+  const callback = (key) => {
+    console.log(key);
+    setUserTab(key);
+    fetchUsers(key);
+  };
+
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(user_tab);
   }, []);
 
   return (
@@ -92,52 +100,41 @@ const AccountManagement = () => {
           </div>
         </div>
         <div className="acct_management_body">
-          <CustomTab
-            tabs={[
-              {
-                title: "Corporate",
-                content: loading ? (
-                  <Spinner visible={loading} />
-                ) : corporateUser.length > 0 ? (
-                  <div>
-                    <UsersTable tableData={corporateUser} headers={headers} />
-                  </div>
-                ) : (
-                  <div className="no_data">
-                    <p>No data found</p>
-                  </div>
-                ),
-              },
-              {
-                title: "Individual",
-                content: loading ? (
-                  <Spinner visible={loading} />
-                ) : individualUser.length > 0 ? (
-                  <div>
-                    <UsersTable tableData={individualUser} headers={headers} />
-                  </div>
-                ) : (
-                  <div className="no_data">
-                    <p>No data found</p>
-                  </div>
-                ),
-              },
-              {
-                title: "Admin User",
-                content: loading ? (
-                  <Spinner visible={loading} />
-                ) : adminUser.length > 0 ? (
-                  <div>
-                    <UsersTable tableData={adminUser} headers={headers} />
-                  </div>
-                ) : (
-                  <div className="no_data">
-                    <p>No data found</p>
-                  </div>
-                ),
-              },
-            ]}
-          />
+          <Tabs defaultActiveKey="company" onChange={callback}>
+            <TabPane tab="Corporate" key="company">
+              {loading ? (
+                <Spinner visible={loading} />
+              ) : users?.length > 0 ? (
+                <UsersTable tableData={users} headers={headers} />
+              ) : (
+                <div className="no_data">
+                  <p>No user found</p>
+                </div>
+              )}
+            </TabPane>
+            <TabPane tab="Individual" key="personal">
+              {loading ? (
+                <Spinner visible={loading} />
+              ) : users?.length > 0 ? (
+                <UsersTable tableData={users} headers={headers} />
+              ) : (
+                <div className="no_data">
+                  <p>No user found</p>
+                </div>
+              )}
+            </TabPane>
+            <TabPane tab="Admin" key="admin">
+              {loading ? (
+                <Spinner visible={loading} />
+              ) : users?.length > 0 ? (
+                <UsersTable tableData={users} headers={headers} />
+              ) : (
+                <div className="no_data">
+                  <p>No user found</p>
+                </div>
+              )}
+            </TabPane>
+          </Tabs>
           <div className="acct_management_buttons">
             <div className="dropdown_bubble">
               <FillIconButton

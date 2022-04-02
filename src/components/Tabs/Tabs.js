@@ -6,9 +6,10 @@ import "./Tabs.scss";
 
 const { TabPane } = Tabs;
 
-const CustomTab = ({ tabs,  }) => {
+const CustomTab = ({ tabs, parentCallback }) => {
   const callback = (key) => {
     // console.log(key);
+    parentCallback(key);
   };
   return (
     <Tabs defaultActiveKey="0" onChange={callback}>

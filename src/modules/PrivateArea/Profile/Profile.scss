@@ -291,10 +291,16 @@
       .input_icon {
         width: 100%;
         margin-bottom: 0.5rem;
-        input {
+        div {
           background-color: #09974e13;
           color: #09974d;
           pointer-events: none;
+          position: relative;
+          padding: 1rem;
+          border-radius: 3px;
+          p {
+            margin-bottom: 0;
+          }
         }
         svg {
           color: #09974d;
