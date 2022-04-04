@@ -4,6 +4,8 @@ import { BiBriefcaseAlt2 } from "react-icons/bi";
 import { CgStack } from "react-icons/cg";
 import { RiCoupon5Line } from "react-icons/ri";
 import { BsQuestionLg } from "react-icons/bs";
+import ApLogo from "../assets/images/apLogo.png";
+import AccessBankLogo from "../assets/images/access.png";
 
 export const SidebarData = [
   {
@@ -150,4 +152,69 @@ export const headers = [
   "Email",
   "Subscription Type",
   "Expiration Date",
+];
+
+export const dashboardAttendeeLocation = [
+  {
+    id: "1",
+    venue: "Lagos",
+    attendees: "325,000",
+    change: "+5000",
+    color: "green",
+  },
+  {
+    id: "2",
+    venue: "Abia",
+    attendees: "225,000",
+    change: "+1000",
+    color: "green",
+  },
+  {
+    id: "3",
+    venue: "Port Harcourt",
+    attendees: "1,000,000",
+    change: "+500",
+    color: "green",
+  },
+  {
+    id: "4",
+    venue: "Cross River",
+    attendees: "125,000",
+    change: "+1000",
+    color: "green",
+  },
+  {
+    id: "5",
+    venue: "Ogun",
+    attendees: "95,000",
+    change: "+1000",
+    color: "red",
+  },
+];
+
+export const dashboardAttendeeEvents = [
+  {
+    id: "1",
+    event: "Alat AGM",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/ALAT_Logo.jpg",
+    attendees: "5,000,000",
+  },
+  {
+    id: "2",
+    event: "Africaprudential",
+    logo: ApLogo,
+    attendees: "1,000,000",
+  },
+  {
+    id: "3",
+    event: "Access Bank Plc",
+    logo: AccessBankLogo,
+    attendees: "1,000,000",
+  },
+  {
+    id: "4",
+    event: "Nestle Plc",
+    logo: "https://w7.pngwing.com/pngs/394/442/png-transparent-nestle-uk-business-logo-nestle-waters-business-blue-text-trademark.png",
+    attendees: "1,000,000",
+  },
 ];

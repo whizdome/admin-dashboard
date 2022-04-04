@@ -56,15 +56,16 @@
   .admin_step_inputs {
     .admin_step_input {
       display: flex;
-      align-items: center;
+      // align-items: center;
+      flex-direction: column;
       cursor: pointer;
       position: relative;
       margin-bottom: 1.5rem;
       > label {
         color: #8d8d8d;
-        padding: 0.5rem 0.25rem;
+        padding: 1.5rem 0.25rem;
       }
-      > input {
+      span > input {
         height: 25px;
         width: 25px;
         -webkit-appearance: none;

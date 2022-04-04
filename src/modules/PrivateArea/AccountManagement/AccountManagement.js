@@ -44,6 +44,7 @@ const AccountManagement = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    fetchUsers(user_tab);
   };
 
   const fetchUsers = async (user) => {

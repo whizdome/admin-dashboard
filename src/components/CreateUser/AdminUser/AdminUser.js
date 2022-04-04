@@ -10,7 +10,7 @@ import Spinner from "../../Loader";
 import { BsCaretRightFill } from "react-icons/bs";
 import { HiCheck } from "react-icons/hi";
 
-import { Steps, Divider, Form, Radio } from "antd";
+import { Steps, Divider, Form, Radio, Checkbox } from "antd";
 import "antd/dist/antd.css";
 
 import style from "./AdminUser.module.scss";
@@ -29,7 +29,7 @@ const NewAdminUser = ({ closeModal }) => {
     phone_number: "",
   });
   const [allRoles, setAllRoles] = useState([]);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState([]);
   const [errors, setErrors] = useState([]);
   const [step3Data, setStep3Data] = useState([]);
 
@@ -137,25 +137,19 @@ const NewAdminUser = ({ closeModal }) => {
             }}
           />
           <div className={style.form_container}>
-            {current === 0 && (
+            {current === 1 && (
               <div id={style.admin_user_steps_one} className={style.admin_step}>
                 <h1>Setup basics for the User</h1>
                 <p>
                   Donec dapibus mauris id odio ornare tempus. Duis sit amet
                   accumsan justo, quis tempor ligula.
                 </p>
-                <Form form={form} layout="vertical" requiredMark={false}>
+                <Form form={form} layout="vertical">
                   <div className={style.admin_step_inputs}>
                     <Item
                       name="first_name"
                       label="First Name"
                       className={style.admin_step_input}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your first name!",
-                        },
-                      ]}
                     >
                       <input
                         type="text"
@@ -168,12 +162,6 @@ const NewAdminUser = ({ closeModal }) => {
                       name="last_name"
                       label="Last Name"
                       className={style.admin_step_input}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your last name!",
-                        },
-                      ]}
                     >
                       <input
                         type="text"
@@ -186,12 +174,6 @@ const NewAdminUser = ({ closeModal }) => {
                       name="email"
                       label="Email Address"
                       className={style.admin_step_input}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input a valid email!",
-                        },
-                      ]}
                     >
                       <input
                         type="email"
@@ -204,13 +186,6 @@ const NewAdminUser = ({ closeModal }) => {
                       name="phone_number"
                       label="Phone Number"
                       className={style.admin_step_input}
-                      rules={[
-                        {
-                          required: true,
-                          //   length: 11,
-                          message: "Please input a valid phone number",
-                        },
-                      ]}
                     >
                       <input
                         type="number"
@@ -224,35 +199,23 @@ const NewAdminUser = ({ closeModal }) => {
               </div>
             )}
 
-            {current === 1 && (
+            {current === 0 && (
               <div id={style.admin_user_steps_two} className={style.admin_step}>
                 <h1>User Management</h1>
                 <p>Setup user Permission</p>
-                <Form form={form} requiredMark={false}>
+                <Form form={form}>
                   <div className={style.admin_step_inputs}>
-                    <Item
-                      name="role"
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                    >
-                      {allRoles.map((name) => (
-                        <Radio.Group
-                          key={name}
-                          value={role}
-                          className={style.admin_step_input}
-                          onChange={(e) => {
-                            setRole(e.target.value);
-                            form.setFieldsValue({ role: e.target.value });
-                          }}
-                        >
-                          <Radio name="role" value={name}>
-                            {name}
-                          </Radio>
-                        </Radio.Group>
-                      ))}
+                    <Item name="role">
+                      <Checkbox.Group
+                        key={name}
+                        value={role}
+                        className={style.admin_step_input}
+                        options={allRoles}
+                        onChange={(e) => {
+                          setRole(e);
+                          form.setFieldsValue({ role: e });
+                        }}
+                      ></Checkbox.Group>
                     </Item>
                   </div>
                 </Form>

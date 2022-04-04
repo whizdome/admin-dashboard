@@ -10,33 +10,45 @@ export const AuthApi = axios.create({
   },
 });
 
-const access_token = localStorage.getItem("token");
-
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: "Bearer " + access_token,
-  "Access-Control-Allow-Origin": "*",
+let headers = () => {
+  const access_token = localStorage.getItem("token");
+  // console.log("A2 token", access_token);
+  return {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + access_token,
+    "Access-Control-Allow-Origin": "*",
+  };
 };
 
-export const AdminApi = axios.create({
+export let AdminApi = axios.create({
   baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/admin/",
-
-  headers: headers,
+  //headers: headers(),
+  headers: headers(),
 });
 
-export const AccountApi = axios.create({
+export let AccountApi = axios.create({
   baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/user/",
 
-  headers: headers,
+  headers: headers(),
 });
 
-export const UserApi = axios.create({
+export let UserApi = axios.create({
   baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/user/",
 
-  headers: headers,
+  headers: headers(),
 });
 
-export const OtherApi = axios.create({
+export let OtherApi = axios.create({
   baseURL: process.env.REACT_APP_IDENTITY_BASE_URL,
-  headers,
+  headers: headers(),
 });
+
+// const headers = () => {
+//   const access_token = localStorage.getItem("token");
+//   console.log("A2 token", access_token);
+//   return {
+//     "Content-Type": "application/json",
+//     Authorization: "Bearer " + access_token,
+//     "Access-Control-Allow-Origin": "*",
+//   };
+// };

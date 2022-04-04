@@ -1,0 +1,328 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.dashboard {
+  padding: 4rem 2rem;
+}
+.dashboard .dashboard_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard .dashboard_header .user_details {
+  display: flex;
+  align-items: center;
+}
+.dashboard .dashboard_header .user_details img,
+.dashboard .dashboard_header .user_details svg {
+  height: 4.5rem;
+  width: 4.5rem;
+  border: 3px solid #b9b9b9;
+  border-radius: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  margin-right: 1.2rem;
+}
+.dashboard .dashboard_header .user_details p:first-child {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 0;
+}
+.dashboard .dashboard_header .user_details p:nth-child(2) {
+  font-size: 1.3rem;
+  color: #707070;
+  margin: 0;
+}
+.dashboard .dashboard_body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 3rem;
+  width: 95%;
+  margin: 3rem 0;
+}
+.dashboard .dashboard_body .card_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.dashboard .dashboard_body .card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+.dashboard .dashboard_body .card_header .card_icon_wrapper {
+  background-color: #3ea200;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard .dashboard_body .card_header .card_icon_wrapper .card_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.8rem;
+  width: 2.8rem;
+  border: 1.5px solid #fff;
+  border-radius: 50px;
+}
+.dashboard .dashboard_body .card_header .card_icon_wrapper .card_icon svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper .left {
+  position: relative;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper .left .card_divider {
+  border-left: 1px solid #fff;
+  position: absolute;
+  top: 0;
+  right: -1rem;
+  height: -webkit-fill-available;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper .right {
+  margin-left: 2rem;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper .card_title {
+  font-size: 1.25rem;
+}
+.dashboard .dashboard_body .card_header .card_text_wrapper .card_value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+.dashboard .dashboard_body .card_footer {
+  margin-top: 2rem;
+}
+.dashboard .dashboard_body .card_footer .card_title {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+.dashboard .dashboard_body .card_footer .card_value {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.dashboard .dashboard_body .card_footer .card_footer_content {
+  display: flex;
+}
+.dashboard .dashboard_body .card_footer .card_footer_content .left,
+.dashboard .dashboard_body .card_footer .card_footer_content .right,
+.dashboard .dashboard_body .card_footer .card_footer_content .center {
+  position: relative;
+}
+.dashboard .dashboard_body .card_footer .card_footer_content .right,
+.dashboard .dashboard_body .card_footer .card_footer_content .center {
+  margin-left: 2rem;
+}
+.dashboard .dashboard_body .card_footer .card_footer_content .card_divider {
+  border-left: 1px solid #fff;
+  position: absolute;
+  top: 0;
+  right: -1rem;
+  height: -webkit-fill-available;
+}
+.dashboard .dashboard_chart {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+}
+.dashboard .dashboard_chart #graph_data,
+.dashboard .dashboard_chart #location_data,
+.dashboard .dashboard_chart #event_data {
+  background: #ffffff;
+  border: 1px solid #e8e7e7;
+  border-radius: 5px;
+  padding: 2rem;
+}
+.dashboard .dashboard_chart .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard .dashboard_chart .header .filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border: 1px solid #1a1a1a;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+.dashboard .dashboard_chart .header .filter span {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+.dashboard .dashboard_chart .header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+.dashboard .dashboard_chart #graph_data .subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 50%;
+}
+.dashboard .dashboard_chart #graph_data .subheader .left p {
+  font-size: 1.3rem;
+  color: #989898;
+}
+.dashboard .dashboard_chart #graph_data .subheader .left h2 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.dashboard .dashboard_chart #graph_data .subheader .ant-divider {
+  margin: 0;
+  border-color: #707070;
+  height: 7rem;
+}
+.dashboard .dashboard_chart #graph_data .subheader .right p {
+  font-size: 1.3rem;
+  color: #989898;
+}
+.dashboard .dashboard_chart #graph_data .subheader .right h2 {
+  font-weight: 600;
+  font-size: 1.8rem;
+  display: inline-flex;
+}
+.dashboard .dashboard_chart #graph_data .subheader .right span {
+  background: #ecffe0;
+  border: 1px solid #3ea200;
+  border-radius: 13px;
+  color: #3ea200;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.5rem 0.8rem;
+  margin-left: 0.8rem;
+}
+.dashboard .dashboard_chart #graph_data .subheader .right span svg {
+  height: 1.1rem;
+  width: 1.1rem;
+  color: #3ea200;
+  margin-left: 0.3rem;
+}
+.dashboard .dashboard_chart #location_data .location_data_body {
+  margin-top: 2rem;
+}
+.dashboard .dashboard_chart #location_data .location_data_body .location_data_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.6rem 0;
+}
+.dashboard .dashboard_chart #location_data .location_data_body .location_data_item p:first-of-type {
+  color: #989898;
+}
+.dashboard .dashboard_chart #location_data .location_data_body .location_data_item p:last-of-type {
+  color: #1a1a1a;
+  font-size: 1.3rem;
+}
+.dashboard .dashboard_chart #location_data .location_data_body .location_data_item p:last-of-type .ant-divider {
+  border-left-color: #1a1a1a;
+}
+.dashboard .dashboard_chart #event_data .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  color: #000000;
+}
+.dashboard .dashboard_chart #event_data .title p {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.dashboard .dashboard_chart #event_data hr {
+  border: 1px solid #f4f4f4;
+  margin: 0 0 1rem;
+}
+.dashboard .dashboard_chart #event_data .event_data_body .event_data_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+.dashboard .dashboard_chart #event_data .event_data_body .event_data_item .event_data_item_logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard .dashboard_chart #event_data .event_data_body .event_data_item .event_data_item_logo img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50px;
+  border: 1px solid #989898;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+  margin-right: 1rem;
+}
+.dashboard .dashboard_chart #event_data .event_data_body .event_data_item .event_data_item_logo p {
+  color: #000000;
+  font-size: 1.3rem;
+  margin: 0;
+}
+.dashboard .dashboard_chart #event_data .event_data_body .event_data_item p {
+  color: #000000;
+  font-size: 1.3rem;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 2rem;
+  }
+  .dashboard .dashboard_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .dashboard .dashboard_body {
+    width: 100%;
+  }
+}
+
+.ant-dropdown-arrow {
+  background: linear-gradient(135deg, transparent 40%, #000 40%);
+}
+.ant-dropdown-arrow::before {
+  background: linear-gradient(to left, #000 50%, #000 50%) no-repeat -10px -10px;
+}
+
+.ant-dropdown .dropdown_container {
+  background: #000;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2rem;
+  left: 702px;
+}/*# sourceMappingURL=Dashboard.css.map */
