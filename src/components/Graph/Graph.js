@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 import "./Graph.scss";
 
@@ -56,20 +56,22 @@ const data = [
 
 export default function App() {
   return (
-    <BarChart
-      width={550}
-      height={300}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 50,
-      }}
-    >
-      <XAxis dy={30} dataKey="name" />
-      <YAxis dx={-30} />
-      <Bar dataKey="uv" fill="#000" radius={[50, 50, 50, 50]} barSize={10} />
-    </BarChart>
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 50,
+        }}
+      >
+        <XAxis dy={30} dataKey="name" />
+        <YAxis dx={-30} />
+        <Bar dataKey="uv" fill="#000" radius={[50, 50, 50, 50]} barSize={10} />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }

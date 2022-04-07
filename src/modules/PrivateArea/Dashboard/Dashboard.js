@@ -16,11 +16,39 @@ import {
   dashboardAttendeeLocation,
   dashboardAttendeeEvents,
 } from "../../../constants/index";
+import {
+  DashboardAnalytics,
+  EventsAnalytics,
+  HostAnalytics,
+  AttendeesAnalytics,
+  TopAttendeesLocation,
+  TopEventsAnalytics,
+} from "../../../redux/services/dashboard";
+import DatePicker from "../../../components/Calender/Calender";
 
 import "./Dashboard.scss";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
+  const [attendeeList, setAttendeeList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [locationVisible, setLocationVisible] = useState(false);
+  const [eventVisible, setEventVisible] = useState(false);
+
+  const handleVisibleChange = () => {
+    setVisible(!visible);
+  };
+
+  const handleLocationVisibleChange = () => {
+    setLocationVisible(!locationVisible);
+  };
+
+  const handleEventVisibleChange = () => {
+    setEventVisible(!eventVisible);
+  };
 
   const filter = (
     <div className="dropdown_container">
@@ -30,10 +58,78 @@ const Dashboard = () => {
     </div>
   );
 
+  const locationFilter = (
+    <div className="dropdown_container">
+      <p>Select Date</p>
+      <DatePicker />
+    </div>
+  );
+
+  const eventFilter = (
+    <div className="dropdown_container">
+      <div>
+        <p>Select Date</p>
+        {/* <DatePicker /> */}
+      </div>
+      <div>
+        <p>Select Event Type</p>
+        <div style={{}}>
+          <label htmlFor="agm">
+            <input id="agm" type="radio" name="event" value="AGM" />
+            AGM
+          </label>
+          <label htmlFor="corporate_event">
+            <input
+              id="corporate_event"
+              type="radio"
+              name="event"
+              value="Corporate Event"
+            />
+            Corporate Event
+          </label>
+          <label htmlFor="concert_shows">
+            <input
+              id="concert_shows"
+              type="radio"
+              name="event"
+              value="Concert & Shows"
+            />
+            Concert & Shows
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+
+  const getAnalytics = async () => {
+    setLoading(true);
+    const res = await DashboardAnalytics();
+    if (res?.message === "OK") {
+      setData(res?.data);
+    }
+    if (res.errors) setErrors(res.errors);
+    setAttendeeList(
+      Object.values(res?.data?.this_month_attendees_list).map((item) => item)
+    );
+    const resHost = await TopEventsAnalytics();
+    console.log(res);
+  };
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
-    console.log(data);
-    setData(data);
+    // console.log(data);
+    setUser(data);
+    getAnalytics();
+
+    const onScroll = () => {
+      setVisible(false);
+      setEventVisible(false);
+      setLocationVisible(false);
+    };
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, true);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -41,13 +137,13 @@ const Dashboard = () => {
       <div className="dashboard">
         <div className="dashboard_header">
           <div className="user_details">
-            {data.profile_picture_path ? (
-              <img src={data.profile_picture_path} alt="user" />
+            {user.profile_picture_path ? (
+              <img src={user.profile_picture_path} alt="user" />
             ) : (
               <CgProfile />
             )}{" "}
             <div>
-              <p className="user_name">Hi {data.name}</p>
+              <p className="user_name">Hi {user.name}</p>
               <p className="welcome_message">Welcome to your Admin dashboard</p>
             </div>
           </div>
@@ -67,13 +163,13 @@ const Dashboard = () => {
                   <div className="card_text_wrapper">
                     <div className="left">
                       <p className="card_title">Total Host</p>
-                      <p className="card_value">20,000</p>
+                      <p className="card_value">{data?.total_hosts}</p>
 
                       <div className="card_divider"></div>
                     </div>
                     <div className="right">
                       <p className="card_title">Host (This Month)</p>
-                      <p className="card_value">2,000</p>
+                      <p className="card_value">{data?.this_month_host}</p>
                     </div>
                   </div>
                   <div className="card_icon_wrapper">
@@ -84,7 +180,7 @@ const Dashboard = () => {
                 </div>
                 <div className="card_footer">
                   <p className="card_title">Total Active Host This Month</p>
-                  <p className="card_value">800</p>
+                  <p className="card_value">{data?.total_active_host}</p>
                 </div>
               </div>
             }
@@ -96,12 +192,12 @@ const Dashboard = () => {
                   <div className="card_text_wrapper">
                     <div className="left">
                       <p className="card_title">Total Attendees</p>
-                      <p className="card_value">750,000</p>
+                      <p className="card_value">{data?.total_attendees}</p>
                       <div className="card_divider"></div>
                     </div>
                     <div className="right">
                       <p className="card_title">Attendees (This Month)</p>
-                      <p className="card_value">75,000</p>
+                      <p className="card_value">{data?.this_month_attendees}</p>
                     </div>
                   </div>
                   <div className="card_icon_wrapper">
@@ -115,17 +211,17 @@ const Dashboard = () => {
                   <div className="card_footer_content">
                     <div className="left">
                       <p className="card_title">AGM</p>
-                      <p className="card_value">50,000</p>
+                      <p className="card_value">{attendeeList[1]}</p>
                       <div className="card_divider"></div>
                     </div>
                     <div className="center">
                       <p className="card_title">Corporate Events</p>
-                      <p className="card_value">20,000</p>
+                      <p className="card_value">{attendeeList[0]}</p>
                       <div className="card_divider"></div>
                     </div>
                     <div className="right">
                       <p className="card_title">Shows</p>
-                      <p className="card_value">5,000</p>
+                      <p className="card_value">{attendeeList[2]}</p>
                     </div>
                   </div>
                 </div>
@@ -139,12 +235,12 @@ const Dashboard = () => {
                   <div className="card_text_wrapper">
                     <div className="left">
                       <p className="card_title">Total Events</p>
-                      <p className="card_value">5,000</p>
+                      <p className="card_value">{data?.total_events}</p>
                       <div className="card_divider"></div>
                     </div>
                     <div className="right">
                       <p className="card_title">Total Host</p>
-                      <p className="card_value">500</p>
+                      <p className="card_value">{data?.total_host}</p>
                     </div>
                   </div>
                   <div className="card_icon_wrapper">
@@ -185,6 +281,8 @@ const Dashboard = () => {
                 placement="bottomRight"
                 trigger={["click"]}
                 arrow={{ pointAtCenter: true }}
+                onVisibleChange={handleVisibleChange}
+                visible={visible}
                 className="dropdown_filter"
               >
                 <div className="filter">
@@ -216,11 +314,21 @@ const Dashboard = () => {
           <div id="location_data">
             <div className="header">
               <h2>Attendee Location</h2>
-              <div className="filter">
-                <AiOutlineMenu />
-                <span>Filter</span>
-                <BsCaretDownFill />
-              </div>
+
+              <Dropdown
+                overlay={locationFilter}
+                placement="bottomRight"
+                trigger={["click"]}
+                arrow={{ pointAtCenter: true }}
+                onVisibleChange={handleLocationVisibleChange}
+                visible={locationVisible}
+              >
+                <div className="filter">
+                  <AiOutlineMenu />
+                  <span>Filter</span>
+                  <BsCaretDownFill />
+                </div>
+              </Dropdown>
             </div>
             <div className="location_data_body">
               {dashboardAttendeeLocation.map(
@@ -241,10 +349,12 @@ const Dashboard = () => {
             <div className="header">
               <h2>Top Events</h2>
               <Dropdown
-                overlay={filter}
+                overlay={eventFilter}
                 placement="bottomRight"
                 trigger={["click"]}
                 arrow={{ pointAtCenter: true }}
+                onVisibleChange={handleEventVisibleChange}
+                visible={eventVisible}
               >
                 <div className="filter">
                   <AiOutlineMenu />

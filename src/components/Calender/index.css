@@ -1,0 +1,58 @@
+.rdrCalendarWrapper {
+  box-sizing: border-box;
+  background: #20232b;
+  color: #fff;
+}
+.rdrDateDisplayWrapper {
+  background-color: #13171c;
+}
+.rdrDateDisplayItem {
+  border-radius: 10px;
+  background-color: transparent;
+  box-shadow: 0 1px 2px 0 rgb(35 57 66 / 21%);
+  border: 2px solid rgb(255 255 255 / 20%);
+}
+.rdrDateDisplayItemActive {
+  border: 2px solid #fff;
+}
+.rdrNextPrevButton,
+.rdrNextButton {
+  border: 1px solid #fff;
+  background: #20232b;
+}
+.rdrNextPrevButton i {
+  border-color: transparent rgb(255 255 255 / 85%) transparent transparent;
+}
+.rdrNextButton i {
+  border-color: transparent transparent transparent rgb(255 255 255 / 85%);
+}
+.rdrMonthPicker,
+.rdrYearPicker {
+  margin: 0 5px;
+  background-color: rgb(255 255 255 / 85%);
+}
+.rdrMonthAndYearPickers select {
+  color: #13171c;
+}
+.rdrDayNumber span {
+  color: #d5dce0;
+}
+.rdrDayToday .rdrDayNumber span:after {
+  background: rgb(255 255 255 / 85%);
+}
+.rdr {
+  color: #000;
+}
+.rdrInRange {
+  color: #44474f !important;
+}
+.rdrStartEdge,
+.rdrEndEdge {
+  color: rgb(255 255 255 / 85%) !important;
+}
+
+.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+  color: #000;
+}

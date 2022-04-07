@@ -25,7 +25,7 @@ Breakpoint aurgument
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #e8e7e7;
-  box-shadow: 0px 10px 50px #0000000d;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.0509803922);
 }
 .acct_management .acct_management_header .user_details {
   display: flex;
@@ -35,7 +35,7 @@ Breakpoint aurgument
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background-color: #b7b7b729;
+  background-color: rgba(183, 183, 183, 0.1607843137);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +96,7 @@ Breakpoint aurgument
   font-size: 16px;
   width: 50%;
   border-radius: 10px;
-  border: 1px solid #1a1a1a00;
+  border: 1px solid rgba(26, 26, 26, 0);
   background: #f4f4f4;
   margin-left: 1.5rem;
 }
@@ -121,7 +121,7 @@ Breakpoint aurgument
 }
 .acct_management .acct_management_buttons .ant-input-affix-wrapper-focused {
   box-shadow: none;
-  border: 1px solid #1a1a1a1c;
+  border: 1px solid rgba(26, 26, 26, 0.1098039216);
 }
 .acct_management .acct_management_buttons .ant-input-affix-wrapper-focused input {
   border: none;

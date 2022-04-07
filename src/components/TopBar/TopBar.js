@@ -12,6 +12,11 @@ import style from "./TopBar.module.scss";
 
 const TopBar = ({ toggle, width, menuCollapse }) => {
   const [user, setUser] = useState({});
+  const [visible, setVisible] = useState(false);
+
+  const handleVisibleChange = () => {
+    setVisible(!visible);
+  };
 
   const fetchAccount = () => {
     const data = localStorage.getItem("user");
@@ -63,6 +68,14 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
     fetchAccount();
     const user = localStorage.getItem("user");
     setUser(JSON.parse(user));
+
+    const onScroll = () => {
+      setVisible(false);
+    };
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, true);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -97,6 +110,8 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
           placement="bottomRight"
           trigger={["click"]}
           arrow={{ pointAtCenter: true }}
+          onVisibleChange={handleVisibleChange}
+          visible={visible}
         >
           <div className={style.user_info}>
             {user.profile_picture_path ? (
