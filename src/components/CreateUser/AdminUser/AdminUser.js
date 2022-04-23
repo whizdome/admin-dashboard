@@ -137,7 +137,7 @@ const NewAdminUser = ({ closeModal }) => {
             }}
           />
           <div className={style.form_container}>
-            {current === 1 && (
+            {current === 0 && (
               <div id={style.admin_user_steps_one} className={style.admin_step}>
                 <h1>Setup basics for the User</h1>
                 <p>
@@ -199,7 +199,7 @@ const NewAdminUser = ({ closeModal }) => {
               </div>
             )}
 
-            {current === 0 && (
+            {current === 1 && (
               <div id={style.admin_user_steps_two} className={style.admin_step}>
                 <h1>User Management</h1>
                 <p>Setup user Permission</p>

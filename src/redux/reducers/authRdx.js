@@ -1,21 +1,25 @@
-export const login = (state = {}, action) => {
-  if (action.type === "ADMIN_LOGIN") {
-    return action.payload;
-  }
-
-  return state;
+const initialState = {
+  data: [],
 };
 
-export const resetPassword = (state = {}, action) => {
-  if (action.type === "ADMIN_RESET_PASSWORD") {
-    return action.payload;
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "ADMIN_LOGIN":
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case "ADMIN_RESET_PASSWORD":
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case "ADMIN_FORGOT_PASSWORD":
+      return {
+        ...state,
+        data: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
-};
-
-export const forgotPassword = (state = {}, action) => {
-  if (action.type === "ADMIN_FORGOT_PASSWORD") {
-    return action.payload;
-  }
-  return state;
-};
+}

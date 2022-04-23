@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
@@ -8,9 +7,10 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { VscKey } from "react-icons/vsc";
+import { toast } from "react-toastify";
 
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { AdminLogin } from "../../../redux/actions/authAct";
+import { login } from "../../../redux/services/auth";
 import Spinner from "../../../components/Loader";
 
 import InputField from "../../../components/InputField/Input";
@@ -57,34 +57,30 @@ const Login = () => {
 
   const { email, password } = state;
 
-  const loginState = useSelector((state) => state.loginRes, shallowEqual);
-
-  const dispatch = useDispatch();
-
   const body = {
     email: email.value,
     password: password.value,
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
-    try {
-      dispatch(AdminLogin(body));
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
-
-  useEffect(() => {
-    if (loginState?.status === 200) {
-      setLoading(false);
-      const data = loginState?.data?.data;
+    const res = await login(body);
+    if (res?.data) {
+      const data = res.data;
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
       history.push("/dashboard", data);
-      console.log("loginState", data);
+      setLoading(false);
     }
-  }, [loginState]);
+
+    if (res?.errors) {
+      toast.error(res.errors.email[0], {
+        position: "top-right",
+      });
+      setLoading(false);
+    }
+    setLoading(false);
+  };
 
   return (
     <PublicLayout link="/forgot-password">
@@ -128,15 +124,6 @@ const Login = () => {
               visibleRightIcon={<AiOutlineEyeInvisible />}
               hiddenRightIcon={<AiOutlineEye />}
             />
-            {/* {password.error ? (
-              <span className="error">{password.error}</span>
-            ) : password.value ? (
-              <span style={{ color: "green" }} className="error">
-                Password ✔
-              </span>
-            ) : (
-              ""
-            )} */}
           </div>
           <div className="footer">
             <PublicButton

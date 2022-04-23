@@ -26,7 +26,17 @@
   .footer {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
+    a {
+      color: #d9363e;
+      font-size: 1.4rem;
+      margin-right: 1rem;
+      font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   @include respond(phone) {

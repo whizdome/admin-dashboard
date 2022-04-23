@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { login, forgotPassword, resetPassword } from "./authRdx";
+import authReducer from "./authRdx";
 import userReducer from "./userRdx";
 import otherReducer from "./otherRdx";
 import {
@@ -10,9 +10,7 @@ import {
 import adminReducer from "./adminRdx";
 
 export default combineReducers({
-  loginRes: login,
-  resetPasswordRes: resetPassword,
-  forgotPasswordRes: forgotPassword,
+  authReducer,
 
   userReducer,
 

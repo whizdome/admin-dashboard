@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 
+import { toast } from "react-toastify";
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { AdminForgotPassword } from "../../../redux/actions/authAct";
+import { forgotPassword } from "../../../redux/services/auth";
 import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
@@ -37,9 +39,6 @@ const ForgotPassword = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const dispatch = useDispatch();
-  const forgotState = useSelector((state) => state.forgotPasswordRes);
-
   const { state, disable, handleChange } = useFormValidation(
     stateSchema,
     validateSchema
@@ -53,21 +52,20 @@ const ForgotPassword = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    try {
-      dispatch(AdminForgotPassword(body));
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
-
-  useEffect(() => {
-    if (forgotState?.status === 200) {
-      const data = forgotState?.data?.data;
-      data && setShowModal(true);
-
+    const res = await forgotPassword(body);
+    if (res?.success === true) {
+      setShowModal(true);
       setLoading(false);
     }
-  }, [forgotState]);
+
+    if (res?.success === false) {
+      toast.error(res.error, {
+        position: "top-right",
+      });
+      setLoading(false);
+    }
+    setLoading(false);
+  };
 
   return (
     <PublicLayout password="true">
@@ -100,6 +98,7 @@ const ForgotPassword = () => {
             )}
           </div>
           <div className="footer">
+            <Link to="./login">Return to Login</Link>
             <PublicButton
               btntitle="Reset Password"
               type="outline"
@@ -124,7 +123,7 @@ const ForgotPassword = () => {
               <h1>Check Your Mail</h1>
               <p>
                 A Password resent Link has been sent to your mail for
-                verification, Kindly check your email Lanre********@gmail.com
+                verification, Kindly check your email <b>{email.value}</b>
               </p>
               <PublicButton
                 btntitle="Okay, Thank you"

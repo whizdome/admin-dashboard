@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine, RiCheckLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
+import { toast } from "react-toastify";
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { AdminResetPassword } from "../../../redux/actions/authAct";
+import { resetPassword } from "../../../redux/services/auth";
 import Spinner from "../../../components/Loader";
 
 import PublicLayout from "../../../components/Layout/Public/PublicLayout";
@@ -69,20 +70,21 @@ const ResetPassword = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    try {
-      dispatch(AdminResetPassword(body));
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
-
-  useEffect(() => {
-    if (resetState?.status === 200) {
-      const data = resetState?.data?.data;
-      data && setShowModal(true);
+    const res = await resetPassword(body);
+    console.log(res);
+    if (res?.success === true) {
+      setShowModal(true);
       setLoading(false);
     }
-  }, [resetState]);
+
+    if (res?.success === false) {
+      toast.error(res.error, {
+        position: "top-right",
+      });
+      setLoading(false);
+    }
+    setLoading(false);
+  };
 
   return (
     <PublicLayout reset="false" password="false">
@@ -90,7 +92,7 @@ const ResetPassword = () => {
         <Header
           headerIcon={<RiLockPasswordLine />}
           headerTitle="Set New Password"
-          headerSubtitle="A verification reset password link will be sent to your email address"
+          headerSubtitle="Please enter your details below to reset your password with a new Password"
         />
         <hr />
         <form className="form" noValidate>
@@ -162,9 +164,8 @@ const ResetPassword = () => {
               </div>
               <h1>Password Reset Successful</h1>
               <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam"
+                Your Password has been successfully reset, kindly click the
+                button below to login with your new password
               </p>
               <PublicButton
                 btntitle="Sign me in"

@@ -1,0 +1,67 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+.login_container hr {
+  border: 1px dashed #cecece;
+  width: 100%;
+}
+.login_container .form {
+  width: 100%;
+  padding: 2rem 0;
+}
+.login_container .form .form_group {
+  margin-bottom: 4rem;
+}
+.login_container .form .form_group .error {
+  display: flex;
+  justify-content: end;
+  color: #d80b2c;
+  font-size: 0.9rem;
+}
+.login_container .footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.login_container .footer a {
+  color: #d9363e;
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+.login_container .footer a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .login_container {
+    padding: 0;
+  }
+  .login_container .footer {
+    justify-content: center;
+  }
+}
+@media (max-width: 900px) {
+  .login_container .footer {
+    justify-content: center;
+  }
+}/*# sourceMappingURL=Login.css.map */
