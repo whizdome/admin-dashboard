@@ -1,8 +1,8 @@
-import { AdminApi } from "./Api";
+import { BaseApi } from "./Api";
 
 export const fetchAllUsers = async (account_type) => {
   try {
-    const res = await AdminApi.get(`users?account_type=${account_type}`);
+    const res = await BaseApi.get(`/admin/users?account_type=${account_type}`);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -13,7 +13,10 @@ export const fetchAllUsers = async (account_type) => {
 
 export const createIndividualAccount = async (body) => {
   try {
-    const res = AdminApi.post("users/individual", JSON.stringify(body));
+    const res = await BaseApi.post(
+      "/admin/users/individual",
+      JSON.stringify(body)
+    );
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -24,7 +27,10 @@ export const createIndividualAccount = async (body) => {
 
 export const createCorporateAccount = async (body) => {
   try {
-    const res = await AdminApi.post("users/corporate", JSON.stringify(body));
+    const res = await BaseApi.post(
+      "/admin/users/corporate",
+      JSON.stringify(body)
+    );
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -35,7 +41,7 @@ export const createCorporateAccount = async (body) => {
 
 export const createAdminAccount = async (body) => {
   try {
-    const res = await AdminApi.post("users/admin", JSON.stringify(body));
+    const res = await BaseApi.post("/admin/users/admin", JSON.stringify(body));
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -46,7 +52,7 @@ export const createAdminAccount = async (body) => {
 
 export const fetchRoles = async () => {
   try {
-    const res = await AdminApi.get("roles");
+    const res = await BaseApi.get("/admin/roles");
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -57,7 +63,7 @@ export const fetchRoles = async () => {
 
 export const fetchPlans = async (plan_type) => {
   try {
-    const res = await AdminApi.get(`plans?plan_type=${plan_type}`);
+    const res = await BaseApi.get(`/admin/plans?plan_type=${plan_type}`);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -68,7 +74,7 @@ export const fetchPlans = async (plan_type) => {
 
 export const showUserSocials = async (user_id) => {
   try {
-    const res = AdminApi.get(`users/socials/${user_id}`);
+    const res = await BaseApi.get(`/admin/users/socials/${user_id}`);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -79,7 +85,7 @@ export const showUserSocials = async (user_id) => {
 
 export const fetchUserAccountById = async (id) => {
   try {
-    const res = await AdminApi.get(`users/accounts/${id}`);
+    const res = await BaseApi.get(`/admin/users/accounts/${id}`);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -90,7 +96,7 @@ export const fetchUserAccountById = async (id) => {
 
 export const fetchUserSocials = async (id) => {
   try {
-    const res = await AdminApi.get(`users/socials/${id}`);
+    const res = await BaseApi.get(`/admin/users/socials/${id}`);
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -101,7 +107,7 @@ export const fetchUserSocials = async (id) => {
 
 export const assignRole = async (body) => {
   try {
-    const res = await AdminApi.post("assign-role", JSON.stringify(body));
+    const res = await BaseApi.post("/admin/assign-role", JSON.stringify(body));
     return res;
   } catch (error) {
     if (error.response) {
@@ -112,7 +118,10 @@ export const assignRole = async (body) => {
 
 export const createSubscription = async (body) => {
   try {
-    const res = await AdminApi.post("subscriptions", JSON.stringify(body));
+    const res = await BaseApi.post(
+      "/admin/subscriptions",
+      JSON.stringify(body)
+    );
     return res.data;
   } catch (error) {
     if (error.response) {

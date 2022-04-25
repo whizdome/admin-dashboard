@@ -10,39 +10,24 @@ export const AuthApi = axios.create({
   },
 });
 
-let headers = () => {
-  const access_token = localStorage.getItem("token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + access_token,
-  };
-};
-
-export let AdminApi = axios.create({
-  baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/admin/",
-
-  headers: headers(),
-});
-
-export let AccountApi = axios.create({
-  baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/user/",
-
-  headers: headers(),
-});
-
-export let UserApi = axios.create({
-  baseURL: process.env.REACT_APP_IDENTITY_BASE_URL + "/user/",
-
-  headers: headers(),
-});
-
-export let OtherApi = axios.create({
+export let BaseApi = axios.create({
   baseURL: process.env.REACT_APP_IDENTITY_BASE_URL,
-  headers: headers(),
+});
+
+BaseApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+
+  return config;
 });
 
 export let DashboardApi = axios.create({
   baseURL: process.env.REACT_APP_EVENT_BASE_URL + "/admin/",
+});
 
-  headers: headers(),
+DashboardApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+
+  return config;
 });

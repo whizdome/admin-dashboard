@@ -10,7 +10,7 @@ import Spinner from "../../Loader";
 import { BsCaretRightFill } from "react-icons/bs";
 import { HiCheck } from "react-icons/hi";
 
-import { Steps, Divider, Form, Radio, Checkbox } from "antd";
+import { Steps, Divider, Form, Checkbox } from "antd";
 import "antd/dist/antd.css";
 
 import style from "./AdminUser.module.scss";

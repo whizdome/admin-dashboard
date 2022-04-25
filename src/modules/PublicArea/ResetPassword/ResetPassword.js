@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine, RiCheckLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import { toast } from "react-toastify";
-import { useFormValidation } from "../../../hooks/useFormValidation";
 import { resetPassword } from "../../../redux/services/auth";
 import Spinner from "../../../components/Loader";
 
@@ -18,54 +16,18 @@ import CustomModal from "../../../components/Modal/Modal";
 
 import "./ResetPassword.scss";
 
-export const isStrongPassword = RegExp(
-  "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-);
-
-const stateSchema = {
-  password: {
-    value: "",
-    error: "",
-  },
-  confirmPassword: {
-    value: "",
-    error: "",
-  },
-};
-
-const validateSchema = {
-  password: {
-    required: true,
-    validator: {
-      regEx: isStrongPassword,
-      error: "Please provide a strong password",
-    },
-  },
-  confirmPassword: {
-    required: true,
-    validator: {
-      match: isStrongPassword,
-      error: "Passwords do not match",
-    },
-  },
-};
-
 const ResetPassword = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(true);
 
-  const dispatch = useDispatch();
-  const resetState = useSelector((state) => state.resetPasswordRes);
+  let format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-  const { state, disable, handleChange } = useFormValidation(
-    stateSchema,
-    validateSchema
-    // handleSend
-  );
-  const { password, confirmPassword } = state;
   const body = {
-    password: password.value,
-    confirmPassword: confirmPassword.value,
+    password: password,
+    confirmPassword: confirmPassword,
   };
 
   const handleSubmit = async () => {
@@ -86,6 +48,19 @@ const ResetPassword = () => {
     setLoading(false);
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    if (e.target.value === password) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
   return (
     <PublicLayout reset="false" password="false">
       <section className="login_container reset_password">
@@ -98,46 +73,37 @@ const ResetPassword = () => {
         <form className="form" noValidate>
           <div className="form_group">
             <InputField
-              value={password.value}
+              value={password}
               name="password"
               id="password"
               type="password"
               leftIcon={<VscKey />}
               label="New Password"
-              onChange={handleChange}
+              onChange={handlePasswordChange}
               visibleRightIcon={<AiOutlineEyeInvisible />}
               hiddenRightIcon={<AiOutlineEye />}
             />
-            {password.error ? (
-              <span className="error">{password.error}</span>
-            ) : password.value ? (
-              <span style={{ color: "green" }} className="error">
-                Strong Password ✔
-              </span>
-            ) : (
-              ""
-            )}
           </div>
           <div className="form_group">
             <InputField
-              value={confirmPassword.value}
+              value={confirmPassword}
               name="confirmPassword"
               id="confirmPassword"
               type="password"
               leftIcon={<VscKey />}
               label="Confirm Password"
-              onChange={handleChange}
+              onChange={handleConfirmPasswordChange}
               visibleRightIcon={<AiOutlineEyeInvisible />}
               hiddenRightIcon={<AiOutlineEye />}
             />
-            {confirmPassword.error ? (
-              <span className="error">{confirmPassword.error}</span>
-            ) : confirmPassword.value ? (
-              <span style={{ color: "green" }} className="error">
-                Password Match✔
-              </span>
-            ) : (
+            {confirmPassword === "" ? (
               ""
+            ) : error ? (
+              <span className="error">Passwords do not match</span>
+            ) : (
+              <span style={{ color: "green" }} className="error">
+                Passwords Match ✔
+              </span>
             )}
           </div>
           <div className="footer">
@@ -145,7 +111,7 @@ const ResetPassword = () => {
               btntitle="Reset Password"
               type="outline"
               onClick={handleSubmit}
-              disabled={disable}
+              disabled={error}
             />
           </div>
           <Spinner loading={loading} />
@@ -180,16 +146,60 @@ const ResetPassword = () => {
           <p>Password must include:</p>
           <div className="conditions">
             <ul>
-              <li>8 characters minimum</li>
-              <li>At least 1 uppercase character</li>
-              <li>At least 1 lowercase character</li>
-              <li>At least 1 number</li>
+              <li style={{ color: password.length >= 8 && "#3ea200" }}>
+                8 characters minimum
+              </li>
+              <li
+                style={{
+                  color: /[A-Z]/.test(password) && "#3ea200",
+                }}
+              >
+                At least 1 uppercase character
+              </li>
+              <li
+                style={{
+                  color: /[a-z]/.test(password) && "#3ea200",
+                }}
+              >
+                At least 1 lowercase character
+              </li>
+              <li
+                style={{
+                  color: /\d/.test(password) && "#3ea200",
+                }}
+              >
+                At least 1 number
+              </li>
             </ul>
             <ul>
-              <li>At least 1 special character</li>
-              <li>No spacing</li>
-              <li>No first name, last name or email</li>
-              <li>No common password</li>
+              <li
+                style={{
+                  color: format.test(password) && "#3ea200",
+                }}
+              >
+                At least 1 special character
+              </li>
+              <li
+                style={{
+                  color: !/\s/.test(password) && "#3ea200",
+                }}
+              >
+                No spacing
+              </li>
+              <li
+                style={{
+                  color: format.test(password) && "#3ea200",
+                }}
+              >
+                No first name, last name or email
+              </li>
+              <li
+                style={{
+                  color: format.test(password) && "#3ea200",
+                }}
+              >
+                No common password
+              </li>
             </ul>
           </div>
         </div>

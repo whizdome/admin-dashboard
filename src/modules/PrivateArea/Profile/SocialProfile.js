@@ -46,8 +46,8 @@ const SocialProfile = () => {
         facebook_url: data.facebook_url,
       });
     }
-    if (res?.errors) {
-      toast.error(res?.errors[0].message, {
+    if (res?.error) {
+      toast.error(res?.error, {
         position: "top-right",
       });
     }
@@ -65,12 +65,14 @@ const SocialProfile = () => {
         facebook_url: "",
       });
       toast.success("Update successfully", { position: "top-right" });
+      setLoading(false);
+    } else if (res?.error) {
+      toast.error(res?.error, { position: "top-right" });
+      setLoading(false);
+    } else {
+      console.log(res, state);
+      setLoading(false);
     }
-    if (res?.errors) {
-      toast.error(res?.errors[0].message, { position: "top-right" });
-    }
-    console.log(res, state);
-    setLoading(false);
   };
 
   useEffect(() => {

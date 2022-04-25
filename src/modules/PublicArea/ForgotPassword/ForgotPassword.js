@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
@@ -56,9 +55,7 @@ const ForgotPassword = () => {
     if (res?.success === true) {
       setShowModal(true);
       setLoading(false);
-    }
-
-    if (res?.success === false) {
+    } else {
       toast.error(res.error, {
         position: "top-right",
       });

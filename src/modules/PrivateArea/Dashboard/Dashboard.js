@@ -8,6 +8,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { BsCaretDownFill } from "react-icons/bs";
 import { CgStack, CgProfile } from "react-icons/cg";
 
+import Spinner from "../../../components/Loader";
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
 import { OutlineIconButton } from "../../../components/Button/Button";
 import { DashboardCard } from "../../../components/Card/Card";
@@ -106,12 +107,15 @@ const Dashboard = () => {
     const res = await DashboardAnalytics();
     if (res?.message === "OK") {
       setData(res?.data);
+      setAttendeeList(
+        Object.values(res?.data?.this_month_attendees_list).map((item) => item)
+      );
+      setLoading(false);
     }
-    if (res.errors) setErrors(res.errors);
-    setAttendeeList(
-      Object.values(res?.data?.this_month_attendees_list).map((item) => item)
-    );
-    const resHost = await TopEventsAnalytics();
+    if (res.errors) {
+      setErrors(res.errors);
+      setLoading(false);
+    }
     console.log(res);
   };
 
@@ -155,232 +159,242 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="dashboard_body">
-          <DashboardCard
-            children={
-              <div className="card_content">
-                <div className="card_header">
-                  <div className="card_text_wrapper">
-                    <div className="left">
-                      <p className="card_title">Total Host</p>
-                      <p className="card_value">{data?.total_hosts}</p>
+        {loading ? (
+          <Spinner visible={loading} />
+        ) : (
+          <>
+            <div className="dashboard_body">
+              <DashboardCard
+                children={
+                  <div className="card_content">
+                    <div className="card_header">
+                      <div className="card_text_wrapper">
+                        <div className="left">
+                          <p className="card_title">Total Host</p>
+                          <p className="card_value">{data?.total_hosts}</p>
 
-                      <div className="card_divider"></div>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="right">
+                          <p className="card_title">Host (This Month)</p>
+                          <p className="card_value">{data?.this_month_host}</p>
+                        </div>
+                      </div>
+                      <div className="card_icon_wrapper">
+                        <div className="card_icon">
+                          <BiBriefcaseAlt2 />
+                        </div>
+                      </div>
                     </div>
-                    <div className="right">
-                      <p className="card_title">Host (This Month)</p>
-                      <p className="card_value">{data?.this_month_host}</p>
-                    </div>
-                  </div>
-                  <div className="card_icon_wrapper">
-                    <div className="card_icon">
-                      <BiBriefcaseAlt2 />
-                    </div>
-                  </div>
-                </div>
-                <div className="card_footer">
-                  <p className="card_title">Total Active Host This Month</p>
-                  <p className="card_value">{data?.total_active_host}</p>
-                </div>
-              </div>
-            }
-          />
-          <DashboardCard
-            children={
-              <div className="card_content">
-                <div className="card_header">
-                  <div className="card_text_wrapper">
-                    <div className="left">
-                      <p className="card_title">Total Attendees</p>
-                      <p className="card_value">{data?.total_attendees}</p>
-                      <div className="card_divider"></div>
-                    </div>
-                    <div className="right">
-                      <p className="card_title">Attendees (This Month)</p>
-                      <p className="card_value">{data?.this_month_attendees}</p>
+                    <div className="card_footer">
+                      <p className="card_title">Total Active Host This Month</p>
+                      <p className="card_value">{data?.total_active_host}</p>
                     </div>
                   </div>
-                  <div className="card_icon_wrapper">
-                    <div className="card_icon">
-                      <FaUserTie />
+                }
+              />
+              <DashboardCard
+                children={
+                  <div className="card_content">
+                    <div className="card_header">
+                      <div className="card_text_wrapper">
+                        <div className="left">
+                          <p className="card_title">Total Attendees</p>
+                          <p className="card_value">{data?.total_attendees}</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="right">
+                          <p className="card_title">Attendees (This Month)</p>
+                          <p className="card_value">
+                            {data?.this_month_attendees}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="card_icon_wrapper">
+                        <div className="card_icon">
+                          <FaUserTie />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card_footer">
+                      <p className="card_title">Total Attendees This month</p>
+                      <div className="card_footer_content">
+                        <div className="left">
+                          <p className="card_title">AGM</p>
+                          <p className="card_value">{attendeeList[1]}</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="center">
+                          <p className="card_title">Corporate Events</p>
+                          <p className="card_value">{attendeeList[0]}</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="right">
+                          <p className="card_title">Shows</p>
+                          <p className="card_value">{attendeeList[2]}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="card_footer">
-                  <p className="card_title">Total Attendees This month</p>
-                  <div className="card_footer_content">
-                    <div className="left">
-                      <p className="card_title">AGM</p>
-                      <p className="card_value">{attendeeList[1]}</p>
-                      <div className="card_divider"></div>
+                }
+              />
+              <DashboardCard
+                children={
+                  <div className="card_content">
+                    <div className="card_header">
+                      <div className="card_text_wrapper">
+                        <div className="left">
+                          <p className="card_title">Total Events</p>
+                          <p className="card_value">{data?.total_events}</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="right">
+                          <p className="card_title">Total Host</p>
+                          <p className="card_value">{data?.total_host}</p>
+                        </div>
+                      </div>
+                      <div className="card_icon_wrapper">
+                        <div className="card_icon">
+                          <CgStack />
+                        </div>
+                      </div>
                     </div>
-                    <div className="center">
-                      <p className="card_title">Corporate Events</p>
-                      <p className="card_value">{attendeeList[0]}</p>
-                      <div className="card_divider"></div>
-                    </div>
-                    <div className="right">
-                      <p className="card_title">Shows</p>
-                      <p className="card_value">{attendeeList[2]}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-          />
-          <DashboardCard
-            children={
-              <div className="card_content">
-                <div className="card_header">
-                  <div className="card_text_wrapper">
-                    <div className="left">
-                      <p className="card_title">Total Events</p>
-                      <p className="card_value">{data?.total_events}</p>
-                      <div className="card_divider"></div>
-                    </div>
-                    <div className="right">
-                      <p className="card_title">Total Host</p>
-                      <p className="card_value">{data?.total_host}</p>
-                    </div>
-                  </div>
-                  <div className="card_icon_wrapper">
-                    <div className="card_icon">
-                      <CgStack />
-                    </div>
-                  </div>
-                </div>
-                <div className="card_footer">
-                  <p className="card_title">Total Event (This Month)</p>
-                  <div className="card_footer_content">
-                    <div className="left">
-                      <p className="card_title">AGM</p>
-                      <p className="card_value">3,000</p>
-                      <div className="card_divider"></div>
-                    </div>
-                    <div className="center">
-                      <p className="card_title">Corporate Events</p>
-                      <p className="card_value">1,500</p>
-                      <div className="card_divider"></div>
-                    </div>
-                    <div className="right">
-                      <p className="card_title">Shows</p>
-                      <p className="card_value">500</p>
+                    <div className="card_footer">
+                      <p className="card_title">Total Event (This Month)</p>
+                      <div className="card_footer_content">
+                        <div className="left">
+                          <p className="card_title">AGM</p>
+                          <p className="card_value">3,000</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="center">
+                          <p className="card_title">Corporate Events</p>
+                          <p className="card_value">1,500</p>
+                          <div className="card_divider"></div>
+                        </div>
+                        <div className="right">
+                          <p className="card_title">Shows</p>
+                          <p className="card_value">500</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            }
-          />
-        </div>
-        <div className="dashboard_chart">
-          <div id="graph_data">
-            <div className="header">
-              <h2>Revenue</h2>
-              <Dropdown
-                overlay={filter}
-                placement="bottomRight"
-                trigger={["click"]}
-                arrow={{ pointAtCenter: true }}
-                onVisibleChange={handleVisibleChange}
-                visible={visible}
-                className="dropdown_filter"
-              >
-                <div className="filter">
-                  <AiOutlineMenu />
-                  <span>Filter</span>
-                  <BsCaretDownFill />
-                </div>
-              </Dropdown>
+                }
+              />
             </div>
-            <div className="subheader">
-              <div className="left">
-                <p>Total Revenue</p>
-                <h2>₦ 12B</h2>
+            <div className="dashboard_chart">
+              <div id="graph_data">
+                <div className="header">
+                  <h2>Revenue</h2>
+                  <Dropdown
+                    overlay={filter}
+                    placement="bottomRight"
+                    trigger={["click"]}
+                    arrow={{ pointAtCenter: true }}
+                    onVisibleChange={handleVisibleChange}
+                    visible={visible}
+                    className="dropdown_filter"
+                  >
+                    <div className="filter">
+                      <AiOutlineMenu />
+                      <span>Filter</span>
+                      <BsCaretDownFill />
+                    </div>
+                  </Dropdown>
+                </div>
+                <div className="subheader">
+                  <div className="left">
+                    <p>Total Revenue</p>
+                    <h2>₦ 12B</h2>
+                  </div>
+                  <Divider type="vertical" />
+                  <div className="right">
+                    <p>Revenue (this Month)</p>
+                    <h2>₦ 350M</h2>
+                    <span>
+                      +55%
+                      <BsCaretDownFill />
+                    </span>
+                  </div>
+                </div>
+                <div id="graph">
+                  <Chart />
+                </div>
               </div>
-              <Divider type="vertical" />
-              <div className="right">
-                <p>Revenue (this Month)</p>
-                <h2>₦ 350M</h2>
-                <span>
-                  +55%
-                  <BsCaretDownFill />
-                </span>
-              </div>
-            </div>
-            <div id="graph">
-              <Chart />
-            </div>
-          </div>
-          <div id="location_data">
-            <div className="header">
-              <h2>Attendee Location</h2>
+              <div id="location_data">
+                <div className="header">
+                  <h2>Attendee Location</h2>
 
-              <Dropdown
-                overlay={locationFilter}
-                placement="bottomRight"
-                trigger={["click"]}
-                arrow={{ pointAtCenter: true }}
-                onVisibleChange={handleLocationVisibleChange}
-                visible={locationVisible}
-              >
-                <div className="filter">
-                  <AiOutlineMenu />
-                  <span>Filter</span>
-                  <BsCaretDownFill />
+                  <Dropdown
+                    overlay={locationFilter}
+                    placement="bottomRight"
+                    trigger={["click"]}
+                    arrow={{ pointAtCenter: true }}
+                    onVisibleChange={handleLocationVisibleChange}
+                    visible={locationVisible}
+                  >
+                    <div className="filter">
+                      <AiOutlineMenu />
+                      <span>Filter</span>
+                      <BsCaretDownFill />
+                    </div>
+                  </Dropdown>
                 </div>
-              </Dropdown>
-            </div>
-            <div className="location_data_body">
-              {dashboardAttendeeLocation.map(
-                ({ id, venue, attendees, change, color }) => (
-                  <div className="location_data_item" key={id}>
-                    <p>{venue}</p>
-                    <p>
-                      <span style={{ color: color }}>{change}</span>
-                      <Divider type="vertical" />
-                      <span>{attendees}</span>
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-          <div id="event_data">
-            <div className="header">
-              <h2>Top Events</h2>
-              <Dropdown
-                overlay={eventFilter}
-                placement="bottomRight"
-                trigger={["click"]}
-                arrow={{ pointAtCenter: true }}
-                onVisibleChange={handleEventVisibleChange}
-                visible={eventVisible}
-              >
-                <div className="filter">
-                  <AiOutlineMenu />
-                  <span>Filter</span>
-                  <BsCaretDownFill />
+                <div className="location_data_body">
+                  {dashboardAttendeeLocation.map(
+                    ({ id, venue, attendees, change, color }) => (
+                      <div className="location_data_item" key={id}>
+                        <p>{venue}</p>
+                        <p>
+                          <span style={{ color: color }}>{change}</span>
+                          <Divider type="vertical" />
+                          <span>{attendees}</span>
+                        </p>
+                      </div>
+                    )
+                  )}
                 </div>
-              </Dropdown>
-            </div>
-            <div className="title">
-              <p>Events</p>
-              <p>Attendees</p>
-            </div>
-            <hr />
-            <div className="event_data_body">
-              {dashboardAttendeeEvents.map(({ id, event, logo, attendees }) => (
-                <div className="event_data_item" key={id}>
-                  <div className="event_data_item_logo">
-                    <img src={logo} alt="event logo" />
-                    <p>{event}</p>
-                  </div>
-                  <p>{attendees}</p>
+              </div>
+              <div id="event_data">
+                <div className="header">
+                  <h2>Top Events</h2>
+                  <Dropdown
+                    overlay={eventFilter}
+                    placement="bottomRight"
+                    trigger={["click"]}
+                    arrow={{ pointAtCenter: true }}
+                    onVisibleChange={handleEventVisibleChange}
+                    visible={eventVisible}
+                  >
+                    <div className="filter">
+                      <AiOutlineMenu />
+                      <span>Filter</span>
+                      <BsCaretDownFill />
+                    </div>
+                  </Dropdown>
                 </div>
-              ))}
+                <div className="title">
+                  <p>Events</p>
+                  <p>Attendees</p>
+                </div>
+                <hr />
+                <div className="event_data_body">
+                  {dashboardAttendeeEvents.map(
+                    ({ id, event, logo, attendees }) => (
+                      <div className="event_data_item" key={id}>
+                        <div className="event_data_item_logo">
+                          <img src={logo} alt="event logo" />
+                          <p>{event}</p>
+                        </div>
+                        <p>{attendees}</p>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </PrivateLayout>
   );

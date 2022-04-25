@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
@@ -81,6 +81,13 @@ const Login = () => {
     }
     setLoading(false);
   };
+
+  // Cleanup function
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    };
+  }, []);
 
   return (
     <PublicLayout link="/forgot-password">

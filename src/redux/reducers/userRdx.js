@@ -1,6 +1,7 @@
 const initialState = {
   users: [],
   socials: [],
+  details: localStorage.getItem("token") || {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +30,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         socials: action.payload,
+      };
+    case "SET_USER_DETAILS":
+      return {
+        ...state,
+        details: action.payload,
       };
     default:
       return state;
