@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apems-admin-dashboard
+  namespace: apems
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: apems-admin-dashboard
+  template:
+    metadata:
+      labels:
+        app: apems-admin-dashboard
+    spec:
+      containers:
+      - image: devapems.azurecr.io/dev-apems-admin-dashboard:latest
+        name: apems-admin-dashboard
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: apems-dev
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apems-admin-dashboard
+  namespace: apems
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: apems-admin-dashboard
