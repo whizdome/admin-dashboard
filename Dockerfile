@@ -5,7 +5,7 @@ COPY package.json /app
 ENV NODE_OPTIONS="--max_old_space_size=8192"
 RUN npm install
 COPY . /app
-RUN npm run ng build
+RUN npm run build
 RUN npx browserslist@latest --update-db
 
 FROM nginx:1.19-alpine AS server
