@@ -1,10 +1,15 @@
-FROM node:10-alpine as build-step
-RUN mkdir /app
+FROM node:14-alpine as build-step
+RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
+ENV NODE_OPTIONS="--max_old_space_size=8192"
 RUN npm install
-EXPOSE 3000
 COPY . /app
-RUN npm run build
-FROM nginx:1.17.1-alpine
-COPY --from=build-step /app/build /usr/share/nginx/html
+RUN npm run ng build
+RUN npx browserslist@latest --update-db
+
+FROM nginx:1.19-alpine AS server
+# COPY ./etc/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-step /app /usr/share/nginx/html
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
