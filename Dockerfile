@@ -8,8 +8,8 @@ COPY . /app
 RUN npm run build
 RUN npx browserslist@latest --update-db
 
-FROM nginx:1.19-alpine AS server
-# COPY ./etc/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build-step /app /usr/share/nginx/html
+# FROM nginx:1.19-alpine AS server
+# # COPY ./etc/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY --from=build-step /app /usr/share/nginx/html
 EXPOSE 3000
 CMD ["npm", "start"]
