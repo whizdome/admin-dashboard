@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { RiLockPasswordLine, RiCheckLine } from "react-icons/ri";
+import Password from "../../../assets/images/reset-password.png";
+import { RiCheckLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
@@ -65,7 +66,7 @@ const ResetPassword = () => {
     <PublicLayout reset="false" password="false">
       <section className="login_container reset_password">
         <Header
-          headerIcon={<RiLockPasswordLine />}
+          headerIcon={<img src={Password} alt="forgot password" />}
           headerTitle="Set New Password"
           headerSubtitle="Please enter your details below to reset your password with a new Password"
         />

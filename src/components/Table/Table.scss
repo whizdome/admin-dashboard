@@ -1,3 +1,5 @@
+@import "../../styles/abstracts/mixins";
+
 .table_container {
   margin: 2rem 0;
   table {
@@ -50,9 +52,11 @@
     }
     .align_left {
       text-align: left;
+      white-space: nowrap;
     }
     .align_right {
       text-align: right;
+      white-space: nowrap;
     }
   }
   .ant-pagination {
@@ -103,6 +107,14 @@
         }
       }
     }
+  }
+  @include respond(tab-pro) {
+    width: 95vw;
+    overflow-x: scroll;
+  }
+  @include respond(tab-port) {
+    width: 85vw;
+    overflow-x: scroll;
   }
 }
 .rmd-toggle:hover {

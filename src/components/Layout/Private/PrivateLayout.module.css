@@ -1,0 +1,35 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.private_layout {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+.private_layout main {
+  flex-grow: 1;
+  background-color: #fcfcfc;
+  margin-left: 270px;
+}
+@media (max-width: 900px) {
+  .private_layout main {
+    margin-left: 0;
+  }
+}
+@media (max-width: 600px) {
+  .private_layout main {
+    margin-left: 0;
+  }
+}/*# sourceMappingURL=PrivateLayout.module.css.map */

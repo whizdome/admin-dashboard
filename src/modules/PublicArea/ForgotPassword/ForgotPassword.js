@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Password from "../../../assets/images/reset-password.png";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineMail } from "react-icons/ai";
 
@@ -68,7 +69,7 @@ const ForgotPassword = () => {
     <PublicLayout password="true">
       <section className="login_container">
         <Header
-          headerIcon={<RiLockPasswordLine />}
+          headerIcon={<img src={Password} alt="forgot password" />}
           headerTitle="Forgot Password"
           headerSubtitle="A verification reset password link will be sent to your email address"
         />

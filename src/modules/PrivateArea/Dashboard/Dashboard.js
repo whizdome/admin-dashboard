@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Divider, Dropdown } from "antd";
+import { Divider, Dropdown, Radio, Space } from "antd";
 
+import Filter from "../../../assets/images/filter.png";
 import { BiExport, BiBriefcaseAlt2 } from "react-icons/bi";
 import { FaUserTie } from "react-icons/fa";
-import { AiOutlineMenu } from "react-icons/ai";
 import { BsCaretDownFill } from "react-icons/bs";
 import { CgStack, CgProfile } from "react-icons/cg";
+import { RiCloseCircleLine } from "react-icons/ri";
 
 import Spinner from "../../../components/Loader";
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
@@ -17,14 +18,7 @@ import {
   dashboardAttendeeLocation,
   dashboardAttendeeEvents,
 } from "../../../constants/index";
-import {
-  DashboardAnalytics,
-  EventsAnalytics,
-  HostAnalytics,
-  AttendeesAnalytics,
-  TopAttendeesLocation,
-  TopEventsAnalytics,
-} from "../../../redux/services/dashboard";
+import { DashboardAnalytics } from "../../../redux/services/dashboard";
 import DatePicker from "../../../components/Calender/Calender";
 
 import "./Dashboard.scss";
@@ -38,6 +32,8 @@ const Dashboard = () => {
   const [visible, setVisible] = useState(false);
   const [locationVisible, setLocationVisible] = useState(false);
   const [eventVisible, setEventVisible] = useState(false);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [eventRadioFilter, setEventRadioFilter] = useState("agm");
 
   const handleVisibleChange = () => {
     setVisible(!visible);
@@ -51,11 +47,20 @@ const Dashboard = () => {
     setEventVisible(!eventVisible);
   };
 
+  const handleReportChange = () => {
+    setReportVisible(!reportVisible);
+  };
+
   const filter = (
     <div className="dropdown_container">
       <p>Revenue By Date</p>
       <Divider type="vertical" />
       <p>Revenue By Period</p>
+      <RiCloseCircleLine
+        className="close_icon"
+        onClick={() => setVisible(false)}
+      />
+      <div style={{ display: "block" }}>text</div>
     </div>
   );
 
@@ -63,6 +68,10 @@ const Dashboard = () => {
     <div className="dropdown_container">
       <p>Select Date</p>
       <DatePicker />
+      <RiCloseCircleLine
+        className="close_icon"
+        onClick={() => setLocationVisible(false)}
+      />
     </div>
   );
 
@@ -70,35 +79,53 @@ const Dashboard = () => {
     <div className="dropdown_container">
       <div>
         <p>Select Date</p>
-        {/* <DatePicker /> */}
+        <DatePicker />
       </div>
       <div>
         <p>Select Event Type</p>
-        <div style={{}}>
-          <label htmlFor="agm">
-            <input id="agm" type="radio" name="event" value="AGM" />
-            AGM
-          </label>
-          <label htmlFor="corporate_event">
-            <input
-              id="corporate_event"
-              type="radio"
-              name="event"
+        <Radio.Group
+          onChange={(e) => setEventRadioFilter(e.target.value)}
+          value={eventRadioFilter}
+        >
+          <Space direction="vertical">
+            <Radio
+              value="agm"
+              style={{ color: "#fff", backgroundColor: "transparent" }}
+              className="event_radio_button"
+            >
+              AGM
+            </Radio>
+            <Radio
               value="Corporate Event"
-            />
-            Corporate Event
-          </label>
-          <label htmlFor="concert_shows">
-            <input
-              id="concert_shows"
-              type="radio"
-              name="event"
+              style={{ color: "#fff", backgroundColor: "transparent" }}
+              className="event_radio_button"
+            >
+              Corporate Event
+            </Radio>
+            <Radio
               value="Concert & Shows"
-            />
-            Concert & Shows
-          </label>
-        </div>
+              style={{ color: "#fff" }}
+              className="event_radio_button"
+            >
+              Concert & Shows
+            </Radio>
+          </Space>
+        </Radio.Group>
       </div>
+      <RiCloseCircleLine
+        className="close_icon"
+        onClick={() => setEventVisible(false)}
+      />
+    </div>
+  );
+
+  const report = (
+    <div className="dropdown_container report">
+      <p>As CSV</p>
+      <Divider />
+      <p>As Excel</p>
+      <Divider />
+      <p>As PDF</p>
     </div>
   );
 
@@ -151,12 +178,21 @@ const Dashboard = () => {
               <p className="welcome_message">Welcome to your Admin dashboard</p>
             </div>
           </div>
-          <div>
-            <OutlineIconButton
-              btntitle="Export Analytic Report"
-              icon={<BiExport />}
-              onClick={() => console.log("clicked")}
-            />
+          <div className="drop-down drop-down-bubble">
+            <Dropdown
+              overlay={report}
+              placement="bottomCenter"
+              trigger={["click"]}
+              arrow={{ pointAtCenter: true }}
+              onVisibleChange={handleReportChange}
+              visible={reportVisible}
+            >
+              <OutlineIconButton
+                btntitle="Export Analytic Report"
+                icon={<BiExport />}
+                onClick={() => console.log("clicked")}
+              />
+            </Dropdown>
           </div>
         </div>
         {loading ? (
@@ -296,7 +332,7 @@ const Dashboard = () => {
                     className="dropdown_filter"
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>
@@ -334,7 +370,7 @@ const Dashboard = () => {
                     visible={locationVisible}
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>
@@ -367,7 +403,7 @@ const Dashboard = () => {
                     visible={eventVisible}
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>

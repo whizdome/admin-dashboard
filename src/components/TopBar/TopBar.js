@@ -9,6 +9,7 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 
 import style from "./TopBar.module.scss";
+import "./Topbar.scss";
 
 const TopBar = ({ toggle, width, menuCollapse }) => {
   const [user, setUser] = useState({});
@@ -82,7 +83,7 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
     <div className={style.top_bar}>
       <div
         className={style.right}
-        style={{ display: width < 768 ? "block" : "none" }}
+        style={{ display: width < 900 ? "block" : "none" }}
       >
         {!menuCollapse ? (
           <HiMenuAlt3
@@ -112,6 +113,7 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
           arrow={{ pointAtCenter: true }}
           onVisibleChange={handleVisibleChange}
           visible={visible}
+          id="topbar-menu"
         >
           <div className={style.user_info}>
             {user.profile_picture_path ? (
