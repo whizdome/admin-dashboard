@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Divider, Dropdown, Radio, Space } from "antd";
+import { Divider, Dropdown, Radio, Space, Slider } from "antd";
 
 import Filter from "../../../assets/images/filter.png";
 import { BiExport, BiBriefcaseAlt2 } from "react-icons/bi";
@@ -34,6 +34,8 @@ const Dashboard = () => {
   const [eventVisible, setEventVisible] = useState(false);
   const [reportVisible, setReportVisible] = useState(false);
   const [eventRadioFilter, setEventRadioFilter] = useState("agm");
+  const [showRevenueByDate, setShowRevenueByDate] = useState(false);
+  const [showRevenueByPeriod, setShowRevenueByPeriod] = useState(false);
 
   const handleVisibleChange = () => {
     setVisible(!visible);
@@ -53,69 +55,308 @@ const Dashboard = () => {
 
   const filter = (
     <div className="dropdown_container">
-      <p>Revenue By Date</p>
-      <Divider type="vertical" />
-      <p>Revenue By Period</p>
-      <RiCloseCircleLine
-        className="close_icon"
-        onClick={() => setVisible(false)}
-      />
-      <div style={{ display: "block" }}>text</div>
+      <div className="dropdown_container_header">
+        <div>
+          <p
+            onClick={() => {
+              setShowRevenueByDate(!showRevenueByDate);
+              setShowRevenueByPeriod(false);
+            }}
+            className={`show_revenue ${showRevenueByDate ? "active" : ""}`}
+          >
+            Revenue By Date
+          </p>
+        </div>
+        <Divider type="vertical" />
+        <div>
+          <p
+            onClick={() => {
+              setShowRevenueByPeriod(!showRevenueByPeriod);
+              setShowRevenueByDate(false);
+            }}
+            className={`show_revenue ${showRevenueByPeriod ? "active" : ""}`}
+          >
+            Revenue By Period
+          </p>
+        </div>
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setVisible(false)}
+        />
+      </div>
+      {showRevenueByDate && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginTop: "2rem",
+            gap: "2rem",
+          }}
+        >
+          <div>
+            <p>Select Date</p>
+            <DatePicker />
+          </div>
+          <div>
+            <p>Select Revenue Type</p>
+            <Radio.Group
+              onChange={(e) => setEventRadioFilter(e.target.value)}
+              value={eventRadioFilter}
+            >
+              <Space direction="vertical">
+                <Radio
+                  value="Total Revenue"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Total Revenue
+                </Radio>
+                <Radio
+                  value="Subcription Payment"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Subcription Payment
+                </Radio>
+                <Radio
+                  value="Email & SMS Add On"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Email & SMS Add On
+                </Radio>
+                <Radio
+                  value="Ticket Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Ticket Commission
+                </Radio>
+                <Radio
+                  value="Donation Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Donation Commission
+                </Radio>
+                <Radio
+                  value="Dividend Payment Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Dividend Payment Commission
+                </Radio>
+              </Space>
+            </Radio.Group>
+          </div>
+        </div>
+      )}
+      {showRevenueByPeriod && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginTop: "2rem",
+            gap: "2rem",
+          }}
+        >
+          <div>
+            <p>Select Range</p>
+            <Slider
+              defaultValue={0}
+              marks={{ 0: "January", 100: "December" }}
+              tooltipVisible={false}
+              style={{ width: "120px" }}
+            />
+          </div>
+          <div>
+            <p>Select Revenue Type</p>
+            <Radio.Group
+              onChange={(e) => setEventRadioFilter(e.target.value)}
+              value={eventRadioFilter}
+            >
+              <Space direction="vertical">
+                <Radio
+                  value="Total Revenue"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Total Revenue
+                </Radio>
+                <Radio
+                  value="Subcription Payment"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Subcription Payment
+                </Radio>
+                <Radio
+                  value="Email & SMS Add On"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Email & SMS Add On
+                </Radio>
+                <Radio
+                  value="Ticket Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Ticket Commission
+                </Radio>
+                <Radio
+                  value="Donation Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Donation Commission
+                </Radio>
+                <Radio
+                  value="Dividend Payment Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Dividend Payment Commission
+                </Radio>
+              </Space>
+            </Radio.Group>
+          </div>
+        </div>
+      )}
     </div>
   );
 
   const locationFilter = (
     <div className="dropdown_container">
-      <p>Select Date</p>
+      <div className="dropdown_container_header">
+        <p>Select Date</p>
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setLocationVisible(false)}
+        />
+      </div>
       <DatePicker />
-      <RiCloseCircleLine
-        className="close_icon"
-        onClick={() => setLocationVisible(false)}
-      />
     </div>
   );
 
   const eventFilter = (
     <div className="dropdown_container">
-      <div>
-        <p>Select Date</p>
-        <DatePicker />
+      <div
+        className="dropdown_container_header"
+        style={{ justifyContent: "flex-end" }}
+      >
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setEventVisible(false)}
+        />
       </div>
-      <div>
-        <p>Select Event Type</p>
-        <Radio.Group
-          onChange={(e) => setEventRadioFilter(e.target.value)}
-          value={eventRadioFilter}
-        >
-          <Space direction="vertical">
-            <Radio
-              value="agm"
-              style={{ color: "#fff", backgroundColor: "transparent" }}
-              className="event_radio_button"
-            >
-              AGM
-            </Radio>
-            <Radio
-              value="Corporate Event"
-              style={{ color: "#fff", backgroundColor: "transparent" }}
-              className="event_radio_button"
-            >
-              Corporate Event
-            </Radio>
-            <Radio
-              value="Concert & Shows"
-              style={{ color: "#fff" }}
-              className="event_radio_button"
-            >
-              Concert & Shows
-            </Radio>
-          </Space>
-        </Radio.Group>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginTop: "2rem",
+          gap: "2rem",
+        }}
+      >
+        <div>
+          <p>Select Date</p>
+          <DatePicker />
+        </div>
+        <div>
+          <p>Select Event Type</p>
+          <Radio.Group
+            onChange={(e) => setEventRadioFilter(e.target.value)}
+            value={eventRadioFilter}
+          >
+            <Space direction="vertical">
+              <Radio
+                value="agm"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                AGM
+              </Radio>
+              <Radio
+                value="Corporate Event"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                Corporate Event
+              </Radio>
+              <Radio
+                value="Concert & Shows"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                Concert & Shows
+              </Radio>
+            </Space>
+          </Radio.Group>
+        </div>
       </div>
-      <RiCloseCircleLine
-        className="close_icon"
-        onClick={() => setEventVisible(false)}
-      />
     </div>
   );
 
@@ -383,7 +624,7 @@ const Dashboard = () => {
                         <p>{venue}</p>
                         <p>
                           <span style={{ color: color }}>{change}</span>
-                          <Divider type="vertical" />
+                          {change && <Divider type="vertical" />}
                           <span>{attendees}</span>
                         </p>
                       </div>

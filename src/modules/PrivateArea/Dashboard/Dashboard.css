@@ -281,7 +281,7 @@ Breakpoint aurgument
   font-size: 1.3rem;
 }
 .dashboard .dashboard_chart #location_data .location_data_body .location_data_item p:last-of-type .ant-divider {
-  border-left-color: #1a1a1a;
+  border-left-color: #8d8d8d;
 }
 .dashboard .dashboard_chart #event_data .title {
   display: flex;
@@ -386,12 +386,11 @@ Breakpoint aurgument
   font-weight: 300;
 }
 
-.dropdown_container {
+.dropdown_container .dropdown_container_header {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
   align-items: flex-start;
-  min-width: 368px;
 }
 .dropdown_container p {
   font-size: 1.2rem;
@@ -399,6 +398,8 @@ Breakpoint aurgument
 }
 .dropdown_container .event_radio_button .ant-radio-inner {
   background-color: transparent;
+  width: 12px;
+  height: 12px;
 }
 .dropdown_container .event_radio_button .ant-radio-checked .ant-radio-inner {
   border-color: #3ea200;
@@ -416,10 +417,46 @@ Breakpoint aurgument
 .dropdown_container .close_icon {
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
 }
 .dropdown_container .ant-divider-vertical {
   border-color: #fff;
-  height: 2rem;
+  height: 3rem;
+}
+.dropdown_container .show_revenue {
+  color: #fff;
+  font-size: 1.3rem;
+  border: 1px solid transparent;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.dropdown_container .show_revenue:hover, .dropdown_container .show_revenue:focus, .dropdown_container .show_revenue:active {
+  border-color: #fff;
+}
+.dropdown_container .active {
+  border-color: #fff;
+}
+
+.ant-slider-mark-text {
+  color: #fff !important;
+  font-size: 8px;
+  font-weight: 100;
+}
+
+.ant-slider-track {
+  background-color: #3ea200 !important;
+  height: 5px !important;
+}
+
+.ant-slider-handle {
+  border: 2px solid #3ea200 !important;
+  background-color: #3ea200 !important;
+}
+
+.ant-slider-dot-active {
+  border-color: #3ea200 !important;
 }
 
 .ant-dropdown-arrow {
@@ -458,4 +495,12 @@ Breakpoint aurgument
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-top: 1px solid #707070;
+}
+
+.ant-dropdown-placement-bottom .ant-dropdown-arrow {
+  background: linear-gradient(135deg, transparent 40%, #1a1a1a 40%) !important;
+}
+
+.topbar-menu .ant-dropdown-arrow::before {
+  background: linear-gradient(to left, #fff 50%, #fff 50%) no-repeat -10px -10px !important;
 }/*# sourceMappingURL=Dashboard.css.map */

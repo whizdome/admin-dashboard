@@ -9,7 +9,6 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 
 import style from "./TopBar.module.scss";
-import "./Topbar.scss";
 
 const TopBar = ({ toggle, width, menuCollapse }) => {
   const [user, setUser] = useState({});
@@ -113,7 +112,7 @@ const TopBar = ({ toggle, width, menuCollapse }) => {
           arrow={{ pointAtCenter: true }}
           onVisibleChange={handleVisibleChange}
           visible={visible}
-          id="topbar-menu"
+          overlayClassName="topbar-menu"
         >
           <div className={style.user_info}>
             {user.profile_picture_path ? (

@@ -6,39 +6,39 @@ import "./Graph.scss";
 const data = [
   {
     name: "Jan",
-    uv: 4500000,
+    uv: 450000000,
   },
   {
     name: "Feb",
-    uv: 8000000,
+    uv: 550000000,
   },
   {
     name: "Mar",
-    uv: 4500000,
+    uv: 450000000,
   },
   {
     name: "Apr",
-    uv: 4500000,
+    uv: 450000000,
   },
   {
     name: "May",
-    uv: 1000000,
+    uv: 220000000,
   },
   {
     name: "Jun",
-    uv: 50000000,
+    uv: 500000000,
   },
   {
     name: "Jul",
-    uv: 3000000,
+    uv: 300000000,
   },
   {
     name: "Aug",
-    uv: 100000000,
+    uv: 400000000,
   },
   {
     name: "Sep",
-    uv: 400000000,
+    uv: 800000000,
   },
   {
     name: "Oct",
@@ -66,10 +66,10 @@ export default function App() {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={500}>
       <BarChart
         width={500}
-        height={800}
+        height={500}
         data={data}
         margin={{
           top: 5,
@@ -78,18 +78,20 @@ export default function App() {
           bottom: 50,
         }}
       >
-        <XAxis dy={30} dataKey="name" />
+        <XAxis dy={30} dataKey="name" minTickGap={0.5} />
         <YAxis
           type="number"
-          // domain={[500000, 1000000000]}
+          domain={[500000, 1000000000]}
           dx={-30}
           interval={0}
           tickCount={10}
           tickFormatter={format}
-          ticks={[
-            500000, 1000000, 2000000, 5000000, 10000000, 50000000, 100000000,
-            200000000, 500000000, 1000000000,
-          ]}
+          // ticks={[
+          //   500000, 1000000, 2000000, 5000000, 10000000, 50000000, 100000000,
+          //   200000000, 500000000, 1000000000,
+          // ]}
+          minTickGap={1}
+          scale="linear"
         />
         <Bar dataKey="uv" fill="#000" radius={[50, 50, 50, 50]} barSize={10} />
       </BarChart>

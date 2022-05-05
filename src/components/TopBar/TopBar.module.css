@@ -143,6 +143,6 @@ ul.account_dropdown .icon_wrapper .icon svg {
   color: #000;
 }
 
-.ant-dropdown-arrow::before {
+.topbar-menu .ant-dropdown-arrow::before {
   background: linear-gradient(to left, #fff 50%, #fff 50%) no-repeat -10px -10px !important;
 }/*# sourceMappingURL=TopBar.module.css.map */
