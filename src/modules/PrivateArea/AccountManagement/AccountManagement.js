@@ -33,8 +33,11 @@ const AccountManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [userType, setUserType] = useState("");
   const [user_tab, setUserTab] = useState("company");
+  const [pageNo, setPageNo] = useState(1);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [perPage, setPerPage] = useState(5);
 
   const handleOpenModal = (type) => {
     setShowModal(true);
@@ -47,12 +50,12 @@ const AccountManagement = () => {
     fetchUsers(user_tab);
   };
 
-  const fetchUsers = async (user) => {
+  const fetchUsers = async (user, no) => {
     setLoading(true);
-    console.log(user);
-    const res = await fetchAllUsers(user);
-    console.log("catch-err", res);
+    const res = await fetchAllUsers(user, no);
     setUsers(res?.data || []);
+    setTotalUsers(res?.meta?.total || 0);
+    setPerPage(res?.meta?.per_page || 5);
     if (res?.errors) {
       toast.error(
         Object.values(res?.errors)
@@ -67,14 +70,13 @@ const AccountManagement = () => {
   };
 
   const callback = (key) => {
-    console.log(key);
     setUserTab(key);
     fetchUsers(key);
   };
 
   useEffect(() => {
-    fetchUsers(user_tab);
-  }, []);
+    fetchUsers(user_tab, pageNo);
+  }, [pageNo]);
 
   return (
     <PrivateLayout>
@@ -106,7 +108,13 @@ const AccountManagement = () => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : users?.length > 0 ? (
-                <UsersTable tableData={users} headers={headers} />
+                <UsersTable
+                  tableData={users}
+                  headers={headers}
+                  totalUsers={totalUsers}
+                  perPage={perPage}
+                  setNewPage={(num) => setPageNo(num)}
+                />
               ) : (
                 <div className="no_data">
                   <p>No user found</p>
@@ -117,7 +125,13 @@ const AccountManagement = () => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : users?.length > 0 ? (
-                <UsersTable tableData={users} headers={headers} />
+                <UsersTable
+                  tableData={users}
+                  headers={headers}
+                  totalUsers={totalUsers}
+                  perPage={perPage}
+                  setNewPage={(num) => setPageNo(num)}
+                />
               ) : (
                 <div className="no_data">
                   <p>No user found</p>
@@ -128,7 +142,13 @@ const AccountManagement = () => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : users?.length > 0 ? (
-                <UsersTable tableData={users} headers={headers} />
+                <UsersTable
+                  tableData={users}
+                  headers={headers}
+                  totalUsers={totalUsers}
+                  perPage={perPage}
+                  setNewPage={(num) => setPageNo(num)}
+                />
               ) : (
                 <div className="no_data">
                   <p>No user found</p>

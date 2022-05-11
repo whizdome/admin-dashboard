@@ -11,9 +11,15 @@ import { Pagination } from "antd";
 
 import "./Table.scss";
 
-const pageSize = 8;
+// const pageSize = 5;
 
-const UsersTable = ({ tableData, headers }) => {
+const UsersTable = ({
+  tableData,
+  headers,
+  totalUsers,
+  perPage,
+  setNewPage,
+}) => {
   const history = useHistory();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,9 +49,11 @@ const UsersTable = ({ tableData, headers }) => {
   };
 
   const handleChange = (page) => {
-    setCurrentPage(page);
-    setMinIndex((page - 1) * pageSize);
-    setMaxIndex(page * pageSize);
+    page !== currentPage && setCurrentPage(page);
+    setMinIndex((page - 1) * perPage);
+    setMaxIndex(page * perPage);
+    console.log("current page", minIndex, maxIndex, page);
+    setNewPage(page);
   };
 
   const fetchUser = (id) => {
@@ -58,8 +66,8 @@ const UsersTable = ({ tableData, headers }) => {
 
   useEffect(() => {
     setData(tableData);
-    setTotal(tableData?.length / pageSize);
-    setMaxIndex(pageSize);
+    setTotal(totalUsers / perPage);
+    setMaxIndex(perPage);
     setMinIndex(0);
   }, [tableData]);
 
@@ -129,10 +137,10 @@ const UsersTable = ({ tableData, headers }) => {
         </tbody>
       </table>
       <Pagination
-        total={data?.length}
+        total={totalUsers}
         itemRender={itemRender}
-        pageSize={pageSize}
-        current={currentPage}
+        pageSize={perPage}
+        defaultCurrent={currentPage}
         onChange={handleChange}
       />
     </div>

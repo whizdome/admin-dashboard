@@ -35,7 +35,7 @@ const NewIndividualUser = ({ closeModal }) => {
   const [planId, setPlanId] = useState("");
   const [isGold, setIsGold] = useState(false);
   const [gold, setGold] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState("");
   const [step3Data, setStep3Data] = useState([]);
 
   const email_sender_id = "hello@apems.co";
@@ -57,7 +57,7 @@ const NewIndividualUser = ({ closeModal }) => {
     const res = await fetchPlans(eventType);
     console.log(res);
     if (res) setAllPlans(res);
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
     setLoading(false);
   };
 
@@ -69,10 +69,10 @@ const NewIndividualUser = ({ closeModal }) => {
       setStep1Data(res.data);
       getPlans();
       setCurrent(1);
-      setErrors([]);
+      setErrors("");
     }
     if (res.errors) {
-      setErrors(res.errors);
+      setErrors(res.message);
 
       console.log("inside", errors);
     }
@@ -97,7 +97,7 @@ const NewIndividualUser = ({ closeModal }) => {
       setCurrent(2);
     }
     console.log("catch-err", res);
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
     setLoading(false);
   };
 
@@ -357,6 +357,7 @@ const NewIndividualUser = ({ closeModal }) => {
                       label="Campaign"
                       id={style.campaign_email}
                       className={style.corporate_step_input}
+                      style={{ width: "40%" }}
                     >
                       <select
                         name="email_sender_id"
@@ -378,6 +379,7 @@ const NewIndividualUser = ({ closeModal }) => {
                       name="sms_sender_id"
                       id={style.campaign_sms}
                       className={style.corporate_step_input}
+                      style={{ width: "40%" }}
                     >
                       <select name="sms_sender_id" value={sms_sender_id}>
                         {/* <option value="">Select Campaign</option> */}
@@ -447,10 +449,7 @@ const NewIndividualUser = ({ closeModal }) => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : (
-                errors &&
-                Object.values(errors)
-                  .flat()
-                  .map((err) => <p className={style.err}>{err}</p>)
+                errors && <p className={style.err}>{errors}</p>
               )}
               {current < 2 && (
                 <button

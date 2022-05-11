@@ -17,6 +17,8 @@ export let BaseApi = axios.create({
 BaseApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   config.headers.Authorization = token ? `Bearer ${token}` : "";
+  config.headers["Access-Control-Allow-Origin"] = "*";
+  config.headers["Content-Type"] = "application/json";
 
   return config;
 });

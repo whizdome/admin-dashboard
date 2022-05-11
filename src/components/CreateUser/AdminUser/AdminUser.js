@@ -30,7 +30,7 @@ const NewAdminUser = ({ closeModal }) => {
   });
   const [allRoles, setAllRoles] = useState([]);
   const [role, setRole] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState("");
   const [step3Data, setStep3Data] = useState([]);
 
   const [form] = Form.useForm();
@@ -49,21 +49,29 @@ const NewAdminUser = ({ closeModal }) => {
     const res = await fetchRoles();
     console.log(res);
     if (res) setAllRoles(res);
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
     setLoading(false);
   };
 
   const createUser = async () => {
     setLoading(true);
-
+    // const data1 = {
+    //   first_name: "Ibrahim",
+    //   last_name: "Adegibga",
+    //   email: "ibrahim@gmail.com",
+    //   phone_number: "080312345678",
+    // };
     const res = await createAdminAccount(step1Data);
     if (res.data) {
       setStep1Data(res.data);
       getRoles();
       setCurrent(1);
-      setErrors([]);
+      setErrors("");
     }
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) {
+      console.log("errors", res);
+      setErrors(res.message);
+    }
 
     setLoading(false);
   };
@@ -103,10 +111,10 @@ const NewAdminUser = ({ closeModal }) => {
     );
   };
 
-  useEffect(() => {
-    form.validateFields();
-    getRoles();
-  }, []);
+  // useEffect(() => {
+  //   form.validateFields();
+  //   getRoles();
+  // }, []);
 
   const { first_name, last_name, email, phone_number } = step1Data;
   const { name, roles } = step3Data;
@@ -238,7 +246,10 @@ const NewAdminUser = ({ closeModal }) => {
                 <div className={style.user_permissions}>
                   <p>User Permissions</p>
                   <div className={style.admin_step_inputs}>
-                    <div className={style.admin_step_input}>
+                    <div
+                      className={style.admin_step_input}
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
                       <input type="checkbox" checked disabled />
                       <label>{roles[0].name}</label>
                     </div>
@@ -266,14 +277,7 @@ const NewAdminUser = ({ closeModal }) => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : (
-                errors &&
-                Object.values(errors)
-                  .flat()
-                  .map((err) => (
-                    <p key={err} className={style.err}>
-                      {err}
-                    </p>
-                  ))
+                errors && <p className={style.err}>{errors}</p>
               )}
               {current < 2 && (
                 <button

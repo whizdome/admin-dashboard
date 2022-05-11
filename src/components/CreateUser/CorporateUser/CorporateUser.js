@@ -35,7 +35,7 @@ const NewCorporateUser = ({ closeModal }) => {
   const [planId, setPlanId] = useState("");
   const [isGold, setIsGold] = useState(false);
   const [gold, setGold] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState("");
   const [step3Data, setStep3Data] = useState([]);
 
   const email_sender_id = "hello@apems.co";
@@ -57,7 +57,7 @@ const NewCorporateUser = ({ closeModal }) => {
     const res = await fetchPlans(eventType);
     console.log(res);
     if (res) setAllPlans(res);
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
     setLoading(false);
   };
 
@@ -69,9 +69,9 @@ const NewCorporateUser = ({ closeModal }) => {
       setStep1Data(res.data);
       getPlans();
       setCurrent(1);
-      setErrors([]);
+      setErrors("");
     }
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
 
     setLoading(false);
   };
@@ -93,7 +93,7 @@ const NewCorporateUser = ({ closeModal }) => {
       setCurrent(2);
     }
     console.log("catch-err", res);
-    if (res.errors) setErrors(res.errors);
+    if (res.errors) setErrors(res.message);
     setLoading(false);
   };
 
@@ -443,10 +443,7 @@ const NewCorporateUser = ({ closeModal }) => {
               {loading ? (
                 <Spinner visible={loading} />
               ) : (
-                errors &&
-                Object.values(errors)
-                  .flat()
-                  .map((err) => <p className={style.err}>{err}</p>)
+                errors && <p className={style.err}>{errors}</p>
               )}
               {current < 2 && (
                 <button
