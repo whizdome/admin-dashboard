@@ -18,13 +18,17 @@ import {
   dashboardAttendeeLocation,
   dashboardAttendeeEvents,
 } from "../../../constants/index";
-import { DashboardAnalytics } from "../../../redux/services/dashboard";
+import {
+  DashboardAnalytics,
+  TopEventsAnalytics,
+} from "../../../redux/services/dashboard";
 import DatePicker from "../../../components/Calender/Calender";
 
 import "./Dashboard.scss";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const [eventData, setEventData] = useState([]);
   const [user, setUser] = useState([]);
   const [attendeeList, setAttendeeList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -373,15 +377,25 @@ const Dashboard = () => {
   const getAnalytics = async () => {
     setLoading(true);
     const res = await DashboardAnalytics();
+    const eventRes = await TopEventsAnalytics();
     if (res?.message === "OK") {
       setData(res?.data);
       setAttendeeList(
         Object.values(res?.data?.this_month_attendees_list).map((item) => item)
       );
       setLoading(false);
+      console.log("eventRes", eventRes);
     }
     if (res.errors) {
       setErrors(res.errors);
+      setLoading(false);
+    }
+    if (eventRes?.message === "OK") {
+      setEventData(eventRes?.data.slice(0, 7));
+      setLoading(false);
+    }
+    if (eventRes.errors) {
+      setErrors(eventRes.errors);
       setLoading(false);
     }
     console.log(res);
@@ -656,14 +670,14 @@ const Dashboard = () => {
                 </div>
                 <hr />
                 <div className="event_data_body">
-                  {dashboardAttendeeEvents.map(
-                    ({ id, event, logo, attendees }) => (
+                  {eventData.map(
+                    ({ id, short_name, logo, attendees_count }) => (
                       <div className="event_data_item" key={id}>
                         <div className="event_data_item_logo">
                           <img src={logo} alt="event logo" />
-                          <p>{event}</p>
+                          <p>{short_name}</p>
                         </div>
-                        <p>{attendees}</p>
+                        <p>{attendees_count}</p>
                       </div>
                     )
                   )}
