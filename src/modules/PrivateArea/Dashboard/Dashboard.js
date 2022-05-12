@@ -670,15 +670,21 @@ const Dashboard = () => {
                 </div>
                 <hr />
                 <div className="event_data_body">
-                  {eventData.map(
-                    ({ id, short_name, logo, attendees_count }) => (
-                      <div className="event_data_item" key={id}>
-                        <div className="event_data_item_logo">
-                          <img src={logo} alt="event logo" />
-                          <p>{short_name}</p>
+                  {eventData === [] ? (
+                    <p style={{ textAlign: "center", fontSize: "90%" }}>
+                      No event has been created yet
+                    </p>
+                  ) : (
+                    eventData?.map(
+                      ({ id, short_name, logo, attendees_count }) => (
+                        <div className="event_data_item" key={id}>
+                          <div className="event_data_item_logo">
+                            <img src={logo} alt="event logo" />
+                            <p>{short_name}</p>
+                          </div>
+                          <p>{attendees_count}</p>
                         </div>
-                        <p>{attendees_count}</p>
-                      </div>
+                      )
                     )
                   )}
                 </div>
