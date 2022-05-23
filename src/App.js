@@ -9,6 +9,7 @@ import PrivateRoute from "./Routes/PrivateRoute";
 import { ToastContainer } from "react-toastify";
 
 import "./App.css";
+import ResourceManagement from "./modules/PrivateArea/ResourceManagement";
 
 function App() {
   return (
@@ -19,8 +20,13 @@ function App() {
           <Route path="/forgot-password" exact component={ForgotPassword} />
           <Route path="/reset-password" exact component={ResetPassword} />
           <Route path="/" exact component={Login} />
-
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
+          <PrivateRoute
+            path="/resource-management"
+            exact
+            component={ResourceManagement}
+          />
+
           <PrivateRoute
             exact
             path="/account-management"
