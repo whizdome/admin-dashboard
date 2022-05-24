@@ -30,12 +30,6 @@ const SidebarComponent = ({ closeSidebar }) => {
               to={path}
               exact
               activeClassName="active"
-              // isActive={(matchPath, location) => {
-              //   if (!match) {
-              //     console.log(match, location.pathname);
-              //     return false;
-              //   }
-              // }}
               key={id}
             >
               <Menu iconShape="circle" className="menu">

@@ -1,6 +1,7 @@
 import React from "react";
 import image1 from "../../../assets/images/image1.jpg";
 import editIcon from "../../../assets/images/edit-icon.svg";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Landing = () => {
   const landingCards = [
@@ -48,9 +49,11 @@ const Landing = () => {
           <img src={image1} alt="image1" />
           <div>
             <h3>{landingCard.title}</h3>
-            <p>
+            <Link
+              to={`/resource-management/guest-page-edit/${landingCard.title}`}
+            >
               Edit <img className="editIcon" src={editIcon} alt="editIcon" />
-            </p>
+            </Link>
           </div>
         </div>
       ))}
