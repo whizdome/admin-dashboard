@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { RiLockPasswordLine } from "react-icons/ri";
+import Password from "../../../assets/images/password.png";
 import {
   AiOutlineMail,
   AiOutlineEye,
@@ -93,7 +93,7 @@ const Login = () => {
     <PublicLayout link="/forgot-password">
       <section className="login_container">
         <Header
-          headerIcon={<RiLockPasswordLine />}
+          headerIcon={<img src={Password} alt="password" />}
           headerTitle="Sign In"
           headerSubtitle="Login to APEMS Administrative Panel"
         />

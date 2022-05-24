@@ -31,6 +31,36 @@
         margin: 0;
       }
     }
+    .drop-down-bubble .drop-down-menu {
+      margin-top: 1em;
+      border-radius: 10px;
+      background: #1a1a1a;
+      box-shadow: 0px 3px 30px #00000029;
+    }
+    li {
+      color: #fff;
+    }
+
+    .drop-down-bubble .drop-down-menu:before,
+    .drop-down-bubble .drop-down-menu:after {
+      content: " ";
+      display: block;
+      border-style: solid;
+      border-width: 0 0.5em 0.8em 0.5em;
+      border-color: transparent;
+      position: absolute;
+      left: 5em;
+    }
+
+    .drop-down-bubble .drop-down-menu:before {
+      top: -0.8em;
+      border-bottom-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .drop-down-bubble .drop-down-menu:after {
+      top: -0.7em;
+      border-bottom-color: #000;
+    }
   }
   .dashboard_body {
     display: grid;
@@ -51,8 +81,8 @@
       position: relative;
       .card_icon_wrapper {
         background-color: #3ea200;
-        height: 4rem;
-        width: 4rem;
+        height: 3rem;
+        width: 3rem;
         border-radius: 50px;
         display: flex;
         align-items: center;
@@ -61,13 +91,13 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 2.8rem;
-          width: 2.8rem;
+          height: 2rem;
+          width: 2rem;
           border: 1.5px solid #fff;
           border-radius: 50px;
           svg {
-            height: 1.5rem;
-            width: 1.5rem;
+            height: 1rem;
+            width: 1rem;
           }
         }
       }
@@ -119,13 +149,13 @@
         }
         .right,
         .center {
-          margin-left: 2rem;
+          margin-left: 3rem;
         }
         .card_divider {
           border-left: 1px solid #fff;
           position: absolute;
           top: 0;
-          right: -1rem;
+          right: -1.5rem;
           height: -webkit-fill-available;
         }
       }
@@ -155,14 +185,18 @@
         padding: 0 1rem;
         border: 1px solid #1a1a1a;
         border-radius: 5px;
-        width: 100px;
+        width: 114px;
         height: 40px;
         cursor: pointer;
         position: relative;
         span {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           font-weight: 500;
           color: #1a1a1a;
+        }
+        img:first-of-type {
+          width: 2.5rem;
+          height: auto;
         }
       }
       h2 {
@@ -238,7 +272,7 @@
             color: #1a1a1a;
             font-size: 1.3rem;
             .ant-divider {
-              border-left-color: #1a1a1a;
+              border-left-color: #8d8d8d;
             }
           }
         }
@@ -265,7 +299,7 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 2rem 0;
+          margin: 4rem 0;
           .event_data_item_logo {
             display: flex;
             align-items: center;
@@ -273,6 +307,7 @@
             img {
               height: 3rem;
               width: 3rem;
+              // padding: 2px;
               border-radius: 50px;
               border: 1px solid #989898;
               object-fit: contain;
@@ -352,16 +387,127 @@
     }
   }
 }
+
+.event_type {
+  label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+.dropdown_container {
+  .dropdown_container_header {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  // min-width: 368px;
+  p {
+    font-size: 1.2rem;
+    color: #989898;
+  }
+  .event_radio_button {
+    .ant-radio-inner {
+      background-color: transparent;
+      width: 12px;
+      height: 12px;
+    }
+    .ant-radio-checked .ant-radio-inner {
+      border-color: #3ea200;
+    }
+    .ant-radio-inner::after {
+      background-color: #3ea200;
+    }
+    .ant-radio:hover .ant-radio-inner,
+    .ant-radio-input:focus + .ant-radio-inner {
+      border-color: #3ea200;
+    }
+    .ant-radio-input:focus + .ant-radio-inner {
+      box-shadow: none;
+    }
+  }
+  .close_icon {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+  .ant-divider-vertical {
+    border-color: #fff;
+    height: 3rem;
+  }
+  .show_revenue {
+    color: #fff;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 0;
+    cursor: pointer;
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: #fff;
+    }
+  }
+  .active {
+    border-color: #fff;
+  }
+}
+.ant-slider-mark-text {
+  color: #fff !important;
+  font-size: 8px;
+  font-weight: 100;
+}
+.ant-slider-track {
+  background-color: #3ea200 !important;
+  height: 5px !important;
+}
+.ant-slider-handle {
+  border: 2px solid #3ea200 !important;
+  background-color: #3ea200 !important;
+}
+.ant-slider-dot-active {
+  border-color: #3ea200 !important;
+}
+
 .ant-dropdown-arrow {
-  background: linear-gradient(135deg, transparent 40%, #000 40%);
+  background: linear-gradient(135deg, transparent 40%, #1a1a1a 40%);
   &::before {
-    background: linear-gradient(to left, #000 50%, #000 50%) no-repeat -10px -10px;
+    background: linear-gradient(to left, #1a1a1a 50%, #1a1a1a 50%) no-repeat -10px -10px;
   }
 }
 .ant-dropdown .dropdown_container {
-  background: #000;
+  background: #1a1a1a;
   color: #fff;
   border-radius: 5px;
   padding: 2rem;
   left: 702px;
+}
+.ant-dropdown-placement-bottomRight > .ant-dropdown-arrow {
+  background: transparent;
+}
+.ant-dropdown-arrow::before {
+  background: linear-gradient(to left, #1a1a1a 50%, #1a1a1a 50%) no-repeat -10px -10px !important;
+}
+
+.report {
+  box-shadow: 0px 3px 30px #00000029;
+  min-width: auto;
+  display: block;
+  p {
+    color: #c3c3c3;
+    margin: 0;
+  }
+  .ant-divider {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top: 1px solid #707070;
+  }
+}
+.ant-dropdown-placement-bottom .ant-dropdown-arrow {
+  background: linear-gradient(135deg, transparent 40%, #1a1a1a 40%) !important;
+}
+.topbar-menu .ant-dropdown-arrow::before {
+  background: linear-gradient(to left, #fff 50%, #fff 50%) no-repeat -10px -10px !important;
 }

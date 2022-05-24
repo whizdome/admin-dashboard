@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Divider, Dropdown } from "antd";
+import { Divider, Dropdown, Radio, Space, Slider } from "antd";
 
+import Filter from "../../../assets/images/filter.png";
 import { BiExport, BiBriefcaseAlt2 } from "react-icons/bi";
 import { FaUserTie } from "react-icons/fa";
-import { AiOutlineMenu } from "react-icons/ai";
 import { BsCaretDownFill } from "react-icons/bs";
 import { CgStack, CgProfile } from "react-icons/cg";
+import { RiCloseCircleLine } from "react-icons/ri";
 
 import Spinner from "../../../components/Loader";
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
@@ -19,10 +20,6 @@ import {
 } from "../../../constants/index";
 import {
   DashboardAnalytics,
-  EventsAnalytics,
-  HostAnalytics,
-  AttendeesAnalytics,
-  TopAttendeesLocation,
   TopEventsAnalytics,
 } from "../../../redux/services/dashboard";
 import DatePicker from "../../../components/Calender/Calender";
@@ -31,6 +28,7 @@ import "./Dashboard.scss";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const [eventData, setEventData] = useState([]);
   const [user, setUser] = useState([]);
   const [attendeeList, setAttendeeList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,6 +36,10 @@ const Dashboard = () => {
   const [visible, setVisible] = useState(false);
   const [locationVisible, setLocationVisible] = useState(false);
   const [eventVisible, setEventVisible] = useState(false);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [eventRadioFilter, setEventRadioFilter] = useState("agm");
+  const [showRevenueByDate, setShowRevenueByDate] = useState(false);
+  const [showRevenueByPeriod, setShowRevenueByPeriod] = useState(false);
 
   const handleVisibleChange = () => {
     setVisible(!visible);
@@ -51,69 +53,349 @@ const Dashboard = () => {
     setEventVisible(!eventVisible);
   };
 
+  const handleReportChange = () => {
+    setReportVisible(!reportVisible);
+  };
+
   const filter = (
     <div className="dropdown_container">
-      <p>Revenue By Date</p>
-      <Divider type="vertical" />
-      <p>Revenue By Period</p>
+      <div className="dropdown_container_header">
+        <div>
+          <p
+            onClick={() => {
+              setShowRevenueByDate(!showRevenueByDate);
+              setShowRevenueByPeriod(false);
+            }}
+            className={`show_revenue ${showRevenueByDate ? "active" : ""}`}
+          >
+            Revenue By Date
+          </p>
+        </div>
+        <Divider type="vertical" />
+        <div>
+          <p
+            onClick={() => {
+              setShowRevenueByPeriod(!showRevenueByPeriod);
+              setShowRevenueByDate(false);
+            }}
+            className={`show_revenue ${showRevenueByPeriod ? "active" : ""}`}
+          >
+            Revenue By Period
+          </p>
+        </div>
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setVisible(false)}
+        />
+      </div>
+      {showRevenueByDate && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginTop: "2rem",
+            gap: "2rem",
+          }}
+        >
+          <div>
+            <p>Select Date</p>
+            <DatePicker />
+          </div>
+          <div>
+            <p>Select Revenue Type</p>
+            <Radio.Group
+              onChange={(e) => setEventRadioFilter(e.target.value)}
+              value={eventRadioFilter}
+            >
+              <Space direction="vertical">
+                <Radio
+                  value="Total Revenue"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Total Revenue
+                </Radio>
+                <Radio
+                  value="Subcription Payment"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Subcription Payment
+                </Radio>
+                <Radio
+                  value="Email & SMS Add On"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Email & SMS Add On
+                </Radio>
+                <Radio
+                  value="Ticket Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Ticket Commission
+                </Radio>
+                <Radio
+                  value="Donation Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Donation Commission
+                </Radio>
+                <Radio
+                  value="Dividend Payment Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Dividend Payment Commission
+                </Radio>
+              </Space>
+            </Radio.Group>
+          </div>
+        </div>
+      )}
+      {showRevenueByPeriod && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginTop: "2rem",
+            gap: "2rem",
+          }}
+        >
+          <div>
+            <p>Select Range</p>
+            <Slider
+              defaultValue={0}
+              marks={{ 0: "January", 100: "December" }}
+              tooltipVisible={false}
+              style={{ width: "120px" }}
+            />
+          </div>
+          <div>
+            <p>Select Revenue Type</p>
+            <Radio.Group
+              onChange={(e) => setEventRadioFilter(e.target.value)}
+              value={eventRadioFilter}
+            >
+              <Space direction="vertical">
+                <Radio
+                  value="Total Revenue"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Total Revenue
+                </Radio>
+                <Radio
+                  value="Subcription Payment"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Subcription Payment
+                </Radio>
+                <Radio
+                  value="Email & SMS Add On"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Email & SMS Add On
+                </Radio>
+                <Radio
+                  value="Ticket Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Ticket Commission
+                </Radio>
+                <Radio
+                  value="Donation Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Donation Commission
+                </Radio>
+                <Radio
+                  value="Dividend Payment Commission"
+                  style={{
+                    fontSize: ".95rem",
+                    fontWeight: 300,
+                    color: "#fff",
+                  }}
+                  className="event_radio_button"
+                >
+                  Dividend Payment Commission
+                </Radio>
+              </Space>
+            </Radio.Group>
+          </div>
+        </div>
+      )}
     </div>
   );
 
   const locationFilter = (
     <div className="dropdown_container">
-      <p>Select Date</p>
+      <div className="dropdown_container_header">
+        <p>Select Date</p>
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setLocationVisible(false)}
+        />
+      </div>
       <DatePicker />
     </div>
   );
 
   const eventFilter = (
     <div className="dropdown_container">
-      <div>
-        <p>Select Date</p>
-        {/* <DatePicker /> */}
+      <div
+        className="dropdown_container_header"
+        style={{ justifyContent: "flex-end" }}
+      >
+        <RiCloseCircleLine
+          className="close_icon"
+          onClick={() => setEventVisible(false)}
+        />
       </div>
-      <div>
-        <p>Select Event Type</p>
-        <div style={{}}>
-          <label htmlFor="agm">
-            <input id="agm" type="radio" name="event" value="AGM" />
-            AGM
-          </label>
-          <label htmlFor="corporate_event">
-            <input
-              id="corporate_event"
-              type="radio"
-              name="event"
-              value="Corporate Event"
-            />
-            Corporate Event
-          </label>
-          <label htmlFor="concert_shows">
-            <input
-              id="concert_shows"
-              type="radio"
-              name="event"
-              value="Concert & Shows"
-            />
-            Concert & Shows
-          </label>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginTop: "2rem",
+          gap: "2rem",
+        }}
+      >
+        <div>
+          <p>Select Date</p>
+          <DatePicker />
+        </div>
+        <div>
+          <p>Select Event Type</p>
+          <Radio.Group
+            onChange={(e) => setEventRadioFilter(e.target.value)}
+            value={eventRadioFilter}
+          >
+            <Space direction="vertical">
+              <Radio
+                value="agm"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                AGM
+              </Radio>
+              <Radio
+                value="Corporate Event"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                Corporate Event
+              </Radio>
+              <Radio
+                value="Concert & Shows"
+                style={{
+                  fontSize: ".95rem",
+                  fontWeight: 300,
+                  color: "#fff",
+                }}
+                className="event_radio_button"
+              >
+                Concert & Shows
+              </Radio>
+            </Space>
+          </Radio.Group>
         </div>
       </div>
+    </div>
+  );
+
+  const report = (
+    <div className="dropdown_container report">
+      <p>As CSV</p>
+      <Divider />
+      <p>As Excel</p>
+      <Divider />
+      <p>As PDF</p>
     </div>
   );
 
   const getAnalytics = async () => {
     setLoading(true);
     const res = await DashboardAnalytics();
+    const eventRes = await TopEventsAnalytics();
     if (res?.message === "OK") {
       setData(res?.data);
       setAttendeeList(
         Object.values(res?.data?.this_month_attendees_list).map((item) => item)
       );
       setLoading(false);
+      console.log("eventRes", eventRes);
     }
     if (res.errors) {
       setErrors(res.errors);
+      setLoading(false);
+    }
+    if (eventRes?.message === "OK") {
+      setEventData(eventRes?.data.slice(0, 7));
+      setLoading(false);
+    }
+    if (eventRes.errors) {
+      setErrors(eventRes.errors);
       setLoading(false);
     }
     console.log(res);
@@ -151,12 +433,21 @@ const Dashboard = () => {
               <p className="welcome_message">Welcome to your Admin dashboard</p>
             </div>
           </div>
-          <div>
-            <OutlineIconButton
-              btntitle="Export Analytic Report"
-              icon={<BiExport />}
-              onClick={() => console.log("clicked")}
-            />
+          <div className="drop-down drop-down-bubble">
+            <Dropdown
+              overlay={report}
+              placement="bottomCenter"
+              trigger={["click"]}
+              arrow={{ pointAtCenter: true }}
+              onVisibleChange={handleReportChange}
+              visible={reportVisible}
+            >
+              <OutlineIconButton
+                btntitle="Export Analytic Report"
+                icon={<BiExport />}
+                onClick={() => console.log("clicked")}
+              />
+            </Dropdown>
           </div>
         </div>
         {loading ? (
@@ -296,7 +587,7 @@ const Dashboard = () => {
                     className="dropdown_filter"
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>
@@ -334,7 +625,7 @@ const Dashboard = () => {
                     visible={locationVisible}
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>
@@ -347,7 +638,7 @@ const Dashboard = () => {
                         <p>{venue}</p>
                         <p>
                           <span style={{ color: color }}>{change}</span>
-                          <Divider type="vertical" />
+                          {change && <Divider type="vertical" />}
                           <span>{attendees}</span>
                         </p>
                       </div>
@@ -367,7 +658,7 @@ const Dashboard = () => {
                     visible={eventVisible}
                   >
                     <div className="filter">
-                      <AiOutlineMenu />
+                      <img src={Filter} alt="filter" />
                       <span>Filter</span>
                       <BsCaretDownFill />
                     </div>
@@ -379,15 +670,21 @@ const Dashboard = () => {
                 </div>
                 <hr />
                 <div className="event_data_body">
-                  {dashboardAttendeeEvents.map(
-                    ({ id, event, logo, attendees }) => (
-                      <div className="event_data_item" key={id}>
-                        <div className="event_data_item_logo">
-                          <img src={logo} alt="event logo" />
-                          <p>{event}</p>
+                  {eventData === [] ? (
+                    <p style={{ textAlign: "center", fontSize: "90%" }}>
+                      No event has been created yet
+                    </p>
+                  ) : (
+                    eventData?.map(
+                      ({ id, short_name, logo, attendees_count }) => (
+                        <div className="event_data_item" key={id}>
+                          <div className="event_data_item_logo">
+                            <img src={logo} alt="event logo" />
+                            <p>{short_name}</p>
+                          </div>
+                          <p>{attendees_count}</p>
                         </div>
-                        <p>{attendees}</p>
-                      </div>
+                      )
                     )
                   )}
                 </div>

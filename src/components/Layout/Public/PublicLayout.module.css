@@ -16,10 +16,13 @@ Breakpoint aurgument
 .screen_layout {
   background: #fff url("../../../assets/images/login-bg.png") no-repeat center;
   background-size: cover;
+  background-position-x: right;
   position: relative;
-  width: 97%;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 2rem auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .screen_layout .logo {
   width: 100px;
@@ -29,7 +32,7 @@ Breakpoint aurgument
   margin: 2rem auto;
 }
 .screen_layout .children {
-  width: 30%;
+  width: 35%;
   margin: 1rem auto;
 }
 .screen_layout .reset {
@@ -57,7 +60,7 @@ Breakpoint aurgument
   align-items: center;
   justify-content: space-evenly;
   background-color: #fff;
-  box-shadow: 0px 3px 50px #00000010;
+  box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.062745098);
   border-radius: 10px;
   z-index: 2;
 }
@@ -86,7 +89,7 @@ Breakpoint aurgument
   align-items: center;
   justify-content: flex-start;
   background-color: #2b2b2b;
-  box-shadow: 0px 3px 50px #00000010;
+  box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.062745098);
   border-radius: 10px;
   cursor: pointer;
 }
@@ -123,6 +126,15 @@ Breakpoint aurgument
   }
   .screen_layout .password_container {
     position: static;
-    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 900px) {
+  .screen_layout .children {
+    width: 80%;
+  }
+  .screen_layout .reset {
+    display: none;
   }
 }/*# sourceMappingURL=PublicLayout.module.css.map */

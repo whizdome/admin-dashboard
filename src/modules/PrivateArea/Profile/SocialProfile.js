@@ -60,9 +60,9 @@ const SocialProfile = () => {
     const res = await updateUserSocials(state);
     if (res?.data) {
       setState({
-        linkedin_url: "",
-        twitter_url: "",
-        facebook_url: "",
+        linkedin_url: res?.data.linkedin_url,
+        twitter_url: res?.data.twitter_url,
+        facebook_url: res?.data?.facebook_url,
       });
       toast.success("Update successfully", { position: "top-right" });
       setLoading(false);

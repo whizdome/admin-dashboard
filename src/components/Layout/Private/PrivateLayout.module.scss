@@ -8,7 +8,7 @@
     flex-grow: 1;
     background-color: #fcfcfc;
     margin-left: 270px;
-    @include respond(tab-port) {
+    @include respond(tab-pro) {
       margin-left: 0;
     }
     @include respond(phone) {

@@ -1,0 +1,152 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.table_container {
+  margin: 2rem 0;
+}
+.table_container table {
+  border-collapse: separate;
+  border-spacing: 0 0.7rem;
+  width: 100%;
+}
+.table_container table thead th {
+  color: #1a1a1a;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding-bottom: 0.8rem;
+}
+.table_container table thead th:first-child {
+  padding-left: 2rem;
+  text-align: left;
+}
+.table_container table thead th:last-child {
+  padding-right: 2rem;
+}
+.table_container table tbody td {
+  color: #707070;
+}
+.table_container table tbody tr {
+  border: 1px solid #e8e7e7;
+  background-color: #fff;
+  cursor: pointer;
+}
+.table_container table tbody tr td {
+  border: 1px solid #e8e7e7;
+  border-right: 0;
+  border-left: 0;
+  padding: 1rem 0;
+  font-size: 1.28rem;
+}
+.table_container table tbody tr td:first-child {
+  border-left: 1px solid #e8e7e7;
+  padding-left: 2rem;
+}
+.table_container table tbody tr td:last-child {
+  border-right: 1px solid #e8e7e7;
+  padding-right: 2rem;
+}
+.table_container table input {
+  pointer-events: none;
+}
+.table_container table .align_left {
+  text-align: left;
+  white-space: nowrap;
+}
+.table_container table .align_right {
+  text-align: right;
+  white-space: nowrap;
+}
+.table_container .ant-pagination {
+  text-align: end;
+  margin: 3.5rem 0;
+}
+.table_container .ant-pagination .ant-pagination-disabled {
+  display: none;
+}
+.table_container .ant-pagination .ant-pagination-item {
+  border: none;
+  margin-right: 0;
+}
+.table_container .ant-pagination .ant-pagination-item a {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.table_container .ant-pagination .ant-pagination-item:hover a {
+  color: #d9363e;
+}
+.table_container .ant-pagination .ant-pagination-item-active a {
+  color: #d9363e;
+}
+.table_container .ant-pagination .ant-pagination-prev,
+.table_container .ant-pagination .ant-pagination-next {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.table_container .ant-pagination .ant-pagination-prev:hover,
+.table_container .ant-pagination .ant-pagination-next:hover {
+  color: #d9363e;
+}
+.table_container .ant-pagination .ant-pagination-prev span {
+  display: flex;
+  align-items: center;
+}
+.table_container .ant-pagination .ant-pagination-prev span svg {
+  margin-right: 0.8rem;
+}
+.table_container .ant-pagination .ant-pagination-next span {
+  display: flex;
+  align-items: center;
+}
+.table_container .ant-pagination .ant-pagination-next span svg {
+  margin-left: 0.8rem;
+}
+@media (max-width: 900px) {
+  .table_container {
+    width: 95vw;
+    overflow-x: scroll;
+  }
+}
+@media (max-width: 767px) {
+  .table_container {
+    width: 85vw;
+    overflow-x: scroll;
+  }
+}
+
+.rmd-toggle:hover {
+  background-color: transparent;
+  --rmd-states-background-color: transparent;
+}
+
+.table_footer {
+  text-align: right;
+  margin: 2rem 0;
+}
+.table_footer .button {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+.table_footer .activeButton {
+  color: white;
+  background: #185adb;
+}
+.table_footer .inactiveButton {
+  color: #2c3e50;
+  background: #f9f9f9;
+}/*# sourceMappingURL=Table.css.map */

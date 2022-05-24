@@ -6,60 +6,70 @@ import "./Graph.scss";
 const data = [
   {
     name: "Jan",
-    uv: 500,
+    uv: 450000000,
   },
   {
     name: "Feb",
-    uv: 800,
+    uv: 550000000,
   },
   {
     name: "Mar",
-    uv: 6050,
+    uv: 450000000,
   },
   {
     name: "Apr",
-    uv: 600,
+    uv: 450000000,
   },
   {
     name: "May",
-    uv: 1000,
+    uv: 220000000,
   },
   {
     name: "Jun",
-    uv: 2500,
+    uv: 500000000,
   },
   {
     name: "Jul",
-    uv: 500,
+    uv: 300000000,
   },
   {
     name: "Aug",
-    uv: 1000,
+    uv: 400000000,
   },
   {
     name: "Sep",
-    uv: 5000,
+    uv: 800000000,
   },
   {
     name: "Oct",
-    uv: 5000,
+    uv: 0,
   },
   {
     name: "Nov",
-    uv: 5000,
+    uv: 0,
   },
   {
     name: "Dec",
-    uv: 5000,
+    uv: 0,
   },
 ];
 
 export default function App() {
+  const format = (value) => {
+    if (value <= 999999) {
+      return value / 1000 + "K";
+    } else if (value <= 999999999) {
+      return value / 1000000 + "M";
+    } else {
+      return value / 1000000000 + "B";
+    }
+  };
+
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={500}>
       <BarChart
         width={500}
-        height={300}
+        height={500}
         data={data}
         margin={{
           top: 5,
@@ -68,8 +78,21 @@ export default function App() {
           bottom: 50,
         }}
       >
-        <XAxis dy={30} dataKey="name" />
-        <YAxis dx={-30} />
+        <XAxis dy={30} dataKey="name" minTickGap={0.5} />
+        <YAxis
+          type="number"
+          domain={[500000, 1000000000]}
+          dx={-30}
+          interval={0}
+          tickCount={10}
+          tickFormatter={format}
+          // ticks={[
+          //   500000, 1000000, 2000000, 5000000, 10000000, 50000000, 100000000,
+          //   200000000, 500000000, 1000000000,
+          // ]}
+          minTickGap={1}
+          scale="linear"
+        />
         <Bar dataKey="uv" fill="#000" radius={[50, 50, 50, 50]} barSize={10} />
       </BarChart>
     </ResponsiveContainer>

@@ -127,10 +127,19 @@ Breakpoint aurgument
   border: none;
 }
 @media (max-width: 767px) {
+  .acct_management .acct_management_header {
+    display: block;
+  }
+  .acct_management .acct_management_header .user_details {
+    margin-bottom: 1rem;
+  }
   .acct_management .acct_management_buttons {
     top: 8rem;
     left: 2rem;
     right: auto;
+  }
+  .acct_management .acct_management_buttons .ant-input-affix-wrapper {
+    width: 35%;
   }
 }
 .dropdown_bubble .dropdown_menu {
