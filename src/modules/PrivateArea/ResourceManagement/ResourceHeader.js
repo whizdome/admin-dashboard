@@ -1,7 +1,6 @@
 import React from "react";
 
 const ResourceHeader = ({ currentView }) => {
-  console.log(currentView, "currentView log");
   return (
     <div className="resourceHeader">
       <div className="container">
