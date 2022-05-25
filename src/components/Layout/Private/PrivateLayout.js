@@ -7,7 +7,7 @@ import TopBar from "../../TopBar/TopBar";
 import style from "./PrivateLayout.module.scss";
 
 const PrivateLayout = ({ children }) => {
-  // toggle sidebar function
+
   const [menuCollapse, setMenuCollapse] = useState(false);
   const { width } = useWindowDimensions();
 
