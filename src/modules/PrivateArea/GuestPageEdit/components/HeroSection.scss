@@ -1,0 +1,35 @@
+.heroSection {
+  border: 3px solid red;
+  width: 100%;
+  height: 622px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 1.8em;
+  }
+  h1 {
+    font-size: 5em;
+    line-height: 75px;
+    margin-top: 0;
+  }
+  h3 {
+    font-size: 1.9em;
+  }
+
+  .heroContents {
+    width: 95%;
+    margin: 0 auto;
+    .edit {
+      text-align: right;
+    }
+    .texts {
+      display: flex;
+      justify-content: space-between;
+      & > div:nth-child(1) {
+        width: 55%;
+      }
+    }
+  }
+}
