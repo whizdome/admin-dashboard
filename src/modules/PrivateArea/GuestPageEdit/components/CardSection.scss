@@ -1,0 +1,33 @@
+.cardSectionWrapper {
+  margin: 50px 0;
+  img {
+    max-width: 100%;
+  }
+  p{
+      font-size: 18px;
+  }
+  .edit {
+    text-align: right;
+    color: #D90B2C;
+    margin-bottom: -40px;
+  }
+  .subWrapper {
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px 0;
+  }
+}
+.cardSection {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  .box {
+    width: 40%;
+  }
+  .box1 {
+  }
+  .box2 {
+  }
+}

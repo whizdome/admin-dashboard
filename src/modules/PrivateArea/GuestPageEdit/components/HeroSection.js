@@ -1,20 +1,30 @@
 import React from "react";
 import "./HeroSection.scss";
+import coverVector from "../../../../assets/images/cover-vector.svg";
 
-const HeroSection = ({ heroContents }) => {
-  const { title, headerText, text } = heroContents;
+
+const HeroSection = ({ heroContents, handleEditCover }) => {
+  const { title, headerText, text, coverImage } = heroContents;
 
   return (
     <div className="heroSection">
-      <div className="heroContents">
-        <div className="edit">Edit Cover</div>
-        <div className="texts">
-          <div>
-            <h3> {title}</h3>
-            <h1>{headerText}</h1>
-            <p>{text}</p>
+      <img className="coverImage" src={coverImage} alt="coverImage" />
+      <div className="overlay">
+        <div className="heroContents">
+          <div className="edit" onClick={() => handleEditCover(title)}>
+            Edit Cover
           </div>
-          <div></div>
+          <div className="texts">
+            <div>
+              <h3> {title}</h3>
+              <h1>{headerText}</h1>
+              <p>{text}</p>
+            </div>
+            <div>
+              <img src={coverVector} alt="coverVector" />
+             
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -16,7 +16,6 @@ const GuestPageEdit = () => {
       const pageName = useParams().pageName;
       const title = pageName.split(" ").join("");
 
-
      const CurrentPage = () => {
        switch (title) {
          case "AnnualGeneralMeeting":
