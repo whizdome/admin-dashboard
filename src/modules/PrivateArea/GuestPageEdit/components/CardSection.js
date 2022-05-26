@@ -2,9 +2,9 @@ import React from "react";
 import "./CardSection.scss";
 import meeting1 from "../../../../assets/images/meeting1.jpg";
 
-const CardSection = ({ reverse, cardContent }) => {
-    const { title, bodyText, cardImage } = cardContent;
-    
+const CardSection = ({ reverse, cardContent, handleEditCard }) => {
+  const { title, bodyText, cardImage } = cardContent;
+
   return (
     <div className="cardSectionWrapper">
       <div className="subWrapper">
@@ -12,7 +12,7 @@ const CardSection = ({ reverse, cardContent }) => {
           className="edit"
           style={{ textAlign: `${reverse ? "left" : "right"}` }}
         >
-          <p>Edit Card</p>
+          <p onClick={() => handleEditCard(title)}>Edit Card</p>
         </div>
         <div
           className="cardSection"
