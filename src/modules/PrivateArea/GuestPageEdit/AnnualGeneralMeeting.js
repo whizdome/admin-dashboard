@@ -8,7 +8,7 @@ import meeting1 from "../../../assets/images/meeting1.jpg";
 const AnnualGeneralMeeting = () => {
   const [editStatus, setEditStatus] = useState(false);
     const [issHeroSection, setIssHeroSection] = useState(false);
-
+  // const [editCardStatus, setEditCardStatus] = useState(false);
 
  
   const handleEditCover = (val) => {
@@ -16,6 +16,13 @@ const AnnualGeneralMeeting = () => {
     setEditStatus(true)
     setIssHeroSection(true)
   };
+  const handleEditCard = (val) => {
+    console.log(val, "val log");
+     setEditStatus(true);
+    setIssHeroSection(false);
+  };
+
+
 
   const closeEdit = () => {
    setEditStatus(false);
@@ -54,9 +61,13 @@ const AnnualGeneralMeeting = () => {
         heroContents={heroContents}
         handleEditCover={handleEditCover}
       />
-      <CardSection cardContent={cardContent1} />
-      <CardSection cardContent={cardContent2} reverse={true} />
-      <CardSection cardContent={cardContent3} />
+      <CardSection cardContent={cardContent1} handleEditCard={handleEditCard} />
+      <CardSection
+        cardContent={cardContent2}
+        reverse={true}
+        handleEditCard={handleEditCard}
+      />
+      <CardSection cardContent={cardContent3} handleEditCard={handleEditCard} />
 
       {editStatus && (
         <EditCard closeEdit={closeEdit} issHeroSection={issHeroSection} />
