@@ -1,34 +1,60 @@
 .heroSection {
-  border: 3px solid red;
+  color: white;
   width: 100%;
   height: 622px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+  position: relative;
   p {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
   h1 {
-    font-size: 5em;
+    font-size: 4.2em;
+    // font-size: 60px;
     line-height: 75px;
     margin-top: 0;
+    color: white;
   }
   h3 {
-    font-size: 1.9em;
+    font-size: 1.6em;
+     color: white;
   }
-
+  .coverImage {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  .overlay {
+    position: sticky;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .heroContents {
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
+
     .edit {
       text-align: right;
+      cursor: pointer;
     }
     .texts {
       display: flex;
       justify-content: space-between;
       & > div:nth-child(1) {
-        width: 55%;
+        width: 50%;
+      }
+      & > div:nth-child(2) {
+          opacity: 0.5;
+          // width: 45%;
+        img{
+        
+        }
       }
     }
   }
