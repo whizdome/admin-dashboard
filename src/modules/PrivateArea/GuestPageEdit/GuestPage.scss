@@ -43,3 +43,30 @@
     }
   }
 }
+
+
+.aboutPageWrapper{
+  width: 80%;
+  margin: 40px auto;
+  p{
+    font-size: 20px;
+  }
+   h1{
+       font-size: 4em;
+    }
+    .edit{
+      color: #D90B2C;
+      p{
+        cursor: pointer;
+      }
+    }
+  .section1{
+    & > div{
+      display: flex;
+      justify-content: space-between;
+      & > p {
+        width: 85%;
+      }
+    }
+  }
+}
