@@ -1,0 +1,57 @@
+.aboutHeroSection {
+  width: 100%;
+  height: 622px;
+  background-color: #ebecee;
+  position: relative;
+  margin-bottom: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 1.5em;
+    color: black;
+  }
+  h1 {
+    font-size: 4.2em;
+    line-height: 75px;
+    margin-top: 0;
+    color: black;
+  }
+  h3 {
+    font-size: 1.6em;
+    color: black;
+  }
+  .heroContents {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .texts {
+    display: flex;
+    justify-content: space-between;
+    & > div:nth-child(1) {
+      width: 50%;
+      .edit {
+        text-align: left;
+        cursor: pointer;
+
+        p {
+          color: red;
+        }
+      }
+    }
+    & > div:nth-child(2) {
+      opacity: 1;
+      position: relative;
+      .heroImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80%;
+        // z-index: 1;
+      }
+    }
+  }
+}
