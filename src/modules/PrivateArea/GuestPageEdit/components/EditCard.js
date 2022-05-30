@@ -2,23 +2,30 @@ import React from "react";
 import "./EditCard.scss";
 import image2 from "../../../../assets/images/image2.jpg";
 
-const EditCard = ({ closeEdit, issHeroSection }) => {
+const EditCard = ({ closeEdit, issHeroSection, issTextOnly }) => {
+  console.log(issTextOnly, "issTextOnly log");
   return (
     <div className="editCard">
       <div className="editCardBox">
         <div className="cancel" onClick={closeEdit}>
           x
         </div>
-        <div className="box1">
-          <div className="uploadImg">
-            <img src="" alt="" />
-            <p>Drag your image here, or browse</p>
-            <p>Supports: jpg, png. Dimension: 2000*1000</p>
+
+        {issTextOnly ? (
+          ""
+        ) : (
+          <div className="box1">
+            <div className="uploadImg">
+              <img src="" alt="" />
+              <p>Drag your image here, or browse</p>
+              <p>Supports: jpg, png. Dimension: 2000*1000</p>
+            </div>
+            <div className="uploadedImg">
+              <img src={image2} alt="imageUploaded" />
+            </div>
           </div>
-          <div className="uploadedImg">
-            <img src={image2} alt="imageUploaded" />
-          </div>
-        </div>
+        )}
+
         <div className="box2">
           {issHeroSection && (
             <div className="heading">
@@ -35,7 +42,7 @@ const EditCard = ({ closeEdit, issHeroSection }) => {
             </textarea>
           </div>
           <div className="bodyText">
-            <h3>{issHeroSection? "Edit":"Change"} Body Text</h3>
+            <h3>{issHeroSection ? "Edit" : "Change"} Body Text</h3>
             <textarea name="" id="" rows="7">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
