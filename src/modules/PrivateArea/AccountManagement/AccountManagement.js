@@ -25,6 +25,7 @@ import { headers } from "../../../constants";
 import "./AccountManagement.scss";
 import "antd/dist/antd.css";
 import "../../../components/Tabs/Tabs.scss";
+import AuditLog from "../../../components/CreateUser/AuditLog";
 
 const { TabPane } = Tabs;
 
@@ -39,6 +40,7 @@ const AccountManagement = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [perPage, setPerPage] = useState(5);
 
+  const [isAuditLog, setIsAuditLog] = useState(false);
   const handleOpenModal = (type) => {
     setShowModal(true);
     setUserType(type);
@@ -72,6 +74,11 @@ const AccountManagement = () => {
   const callback = (key) => {
     setUserTab(key);
     fetchUsers(key);
+    if (key === "auditLog") {
+      setIsAuditLog(true);
+    } else {
+      setIsAuditLog(false);
+    }
   };
 
   useEffect(() => {
@@ -155,37 +162,60 @@ const AccountManagement = () => {
                 </div>
               )}
             </TabPane>
+            <TabPane tab="Audit Log" key="auditLog">
+              <AuditLog closeModal={handleCloseModal} />
+              {/* {loading ? (
+                <Spinner visible={loading} />
+              ) : users?.length > 0 ? (
+                <UsersTable
+                  tableData={users}
+                  headers={headers}
+                  totalUsers={totalUsers}
+                  perPage={perPage}
+                  setNewPage={(num) => setPageNo(num)}
+                />
+              ) : (
+                <div className="no_data">
+                  <p>No user found</p>
+                </div>
+              )} */}
+            </TabPane>
           </Tabs>
-          <div className="acct_management_buttons">
-            <div className="dropdown_bubble">
-              <FillIconButton
-                icon={<GoPlus />}
-                rightIcon="true"
-                btntitle="Create new user"
-                onClick={() => setShowBubble(!showBubble)}
+          {!isAuditLog && (
+            <div className="acct_management_buttons">
+              <div className="dropdown_bubble">
+                <FillIconButton
+                  icon={<GoPlus />}
+                  rightIcon="true"
+                  btntitle="Create new user"
+                  onClick={() => setShowBubble(!showBubble)}
+                />
+                <ul
+                  className="dropdown_menu"
+                  style={{ display: showBubble ? "block" : "none" }}
+                  aria-labelledby="dLabel"
+                >
+                  <li onClick={() => handleOpenModal("admin")}>
+                    <span>Admin User</span>
+                  </li>
+                  <li onClick={() => handleOpenModal("corporate")}>
+                    <span>Corporate</span>
+                  </li>
+                  <li onClick={() => handleOpenModal("auditLog")}>
+                    <span>Audit Log</span>
+                  </li>
+                  <li onClick={() => handleOpenModal("individual")}>
+                    <span>Individual</span>
+                  </li>
+                </ul>
+              </div>
+              <Input
+                size="large"
+                placeholder="Search User"
+                prefix={<BsSearch />}
               />
-              <ul
-                className="dropdown_menu"
-                style={{ display: showBubble ? "block" : "none" }}
-                aria-labelledby="dLabel"
-              >
-                <li onClick={() => handleOpenModal("admin")}>
-                  <span>Admin User</span>
-                </li>
-                <li onClick={() => handleOpenModal("corporate")}>
-                  <span>Corporate</span>
-                </li>
-                <li onClick={() => handleOpenModal("individual")}>
-                  <span>Individual</span>
-                </li>
-              </ul>
             </div>
-            <Input
-              size="large"
-              placeholder="Search User"
-              prefix={<BsSearch />}
-            />
-          </div>
+          )}
         </div>
       </div>
       <CustomModal
@@ -195,6 +225,8 @@ const AccountManagement = () => {
             <AdminUser closeModal={handleCloseModal} />
           ) : userType === "corporate" ? (
             <CorporateUser closeModal={handleCloseModal} />
+          ) : userType === "auditLog" ? (
+            <AuditLog closeModal={handleCloseModal} />
           ) : (
             <IndividualUser closeModal={handleCloseModal} />
           )
