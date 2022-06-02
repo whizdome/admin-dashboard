@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PrivateLayout from "../../../components/Layout/Private/PrivateLayout";
 import Blog from "./Blog";
+import HelpTips from "./components/HelpTips";
 import Help from "./Help";
 import Landing from "./Landing";
 import ResourceHeader from "./ResourceHeader";
@@ -57,6 +58,9 @@ const ResourceManagement = () => {
           )}
         </div>
       </div>
+      {/* <div>
+        <HelpTips />
+      </div> */}
     </PrivateLayout>
   );
 };

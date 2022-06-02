@@ -5,6 +5,11 @@ import editIcon from "../../../assets/images/edit-icon.svg";
 
 
 const BlogCard = ({ blogCards }) => {
+
+  const hadnleLog = (val) => {
+    console.log(val, "")
+  }
+
   return (
     <div className="blogCards">
       {blogCards.map((blogCard, index) => (
@@ -18,7 +23,11 @@ const BlogCard = ({ blogCards }) => {
                 View More
                 <img className="editIcon" src={editIcon} alt="editIcon" />
               </strong>
-              <span>...</span>
+              <span onClick={() => hadnleLog(index)}>...</span>
+
+              <div className='editTooltip'>
+                edit post
+              </div>
             </div>
           </div>
         </div>
