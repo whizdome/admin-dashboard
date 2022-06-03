@@ -10,6 +10,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+    div{
+      h3{
+        border-bottom: 2px solid #D9363E;
+        padding-right: 30px;
+        padding-bottom: 3px;
+      }
+    }
+    .exportLog{
+      border: 1px solid #D5D5D5;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 700ms ease-in-out;
+      &:hover{
+        border-color: #23980E;
+        box-shadow: 2px 2px 25px rgba(119, 119, 119, 0.2), -2px -2px 25px rgba(119, 119, 119, 0.2);
+      }
+      svg{
+        margin-right: 20px;
+      }
+
+    }
   }
   .auditBody {
     .auditLogGrid {
@@ -74,6 +98,48 @@
                 margin-right: 5px;
             }
         }
+    }
+  }
+}
+
+.dropdown_bubble {
+  .dropdown_menu {
+    position: absolute;
+    margin-top: 1em;
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 10px;
+    width: 15rem;
+    padding: 1.3rem 0.9rem;
+    font-size: 1.3rem;
+
+    &:before,
+    &:after {
+      content: " ";
+      display: block;
+      border-style: solid;
+      border-width: 0 0.5em 0.8em 0.5em;
+      border-color: transparent;
+      position: absolute;
+      left: 45%;
+    }
+
+    &:before {
+      top: -0.8em;
+      border-bottom-color: #1a1a1a;
+    }
+
+    &:after {
+      top: -0.7em;
+      border-bottom-color: #1a1a1a;
+    }
+    li {
+      border-bottom: 1px solid #3c3c3c;
+      padding: 0.5rem;
+      cursor: pointer;
+      span {
+        color: #999999;
+      }
     }
   }
 }
