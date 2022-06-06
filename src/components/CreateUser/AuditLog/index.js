@@ -5,8 +5,6 @@ const AuditLog = () => {
   const [showBubble, setShowBubble] = useState(false);
 
     const handleOpenModal = (type) => {
-      // setShowModal(true);
-      // setUserType(type);
       setShowBubble(false);
     };
 
