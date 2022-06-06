@@ -54,7 +54,7 @@ const AuditLog = () => {
       <div className="auditWrapper">
         <div className="head">
           <div>
-            <h3>AuditLog</h3>
+            <h3>Audit Log</h3>
           </div>
           <div className="dropdown_bubble">
             <div

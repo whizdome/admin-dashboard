@@ -95,19 +95,20 @@ const AccountManagement = () => {
                 <FiUsers />
               </div>
             </div>
-
             <div>
               <p className="user_name">Users</p>
               <p className="welcome_message">Users on APEMS</p>
             </div>
           </div>
-          <div>
-            <OutlineIconButton
-              btntitle="Export Analytic Report"
-              icon={<BiExport />}
-              onClick={() => console.log("clicked")}
-            />
-          </div>
+          {!isAuditLog && (
+            <div>
+              <OutlineIconButton
+                btntitle="Export Analytic Report"
+                icon={<BiExport />}
+                onClick={() => console.log("clicked")}
+              />
+            </div>
+          )}
         </div>
         <div className="acct_management_body">
           <Tabs defaultActiveKey="company" onChange={callback}>
