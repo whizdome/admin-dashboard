@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AuditLog.scss";
+import { CSVLink } from "react-csv";
 
 const AuditLog = ({ auditLogDatas }) => {
   const [showBubble, setShowBubble] = useState(false);
@@ -7,6 +8,15 @@ const AuditLog = ({ auditLogDatas }) => {
   const handleOpenModal = (type) => {
     setShowBubble(false);
   };
+
+ const csvHeader=[
+                { label: "Participant Name", key: "name" },
+                { label: "Email", key: "email" },
+                { label: "Phone Number", key: "phone_number" },
+                { label: "Account number", key: "account_number" },
+                { label: "Vote", key: "vote_rights" },
+              ]
+          const  csvFileName="auditLog.csv"
 
   return (
     <div className="auditLogs">
@@ -51,7 +61,14 @@ const AuditLog = ({ auditLogDatas }) => {
               aria-labelledby="dLabel"
             >
               <li onClick={() => handleOpenModal()}>
-                <span>As CSV</span>
+                <CSVLink
+                  headers={csvHeader}
+                  data={auditLogDatas}
+                  filename={csvFileName}
+                  target="_blank"
+                >
+                  As CSV
+                </CSVLink>
               </li>
               <li onClick={() => handleOpenModal()}>
                 <span>As PDF</span>
