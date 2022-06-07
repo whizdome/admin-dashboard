@@ -82,6 +82,7 @@
       }
     }
     .auditLogHead{
+      border: none;
          &:hover{
          background-color: initial;
          cursor: initial;
@@ -91,6 +92,7 @@
         h4{
             font-weight: 400;
             color: #ACACAC;
+            font-size: 12px;
             img{
                 width: 25px ;
                 height: 25px;
