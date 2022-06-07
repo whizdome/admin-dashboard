@@ -12,6 +12,7 @@ import PayoutAccount from "./PayoutAccount";
 import Password from "./Password";
 
 import "./Profile.scss";
+import AuditLog from "../../../components/CreateUser/AuditLog";
 
 const AccountManagementProfile = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -35,6 +36,18 @@ const AccountManagementProfile = () => {
     // console.log(user);
   }, []);
 
+    const auditLogData = [
+      {
+        userName: "salam sabutuwete",
+        imageUrl: "",
+        userId: "8989",
+        ipAddress: "75657585",
+        activity: " jogging up and down",
+        status: "success",
+        timeStamp: "21:2882:272",
+      }
+  ];
+  
   return (
     <PrivateLayout>
       <div className="profile">
@@ -84,6 +97,10 @@ const AccountManagementProfile = () => {
               {
                 title: "Password",
                 content: <Password />,
+              },
+              {
+                title: "Audit Log",
+                content: <AuditLog auditLogDatas={auditLogData} />,
               },
             ]}
           />
