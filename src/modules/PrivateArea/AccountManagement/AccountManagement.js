@@ -85,6 +85,45 @@ const AccountManagement = () => {
     fetchUsers(user_tab, pageNo);
   }, [pageNo]);
 
+    const auditLogDatas = [
+    {
+      userName: "salam sabutuwete",
+      imageUrl: "",
+      userId: "8989",
+      ipAddress: "75657585",
+      activity: " jogging up and down",
+      status: "success",
+      timeStamp: "21:2882:272",
+    },
+    {
+      userName: "tosin sabutuwete",
+      imageUrl: "",
+      userId: "8989",
+      ipAddress: "43457585",
+      activity: " coding up and down",
+      status: "failed",
+      timeStamp: "21:2882:272",
+    },
+    {
+      userName: "seun yusuf",
+      imageUrl: "",
+      userId: "8989",
+      ipAddress: "75657585",
+      activity: " jogging up and down",
+      status: "success",
+      timeStamp: "21:2882:272",
+    },
+    {
+      userName: "salam sabutuwete",
+      imageUrl: "",
+      userId: "8989",
+      ipAddress: "75657585",
+      activity: " jogging up and down",
+      status: "success",
+      timeStamp: "21:2882:272",
+    },
+  ];
+
   return (
     <PrivateLayout>
       <div className="acct_management">
@@ -164,7 +203,10 @@ const AccountManagement = () => {
               )}
             </TabPane>
             <TabPane tab="Audit Log" key="auditLog">
-              <AuditLog closeModal={handleCloseModal} />
+              <AuditLog
+                closeModal={handleCloseModal}
+                auditLogDatas={auditLogDatas}
+              />
               {/* {loading ? (
                 <Spinner visible={loading} />
               ) : users?.length > 0 ? (

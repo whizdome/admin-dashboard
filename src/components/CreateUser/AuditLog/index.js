@@ -1,52 +1,13 @@
 import React, { useState } from "react";
 import "./AuditLog.scss";
 
-const AuditLog = () => {
+const AuditLog = ({ auditLogDatas }) => {
   const [showBubble, setShowBubble] = useState(false);
 
-    const handleOpenModal = (type) => {
-      setShowBubble(false);
-    };
+  const handleOpenModal = (type) => {
+    setShowBubble(false);
+  };
 
-
-  const auditLogDatas = [
-    {
-      userName: "salam sabutuwete",
-      imageUrl: "",
-      userId: "8989",
-      ipAddress: "75657585",
-      activity: " jogging up and down",
-      status: "success",
-      timeStamp: "21:2882:272",
-    },
-    {
-      userName: "tosin sabutuwete",
-      imageUrl: "",
-      userId: "8989",
-      ipAddress: "43457585",
-      activity: " coding up and down",
-      status: "failed",
-      timeStamp: "21:2882:272",
-    },
-    {
-      userName: "seun yusuf",
-      imageUrl: "",
-      userId: "8989",
-      ipAddress: "75657585",
-      activity: " jogging up and down",
-      status: "success",
-      timeStamp: "21:2882:272",
-    },
-    {
-      userName: "salam sabutuwete",
-      imageUrl: "",
-      userId: "8989",
-      ipAddress: "75657585",
-      activity: " jogging up and down",
-      status: "success",
-      timeStamp: "21:2882:272",
-    },
-  ];
   return (
     <div className="auditLogs">
       <div className="auditWrapper">
@@ -91,9 +52,6 @@ const AuditLog = () => {
             >
               <li onClick={() => handleOpenModal()}>
                 <span>As CSV</span>
-              </li>
-              <li onClick={() => handleOpenModal()}>
-                <span>As Excel</span>
               </li>
               <li onClick={() => handleOpenModal()}>
                 <span>As PDF</span>
