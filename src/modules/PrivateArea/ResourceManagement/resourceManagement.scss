@@ -45,8 +45,8 @@
   div {
     display: flex;
     justify-content: space-between;
-    h3{
-        font-weight: 600;
+    h3 {
+      font-weight: 600;
     }
     button {
       background-color: black;
@@ -64,8 +64,8 @@
 .resourceBody {
   border: 1px solid #f2f1f1;
   padding: 40px 0;
-  ul{
-      padding-left: 10px;
+  ul {
+    padding-left: 10px;
   }
 }
 .landingCards {
@@ -166,6 +166,45 @@
         span {
           font-size: 25px;
           font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .dropdown_bubble {
+    position: relative;
+    border: 2px solid green;
+    .dropdown_menu {
+      position: absolute;
+      // background: #1A1A1A;
+      box-shadow: 0px 5px 30px #0000000d;
+      background-color: #1a1a1a;
+      color: #fff;
+      top: -120px;
+      left: -40px;
+      width: 130px;
+      &:before,
+      &:after {
+        content: " ";
+        display: block;
+        border-style: solid;
+        // border-width: 0 0.5em 0.8em 0.5em;
+        border-color: transparent;
+        position: absolute;
+        left: 45%;
+        left: 75%;
+        transform: rotate(180deg);
+        top: 87px;
+        border-bottom-color: #1a1a1a;
+      }
+      li {
+        border-bottom: 1px solid #3c3c3c;
+        width: 100%;
+        font-size: 12px;
+        cursor: pointer;
+        span,
+        a {
+          color: #999999;
         }
       }
     }
