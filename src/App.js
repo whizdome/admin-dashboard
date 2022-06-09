@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 import ResourceManagement from "./modules/PrivateArea/ResourceManagement";
 import GuestPageEdit from "./modules/PrivateArea/GuestPageEdit";
+import HelpTipsView from "./modules/PrivateArea/ResourceManagement/Helptips";
 
 function App() {
   return (
@@ -28,11 +29,16 @@ function App() {
             component={ResourceManagement}
           />
           <PrivateRoute
+            path="/resource-management/help-tip/:id"
+            exact
+            component={HelpTipsView}
+          />
+
+          <PrivateRoute
             path="/resource-management/guest-page-edit/:pageName"
             exact
             component={GuestPageEdit}
           />
-
           <PrivateRoute
             exact
             path="/account-management"

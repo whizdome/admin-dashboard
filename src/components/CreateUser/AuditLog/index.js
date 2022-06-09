@@ -1,22 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AuditLog.scss";
 import { CSVLink } from "react-csv";
-
+import { toast } from "react-toastify";
+ import { fetchAuditLogs } from "../../../redux/services/admin";
 const AuditLog = ({ auditLogDatas }) => {
   const [showBubble, setShowBubble] = useState(false);
+  const [auditLogState, setAuditLogState] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleOpenModal = (type) => {
     setShowBubble(false);
   };
 
- const csvHeader=[
-                { label: "Participant Name", key: "name" },
-                { label: "Email", key: "email" },
-                { label: "Phone Number", key: "phone_number" },
-                { label: "Account number", key: "account_number" },
-                { label: "Vote", key: "vote_rights" },
-              ]
-          const  csvFileName="auditLog.csv"
+  const fetchAudit = async () => {
+    setLoading(true);
+    const res = await fetchAuditLogs();
+    setAuditLogState(res?.data || []);
+
+    if (res?.errors) {
+      toast.error(
+        Object.values(res?.errors)
+          .flat()
+          .map((err) => err),
+        {
+          position: "top-right",
+        }
+      );
+    }
+    setLoading(false);
+  };
+
+    useEffect(() => {
+      fetchAudit();
+      console.log(auditLogState, "auditLogState log");
+  }, []);
+
+  const csvHeader = [
+    { label: "Participant Name", key: "name" },
+    { label: "Email", key: "email" },
+    { label: "Phone Number", key: "phone_number" },
+    { label: "Account number", key: "account_number" },
+    { label: "Vote", key: "vote_rights" },
+  ];
+  const csvFileName = "auditLog.csv";
 
   return (
     <div className="auditLogs">
