@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"
 import "./AuditLog.scss";
 import { CSVLink } from "react-csv";
 import { toast } from "react-toastify";
@@ -13,7 +14,10 @@ const AuditLog = ({ auditLogDatas }) => {
   };
 
   const fetchAudit = async () => {
+
     setLoading(true);
+
+  
     const res = await fetchAuditLogs();
     setAuditLogState(res?.data || []);
 
@@ -30,7 +34,14 @@ const AuditLog = ({ auditLogDatas }) => {
     setLoading(false);
   };
 
-    useEffect(() => {
+  useEffect(() => {
+    const check = async () => {
+      const result = await axios.get(
+        "https://apems-audit-dev.apems.co/api/admin/audits"
+      );
+      console.log(result, "result log");
+    };
+      check()
       fetchAudit();
       console.log(auditLogState, "auditLogState log");
   }, []);

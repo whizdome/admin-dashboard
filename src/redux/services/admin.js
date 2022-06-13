@@ -14,8 +14,10 @@ export const fetchAllUsers = async (account_type, page) => {
 };
 
 export const fetchAuditLogs = async () => {
+  console.log("fetchAuditLogs log");
   try {
-    const res = await AuditApi.get(`admin/audits`);
+    const res = await AuditApi.get("admin/audits");
+    console.log(AuditApi.get("admin/audits"), "res log");
     return res.data;
   } catch (error) {
     if (error.response) {
