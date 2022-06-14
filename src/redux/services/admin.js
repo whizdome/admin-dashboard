@@ -1,4 +1,4 @@
-import { BaseApi, AuditApi } from "./Api";
+import { BaseApi, AuditApi, GetAuditLogs } from "./Api";
 
 export const fetchAllUsers = async (account_type, page) => {
   try {
@@ -14,10 +14,9 @@ export const fetchAllUsers = async (account_type, page) => {
 };
 
 export const fetchAuditLogs = async () => {
-  console.log("fetchAuditLogs log");
   try {
-    const res = await AuditApi.get("admin/audits");
-    console.log(AuditApi.get("admin/audits"), "res log");
+    const res = await GetAuditLogs();
+    // console.log(res, "action res")
     return res.data;
   } catch (error) {
     if (error.response) {

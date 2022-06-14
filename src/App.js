@@ -12,6 +12,7 @@ import "./App.css";
 import ResourceManagement from "./modules/PrivateArea/ResourceManagement";
 import GuestPageEdit from "./modules/PrivateArea/GuestPageEdit";
 import HelpTipsView from "./modules/PrivateArea/ResourceManagement/Helptips";
+import BlogSingle from "./modules/PrivateArea/ResourceManagement/BlogSingle";
 
 function App() {
   return (
@@ -32,6 +33,11 @@ function App() {
             path="/resource-management/help-tip/:id"
             exact
             component={HelpTipsView}
+          />
+          <PrivateRoute
+            path="/resource-management/blogs/:id"
+            exact
+            component={BlogSingle}
           />
 
           <PrivateRoute

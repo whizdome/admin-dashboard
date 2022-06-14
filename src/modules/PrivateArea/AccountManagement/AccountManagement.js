@@ -21,7 +21,8 @@ import CorporateUser from "../../../components/CreateUser/CorporateUser/Corporat
 import IndividualUser from "../../../components/CreateUser/IndividualUser/IndividualUser";
 import Spinner from "../../../components/Loader";
 import { headers } from "../../../constants";
-
+import { fetchAuditLogs } from "../../../redux/services/admin";
+ 
 import "./AccountManagement.scss";
 import "antd/dist/antd.css";
 import "../../../components/Tabs/Tabs.scss";
@@ -41,6 +42,7 @@ const AccountManagement = () => {
   const [perPage, setPerPage] = useState(5);
 
   const [isAuditLog, setIsAuditLog] = useState(false);
+    const [auditLogData, setAuditLogData] = useState([]);
   const handleOpenModal = (type) => {
     setShowModal(true);
     setUserType(type);
@@ -81,6 +83,16 @@ const AccountManagement = () => {
     }
   };
 
+  //  const fetchAudit = async () => {
+  //    const res = await fetchAuditLogs();
+  //    setAuditLogData(res);
+  //  };
+
+  // useEffect(() => {
+  //    fetchAudit();
+  //   console.log("audit log yaay")
+  // }, [isAuditLog]);
+  
   useEffect(() => {
     fetchUsers(user_tab, pageNo);
   }, [pageNo]);
@@ -205,7 +217,7 @@ const AccountManagement = () => {
             <TabPane tab="Audit Log" key="auditLog">
               <AuditLog
                 closeModal={handleCloseModal}
-                auditLogDatas={auditLogDatas}
+                isAuditLog={isAuditLog}
               />
               {/* {loading ? (
                 <Spinner visible={loading} />

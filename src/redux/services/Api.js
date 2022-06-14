@@ -26,15 +26,15 @@ export let AuditApi = axios.create({
   baseURL: "https://apems-audit-dev.apems.co/api/",
 });
 
-AuditApi.interceptors.request.use((config) => {
+
+export const GetAuditLogs = async() => {
   const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `Bearer ${token}` : "";
-  config.headers["Access-Control-Allow-Origin"] = "*";
-  config.headers["Content-Type"] = "application/json";
-
-  return config;
-});
-
+  return await axios.get("https://apems-audit-dev.apems.co/api/admin/audits", {
+  headers: {
+    Authorization: "Bearer " + token, //the token is a variable which holds the token
+  },
+  });
+}
 
 
 export let DashboardApi = axios.create({
