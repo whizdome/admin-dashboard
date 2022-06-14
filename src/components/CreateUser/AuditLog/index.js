@@ -3,23 +3,24 @@ import axios from "axios"
 import "./AuditLog.scss";
 import { CSVLink } from "react-csv";
 import { toast } from "react-toastify";
- import { fetchAuditLogs } from "../../../redux/services/admin";
-const AuditLog = ({ auditLogDatas }) => {
+import { fetchAuditLogs } from "../../../redux/services/admin";
+import Spinner from "../../../components/Loader";
+ 
+const AuditLog = ({ auditLogDatas, isAuditLog }) => {
   const [showBubble, setShowBubble] = useState(false);
   const [auditLogState, setAuditLogState] = useState();
   const [loading, setLoading] = useState(false);
 
+  console.log(isAuditLog,auditLogState, "auditLogDatas log");
   const handleOpenModal = (type) => {
     setShowBubble(false);
   };
 
   const fetchAudit = async () => {
-
     setLoading(true);
-
-  
     const res = await fetchAuditLogs();
-    setAuditLogState(res?.data || []);
+    // console.log(res, "res");
+    setAuditLogState(res?.data.data || []);
 
     if (res?.errors) {
       toast.error(
@@ -34,17 +35,10 @@ const AuditLog = ({ auditLogDatas }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    const check = async () => {
-      const result = await axios.get(
-        "https://apems-audit-dev.apems.co/api/admin/audits"
-      );
-      console.log(result, "result log");
-    };
-      check()
+    useEffect(() => {
+      console.log("started");
       fetchAudit();
-      console.log(auditLogState, "auditLogState log");
-  }, []);
+    }, [isAuditLog]);
 
   const csvHeader = [
     { label: "Participant Name", key: "name" },
@@ -100,7 +94,7 @@ const AuditLog = ({ auditLogDatas }) => {
               <li onClick={() => handleOpenModal()}>
                 <CSVLink
                   headers={csvHeader}
-                  data={auditLogDatas}
+                  data={auditLogState || []}
                   filename={csvFileName}
                   target="_blank"
                 >
@@ -123,28 +117,27 @@ const AuditLog = ({ auditLogDatas }) => {
             <h4>Status</h4>
             <h4>Time Stamp</h4>
           </div>
-          {auditLogDatas.map((auditLogData, index) => (
+          {loading ? <Spinner visible={loading} />: auditLogState ? auditLogState?.map((data, index) => (
             <div key={index} className="auditLog auditLogGrid">
               <span></span>
               <h4>
-                <img src={auditLogData.imageUrl} alt="" />
-                {auditLogData.userName}
+                <img src={data?.imageUrl} alt="" />
+                {data?.username}
               </h4>
-              <h4>{auditLogData.userId}</h4>
-              <h4>{auditLogData.ipAddress}</h4>
-              <h4>{auditLogData.activity}</h4>
+              <h4>{data?.uid}</h4>
+              <h4>{data?.ip_address}</h4>
+              <h4>{data?.activity}</h4>
               <h4
                 style={{
                   fontWeight: "600",
-                  color:
-                    auditLogData.status === "success" ? "#23980E" : "#FF2020",
+                  color: data.status === "success" ? "#23980E" : "#FF2020",
                 }}
               >
-                {auditLogData.status}
+                {data?.status}
               </h4>
-              <h4>{auditLogData.timeStamp}</h4>
+              <h4>{data?.updated_at}</h4>
             </div>
-          ))}
+          )):""}
         </div>
       </div>
     </div>

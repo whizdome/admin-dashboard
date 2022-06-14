@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
 import { Select } from "antd";
 const { Option, OptGroup } = Select;
 
-const EditHelpTips = ({ showModal }) => {
+const EditHelpTips = ({ showModal, previewData }) => {
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
 
+  const helpTipData = {
+    title: "Nunc dictum lectus sem, vel dignissim",
+    cover_img: "about1",
+    text: "Mauris neque nisi, faucibus non elementum in, convallis et eros. Sed pretium sem libero, vel pellentesque purus ultrices ut. In quis leo id massa pulvinar euismod cursus non justo. Sed sagittis et urna non efficitur. Nulla nec lacus tincidunt, rutrum arcu in, euismod diam. Donec neque tellus, congue sed velit sed, scelerisque scelerisque urna. Praesent mi sem, tincidunt eget facilisis in, pharetra et sapien. Proin sagittis erat magna, id eleifend ante posuere nec. Suspendisse potenti. Suspendisse tincidunt sed tortor at porta. Donec a molestie lectus, ac laoreet tellus. Nullam non rutrum velit, in lacinia diam. Nam vulputate elit sit amet orci mattis faucibus. Nam auctor eu eros in vehicula. Donec non risus id lacus aliquet.",
+  };
+  
   return (
     <div className="editHelpTips">
       <form>
@@ -62,7 +69,14 @@ const EditHelpTips = ({ showModal }) => {
         </div>
 
         <div className="submit">
-          <h3 onClick={showModal}>Preview help tip</h3>
+          <h3
+            onClick={() => {
+              showModal();
+              previewData(helpTipData);
+            }}
+          >
+            Preview help tip
+          </h3>
           <div>
             <button type="button">
               <Link to="/resource-management/help-tip/1">Cancel</Link>

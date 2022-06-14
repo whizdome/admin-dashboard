@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import image1 from "../../../assets/images/image1.jpg";
 import checkedIcon from "../../../assets/images/checked-icon.svg";
 import editIcon from "../../../assets/images/edit-icon.svg";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const BlogCard = ({ blogCards }) => {
@@ -24,8 +25,10 @@ const BlogCard = ({ blogCards }) => {
             <small>{blogCard.date}</small>
             <div className="view">
               <strong className="viewMore">
-                View More
-                <img className="editIcon" src={editIcon} alt="editIcon" />
+                <Link to="/resource-management/blogs/1">
+                  View More
+                  <img className="editIcon" src={editIcon} alt="editIcon" />
+                </Link>
               </strong>
               <div className="dropdown_bubble">
                 <ul
@@ -35,7 +38,11 @@ const BlogCard = ({ blogCards }) => {
                   }}
                   aria-labelledby="dLabel"
                 >
-                  <li>edit help tip</li>
+                  <li>
+                    <Link to="/resource-management/blogs/1?edit=true">
+                      edit help tip
+                    </Link>
+                  </li>
                   <li>delete help tip</li>
                 </ul>
               </div>

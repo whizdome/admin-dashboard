@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import PrivateLayout from "../../../../components/Layout/Private/PrivateLayout";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import ResourceHeader from "../ResourceHeader";
-import "./HelpTipsView.scss";
+import "./BlogSingle.scss";
 import backIcon from "../../../../assets/images/edit-icon.svg";
-import ViewHelpTips from "./ViewHelpTips";
-import EditHelpTips from "./EditHelpTips";
+import ViewBlog from "./ViewBlog";
+import EditBlog from "./EditBlog";
 import { Button, Modal } from "antd";
 import View from "./View";
 
-const HelpTipsView = () => {
+const BlogSingle = () => {
   const location = useLocation();
   const history = useHistory();
   const issEdit = location.search.split("=")[1];
@@ -33,7 +33,7 @@ const HelpTipsView = () => {
 
   return (
     <PrivateLayout>
-      <div className="helpTipsView">
+      <div className="blogSingle">
         <div className="head">
           <div>
             <div className="box1">
@@ -44,29 +44,27 @@ const HelpTipsView = () => {
               <div>
                 <img src="" alt="" />
                 <div>
-                  <h4>Help & FAQ</h4>
+                  <h4>Blogs</h4>
                   <p>
-                    Help Tips {">"}
-                    <span> {issEdit ? "Edit" : "View"} help tip</span>
+                    <span>Blog post</span>
                   </p>
                 </div>
               </div>
             </div>
             {!issEdit && (
               <div className="box2">
-                <button>Delete help tip</button>
-
-                <Link to="/resource-management/help-tip/1?edit=true">
-                  Edit help tip
+                <button>Delete Post</button>
+                <Link to="/resource-management/blogs/1?edit=true">
+                  Edit Post
                 </Link>
               </div>
             )}
           </div>
         </div>
         {issEdit ? (
-          <EditHelpTips showModal={showModal} previewData={previewData} />
+          <EditBlog showModal={showModal} previewData={previewData} />
         ) : (
-          <ViewHelpTips />
+          <ViewBlog />
         )}
 
         <Modal
@@ -76,7 +74,7 @@ const HelpTipsView = () => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <div className="viewHelpTips">
+          <div className="ViewBlog">
             <View veiwData={previewDatas} />
           </div>
         </Modal>
@@ -84,4 +82,4 @@ const HelpTipsView = () => {
     </PrivateLayout>
   );
 };
-export default HelpTipsView;
+export default BlogSingle;
