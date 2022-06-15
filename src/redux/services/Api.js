@@ -36,6 +36,35 @@ export const GetAuditLogs = async() => {
   });
 }
 
+export const downloadAuditLogsApiv= async () => {
+  const token = localStorage.getItem("token");
+  return await axios.get(
+    "https://apems-audit-dev.apems.co/api/admin/audits/download-pdf",
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+};
+
+
+export const downloadAuditLogsApi = async(id) => {
+  const token = localStorage.getItem("token");
+ 
+  return await axios.get(
+    `https://apems-audit-dev.apems.co/api/admin/audits/download-pdf/${
+      id?id:""
+    }`,
+    {
+      responseType: "blob",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+};
+
+
+
 
 export let DashboardApi = axios.create({
   baseURL: process.env.REACT_APP_EVENT_BASE_URL + "/admin/",

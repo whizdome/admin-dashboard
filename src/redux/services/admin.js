@@ -1,4 +1,6 @@
-import { BaseApi, AuditApi, GetAuditLogs } from "./Api";
+import { BaseApi, AuditApi, GetAuditLogs, downloadAuditLogsApi } from "./Api";
+import axios from "axios";
+
 
 export const fetchAllUsers = async (account_type, page) => {
   try {
@@ -16,7 +18,6 @@ export const fetchAllUsers = async (account_type, page) => {
 export const fetchAuditLogs = async () => {
   try {
     const res = await GetAuditLogs();
-    // console.log(res, "action res")
     return res.data;
   } catch (error) {
     if (error.response) {
@@ -24,6 +25,17 @@ export const fetchAuditLogs = async () => {
     }
   }
 };
+
+export const downloadAuditLogs = async (userId) => {
+   try {
+      return downloadAuditLogsApi(userId);
+   } catch (error) {
+     if (error.response) {
+       return error.response.data;
+     }
+   }
+};
+
 
 export const createIndividualAccount = async (body) => {
   try {

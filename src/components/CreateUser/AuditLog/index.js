@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import "./AuditLog.scss";
+import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import { toast } from "react-toastify";
-import { fetchAuditLogs } from "../../../redux/services/admin";
+import {
+  fetchAuditLogs,
+  downloadAuditLogs,
+} from "../../../redux/services/admin";
 import Spinner from "../../../components/Loader";
- 
-const AuditLog = ({ auditLogDatas, isAuditLog }) => {
+import noProfile from "../../../assets/images/no_profile.jpg";
+
+const AuditLog = ({ auditLogDatas, isAuditLog, isAllAuditLog, userId }) => {
   const [showBubble, setShowBubble] = useState(false);
   const [auditLogState, setAuditLogState] = useState();
   const [loading, setLoading] = useState(false);
+  const [pdfDownloading, setPdfDownloading] = useState(false);
 
-  console.log(isAuditLog,auditLogState, "auditLogDatas log");
+  const [error, setError] = useState(false);
   const handleOpenModal = (type) => {
     setShowBubble(false);
   };
@@ -19,35 +25,60 @@ const AuditLog = ({ auditLogDatas, isAuditLog }) => {
   const fetchAudit = async () => {
     setLoading(true);
     const res = await fetchAuditLogs();
-    // console.log(res, "res");
-    setAuditLogState(res?.data.data || []);
-
-    if (res?.errors) {
-      toast.error(
-        Object.values(res?.errors)
-          .flat()
-          .map((err) => err),
-        {
-          position: "top-right",
-        }
+    if (isAllAuditLog) {
+      setAuditLogState(res?.data.data || []);
+    } else {
+      const singleLog = res?.data.data.filter(
+        (data, index) => data === res?.data.data.id
       );
+      setAuditLogState(singleLog);
+    }
+    if (!res?.data) {
+      setLoading(false);
+      setError(true);
     }
     setLoading(false);
   };
 
-    useEffect(() => {
-      console.log("started");
-      fetchAudit();
-    }, [isAuditLog]);
+  const downloadPdf = async () => {
+    setPdfDownloading(true);
+    const result = await downloadAuditLogs(userId);
+    const url = window.URL.createObjectURL(new Blob([result.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "Audit-Log.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+    setPdfDownloading(false);
+    handleOpenModal();
+  };
+
+  useEffect(() => {
+    fetchAudit();
+  }, [isAuditLog]);
 
   const csvHeader = [
-    { label: "Participant Name", key: "name" },
+    { label: "User Name", key: "username" },
     { label: "Email", key: "email" },
-    { label: "Phone Number", key: "phone_number" },
-    { label: "Account number", key: "account_number" },
-    { label: "Vote", key: "vote_rights" },
+    { label: "Ip Address", key: "ip_address" },
+    { label: " Activity", key: "activity" },
+    { label: "Status", key: "status" },
+    { label: "Time Stamp", key: "updated_at" },
   ];
   const csvFileName = "auditLog.csv";
+
+  const formatDate = (timeStamp) => {
+    const date = new Date(timeStamp);
+    const hours = date.getHours() || "";
+    const minutes = date.getMinutes() || "";
+    const seconds = date.getSeconds() || "";
+    const day = date.getDate() || "";
+    const month = date.getMonth() || "";
+    const year = date.getFullYear() || "";
+
+    return `${hours}:${minutes}:${seconds}, ${day}/${month + 1}/ ${year}`;
+  };
 
   return (
     <div className="auditLogs">
@@ -56,7 +87,13 @@ const AuditLog = ({ auditLogDatas, isAuditLog }) => {
           <div>
             <h3>Audit Log</h3>
           </div>
-          <div className="dropdown_bubble">
+          <div
+            className="dropdown_bubble"
+            style={{
+              pointerEvents:
+                !auditLogState || auditLogState.length < 1 ? "none" : "visible",
+            }}
+          >
             <div
               className="exportLog"
               onClick={() => setShowBubble(!showBubble)}
@@ -91,55 +128,84 @@ const AuditLog = ({ auditLogDatas, isAuditLog }) => {
               style={{ display: showBubble ? "block" : "none" }}
               aria-labelledby="dLabel"
             >
-              <li onClick={() => handleOpenModal()}>
-                <CSVLink
-                  headers={csvHeader}
-                  data={auditLogState || []}
-                  filename={csvFileName}
-                  target="_blank"
-                >
-                  As CSV
-                </CSVLink>
-              </li>
-              <li onClick={() => handleOpenModal()}>
-                <span>As PDF</span>
+              {auditLogState && (
+                <li onClick={() => handleOpenModal()}>
+                  <CSVLink
+                    headers={csvHeader}
+                    data={auditLogState}
+                    filename={csvFileName}
+                    target="_blank"
+                  >
+                    As CSV
+                  </CSVLink>
+                </li>
+              )}
+              <li
+                onClick={() => {
+                  downloadPdf();
+                }}
+              >
+                <span>{pdfDownloading ? "Downloading ..." : "As PDF"}</span>
               </li>
             </ul>
           </div>
         </div>
         <div className="auditBody">
           <div className="auditLogHead auditLogGrid">
-            <span></span>
+            <div>
+              <span></span>
+            </div>
+            <h4>SN</h4>
             <h4>User Name</h4>
-            <h4>User ID</h4>
+            <h4>Email</h4>
             <h4>IP Address</h4>
             <h4>Activity</h4>
             <h4>Status</h4>
             <h4>Time Stamp</h4>
           </div>
-          {loading ? <Spinner visible={loading} />: auditLogState ? auditLogState?.map((data, index) => (
-            <div key={index} className="auditLog auditLogGrid">
-              <span></span>
-              <h4>
-                <img src={data?.imageUrl} alt="" />
-                {data?.username}
-              </h4>
-              <h4>{data?.uid}</h4>
-              <h4>{data?.ip_address}</h4>
-              <h4>{data?.activity}</h4>
-              <h4
-                style={{
-                  fontWeight: "600",
-                  color: data.status === "success" ? "#23980E" : "#FF2020",
-                }}
-              >
-                {data?.status}
-              </h4>
-              <h4>{data?.updated_at}</h4>
+          {loading ? (
+            <Spinner visible={loading} />
+          ) : auditLogState ? (
+            auditLogState?.map((data, index) => (
+              <div key={index} className="auditLog auditLogGrid">
+                <div>
+                  <span></span>
+                </div>
+                <h4>{index + 1}</h4>
+                <h4>
+                  <img src={data?.profile_picture_url || noProfile} alt="" />
+                  {data?.username || "- -"}
+                </h4>
+                <h4>{data?.email || "--"}</h4>
+                <h4>{data?.ip_address || "--"}</h4>
+                <h4>{data?.activity || "--"}</h4>
+                <h4
+                  style={{
+                    fontWeight: "600",
+                    color: data.status === "success" ? "#23980E" : "#FF2020",
+                  }}
+                >
+                  {data?.status || "--"}
+                </h4>
+                <h4>{formatDate(data?.updated_at) || "--"}</h4>
+              </div>
+            ))
+          ) : (
+            ""
+          )}
+          {!loading && !error && auditLogState?.length < 1 && (
+            <div style={{ textAlign: "center", marginTop: "40px" }}>
+              <h3> No Available Audit Log</h3>
             </div>
-          )):""}
+          )}
+          {!loading && error && (
+            <div style={{ textAlign: "center", marginTop: "40px" }}>
+              <h3 style={{ color: "red" }}>Error... Please reload the page</h3>
+            </div>
+          )}
         </div>
       </div>
+      {/* <AuditPdf /> */}
     </div>
   );
 };
