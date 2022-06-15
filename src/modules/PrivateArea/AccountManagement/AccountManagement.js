@@ -40,7 +40,7 @@ const AccountManagement = () => {
   const [users, setUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [perPage, setPerPage] = useState(5);
-
+const [isAllAuditLog, setIsAllAuditLog] = useState(true)
   const [isAuditLog, setIsAuditLog] = useState(false);
     const [auditLogData, setAuditLogData] = useState([]);
   const handleOpenModal = (type) => {
@@ -82,16 +82,6 @@ const AccountManagement = () => {
       setIsAuditLog(false);
     }
   };
-
-  //  const fetchAudit = async () => {
-  //    const res = await fetchAuditLogs();
-  //    setAuditLogData(res);
-  //  };
-
-  // useEffect(() => {
-  //    fetchAudit();
-  //   console.log("audit log yaay")
-  // }, [isAuditLog]);
   
   useEffect(() => {
     fetchUsers(user_tab, pageNo);
@@ -156,7 +146,6 @@ const AccountManagement = () => {
               <OutlineIconButton
                 btntitle="Export Analytic Report"
                 icon={<BiExport />}
-                onClick={() => console.log("clicked")}
               />
             </div>
           )}
@@ -218,6 +207,7 @@ const AccountManagement = () => {
               <AuditLog
                 closeModal={handleCloseModal}
                 isAuditLog={isAuditLog}
+                isAllAuditLog={isAllAuditLog}
               />
               {/* {loading ? (
                 <Spinner visible={loading} />

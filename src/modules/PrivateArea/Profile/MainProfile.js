@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Divider } from "antd";
 import { BiBriefcaseAlt2 } from "react-icons/bi";
 import { BsFillCaretLeftFill } from "react-icons/bs";
@@ -15,9 +15,10 @@ import "./Profile.scss";
 import AuditLog from "../../../components/CreateUser/AuditLog";
 
 const AccountManagementProfile = () => {
+  const userId = useParams().id;
   const [showHeader, setShowHeader] = useState(true);
   const [user, setUser] = useState({});
-
+  const [isAuditLog, setIsAuditLog] = useState(false);
   const history = useHistory();
 
   const handleTabChange = (key) => {
@@ -26,6 +27,11 @@ const AccountManagementProfile = () => {
     } else {
       setShowHeader(false);
     }
+    if (key === "4") {
+      setIsAuditLog(true);
+    } else {
+      setIsAuditLog(false);
+    }
   };
 
   useEffect(() => {
@@ -33,21 +39,8 @@ const AccountManagementProfile = () => {
     if (user) {
       setUser(JSON.parse(user));
     }
-    // console.log(user);
   }, []);
 
-    const auditLogData = [
-      {
-        userName: "salam sabutuwete",
-        imageUrl: "",
-        userId: "8989",
-        ipAddress: "75657585",
-        activity: " jogging up and down",
-        status: "success",
-        timeStamp: "21:2882:272",
-      }
-  ];
-  
   return (
     <PrivateLayout>
       <div className="profile">
@@ -100,7 +93,7 @@ const AccountManagementProfile = () => {
               },
               {
                 title: "Audit Log",
-                content: <AuditLog auditLogDatas={auditLogData} />,
+                content: <AuditLog isAuditLog={isAuditLog} userId={userId} />,
               },
             ]}
           />
