@@ -61,7 +61,8 @@
     width: 65%;
     padding: 30px 0;
     padding-left: 11%;
-    h1,h2{
+    h1,
+    h2 {
       color: #000000;
       font-weight: 700;
     }
@@ -74,50 +75,127 @@
         height: 100%;
       }
     }
-    .info{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 30px 0;
-        & > div:nth-child(1){
-          span{
-            color: #ADADAD;
-          }
-        }
-        & > div:nth-child(2){
-          span{
-            margin: 0 20px;
-            color: #ADADAD;
-          }
-
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0;
+      & > div:nth-child(1) {
+        span {
+          color: #adadad;
         }
       }
+      & > div:nth-child(2) {
+        span {
+          margin: 0 20px;
+          color: #adadad;
+        }
+      }
+    }
   }
   .editBlog {
-     width: 80%;
+    width: 80%;
     padding: 30px 0;
     padding-left: 2%;
     display: flex;
     justify-content: space-between;
-    ul{
-      width: 30%;
-      li{
+    ul {
+      width: 20%;
+      li {
         padding-left: 15px;
         margin-bottom: 10px;
         cursor: pointer;
       }
-      .active{
-     border-left: 2px solid #D90B2C;
+      .active {
+        border-left: 2px solid #d90b2c;
       }
     }
+    .relative {
+      position: relative;
+      margin: 50px 0;
+      border: 1px dashed #cccccc;
 
-    // h3 {
-    //   color: #0d0f12;
-    // }
+      padding: 10px 0;
+      img {
+        width: 100%;
+      }
+      .edit_del {
+        text-align: right;
+        position: absolute;
+        right: -95px;
+        top: -35px;
+        div {
+          width: 54px;
+          height: 54px;
+          background-color: #ebebeb;
+          border-radius: 50px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 10px;
+          cursor: pointer;
 
+          img {
+            max-width: 100%;
+            width: 50%;
+          }
+        }
+        .del {
+           top: 0px;
+          transition: top 1s ease-in-out; 
+          &:hover {
+            &::after {
+              content: "delete";
+              color: #acacac;
+              position: absolute;
+              top: 55px;
+            }
+          }
+        }
+   
+         .edit {
+           top: 0px;
+          transition: top 1s ease-in-out; 
+          &:hover {
+            &::after {
+              content: "edit";
+              color: #acacac;
+              position: absolute;
+              top: 55px;
+            }
+          }
+        }
+      }
+    }
+    .box4 {
+      text-align: center;
+      .edit_del {
+        right: -30px;
+        top: 0px;
+      }
+    }
+    .box5 {
+      .edit_del {
+        right: -30px;
+        top: 30px;
+      }
+    }
     form {
-      width: 70%;
-        border: 2px solid blue;
+      width: 75%;
+      border: 1px dashed #cccccc;
+      border-top: none;
+      h1 {
+        font-size: 50px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      .title {
+        color: #dbdbdb;
+        border-left: 1px solid #707070;
+        padding: 0;
+        margin: 0;
+      }
       & > div {
         margin-bottom: 35px;
       }
@@ -149,15 +227,8 @@
             width: 200px;
             font-size: 18px;
             border: none;
-            background-color: inherit;
             cursor: pointer;
-            a {
-              color: #000000;
-            }
-          }
-          & > button:nth-child(2) {
             background-color: #1a1a1a;
-
             border-radius: 5px;
             a {
               color: #ffffff;
@@ -170,9 +241,7 @@
 }
 
 .ant-modal {
-  // border: 4px solid red!important;
   height: 100% !important;
-  // width: 100%!important;
   margin-top: -80px !important;
 }
 .ant-modal-wrap {
@@ -182,11 +251,10 @@
 .img_cover {
   width: 100%;
   height: 417px !important;
-   margin-bottom: 20px;
+  margin-bottom: 20px;
   img {
     width: 100%;
     max-width: 100%;
     height: 100%;
-   
   }
 }
