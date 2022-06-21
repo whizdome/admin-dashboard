@@ -1,6 +1,7 @@
 import React from "react";
 import "./HeroSection.scss";
 import coverVector from "../../../../assets/images/cover-vector.svg";
+import editWhite from "../../../../assets/images/edit-white.svg";
 
 
 const HeroSection = ({ heroContents, handleEditCover }) => {
@@ -12,7 +13,7 @@ const HeroSection = ({ heroContents, handleEditCover }) => {
       <div className="overlay">
         <div className="heroContents">
           <div className="edit" onClick={() => handleEditCover(title)}>
-            Edit Cover
+            Edit Cover <img src={editWhite} alt="editWhite" />
           </div>
           <div className="texts">
             <div>
@@ -22,7 +23,6 @@ const HeroSection = ({ heroContents, handleEditCover }) => {
             </div>
             <div>
               <img src={coverVector} alt="coverVector" />
-             
             </div>
           </div>
         </div>
