@@ -1,6 +1,9 @@
 import React from "react";
 import "./CardSection.scss";
 import meeting1 from "../../../../assets/images/meeting1.jpg";
+import editRed from "../../../../assets/images/edit-red.svg";
+
+
 
 const CardSection = ({ reverse, cardContent, handleEditCard }) => {
   const { title, bodyText, cardImage } = cardContent;
@@ -12,7 +15,9 @@ const CardSection = ({ reverse, cardContent, handleEditCard }) => {
           className="edit"
           style={{ textAlign: `${reverse ? "left" : "right"}` }}
         >
-          <p onClick={() => handleEditCard(title)}>Edit Card</p>
+          <p onClick={() => handleEditCard(title)}>
+            Edit Card <img src={editRed} alt="" />
+          </p>
         </div>
         <div
           className="cardSection"
