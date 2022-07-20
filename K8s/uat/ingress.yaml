@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apems-admin-dashboard-ingress
+  namespace: apems
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+spec:
+  rules:
+  - host: apems-admin-dashboard-uat.apems.co
+    http:
+      paths:
+      - backend:
+          service:
+            name: apems-admin-dashboard
+            port:
+              number: 3000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - apems-admin-dashboard-uat.apems.co
+      secretName: apems-tls

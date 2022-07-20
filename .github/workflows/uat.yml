@@ -1,0 +1,73 @@
+name: uat-deployment 
+on:
+  workflow_dispatch:
+    inputs:
+      trigger:
+        description: 'Manual trigger'
+        default: 'true'
+        required: true
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  push: 
+    branches: 
+      - uat
+
+jobs:
+  Build:
+    name: Build
+    if: | 
+      github.event_name == 'push' ||
+      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+    
+      - name: docker login 
+        uses: azure/docker-login@v1
+        with: 
+          login-server: uatapems.azurecr.io
+          username: ${{ secrets.APEMS_UAT_ACR_USERNAME }}
+          password: ${{ secrets.APEMS_UAT_ACR_PASSWORD }}
+
+      - name: build docker image
+        env:
+          IMAGE_TAG1: ${{ github.sha }}
+          IMAGE_TAG2: latest
+        run: |
+          docker build . --file Dockerfile --tag uatapems.azurecr.io/apems-admin-dashboard:$IMAGE_TAG1 --tag uatapems.azurecr.io/apems-admin-dashboard:$IMAGE_TAG2
+          docker push uatapems.azurecr.io/apems-admin-dashboard:$IMAGE_TAG1
+          docker push uatapems.azurecr.io/apems-admin-dashboard:$IMAGE_TAG2
+  Deploy:
+    name: Deploy
+    needs: Build
+    if: |
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Azure Kubernetes set context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.UAT_KUBE_CONFIG }}
+          context: ap-uat-cluster
+        id: login
+        # Deploy to k8s cluster
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1.4
+        with:
+          manifests: |
+            K8s/uat/deployment.yaml
+            K8s/uat/ingress.yaml
+          images: 'uatapems.azurecr.io/uat-apems-admin-dashboard:latest'
+          imagepullsecrets: apems-uat
+          namespace: apems
+          action: deploy
+
+      # restart pods
+      - run: | 
+          kubectl -n apems rollout restart deployment apems-admin-dashboard
