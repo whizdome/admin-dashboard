@@ -8,6 +8,7 @@ import ViewBlog from "./ViewBlog";
 import EditBlog from "./EditBlog";
 import { Button, Modal } from "antd";
 import View from "./View";
+import SuccessfulModal from "../SuccessfulModal";
 
 const BlogSingle = () => {
   const location = useLocation();
@@ -15,6 +16,8 @@ const BlogSingle = () => {
   const issEdit = location.search.split("=")[1];
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isSuccessModal, setIsSuccessModal] = useState(false);
+
   const [previewDatas, setPreviewDatas] = useState();
   const showModal = () => {
     setIsModalVisible(true);
@@ -23,6 +26,20 @@ const BlogSingle = () => {
   const handleOk = () => {
     setIsModalVisible(false);
   };
+
+    const showModalSuccess = () => {
+      setIsSuccessModal(true);
+    };
+   const handleOkSuccess = () => {
+     setIsSuccessModal(false);
+     history.push("/resource-management");
+   };
+
+
+  const handleCancelSuccess = () => {
+    setIsSuccessModal(false);
+      history.push("/resource-management");
+  }
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -62,7 +79,12 @@ const BlogSingle = () => {
           </div>
         </div>
         {issEdit ? (
-          <EditBlog showModal={showModal} previewData={previewData} />
+          <EditBlog
+            showModal={showModal}
+            previewData={previewData}
+            showModalSuccess={showModalSuccess}
+            handleCancelSuccess={handleCancelSuccess}
+          />
         ) : (
           <ViewBlog />
         )}
@@ -70,12 +92,25 @@ const BlogSingle = () => {
         <Modal
           width="70%"
           height="100%"
+          style={{ paddingLeft: "210px" }}
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
         >
           <div className="ViewBlog">
             <View veiwData={previewDatas} />
+          </div>
+        </Modal>
+        <Modal
+          width="50%"
+          height="50%"
+          style={{ paddingTop: "150px", paddingLeft: "200px" }}
+          visible={isSuccessModal}
+          onOk={handleOkSuccess}
+          onCancel={handleCancelSuccess}
+        >
+          <div className="ViewBlog">
+            <SuccessfulModal title="Blog Post Has Been Updated" />
           </div>
         </Modal>
       </div>
