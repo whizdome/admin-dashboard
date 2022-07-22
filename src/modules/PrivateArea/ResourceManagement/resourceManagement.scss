@@ -327,3 +327,20 @@
   }
   }
 }
+
+.successContents{
+  text-align: center;
+  width: 60%;
+  margin: 50px auto;
+ 
+  .checked{
+    width:70px ;
+    height: 70px;
+    border-radius: 50px;
+    margin: 20px auto;
+    border: 2px solid #3EA200;
+     display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+}

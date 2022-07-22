@@ -99,6 +99,7 @@
     padding-left: 2%;
     display: flex;
     justify-content: space-between;
+
     ul {
       width: 20%;
       li {
@@ -141,8 +142,8 @@
           }
         }
         .del {
-           top: 0px;
-          transition: top 1s ease-in-out; 
+          top: 0px;
+          transition: top 1s ease-in-out;
           &:hover {
             &::after {
               content: "delete";
@@ -152,10 +153,10 @@
             }
           }
         }
-   
-         .edit {
-           top: 0px;
-          transition: top 1s ease-in-out; 
+
+        .edit {
+          top: 0px;
+          transition: top 1s ease-in-out;
           &:hover {
             &::after {
               content: "edit";
@@ -184,11 +185,27 @@
       width: 75%;
       border: 1px dashed #cccccc;
       border-top: none;
-      h1 {
-        font-size: 50px;
-      }
+
       h2 {
         font-size: 30px;
+      }
+      .title_input {
+        font-size: 50px;
+      }
+      .title_h2 {
+        font-size: 30px;
+        font-weight: 700;
+      }
+      textarea {
+        width: 100%;
+        border: none;
+        outline: none;
+        height: auto;
+      }
+      input {
+        width: 100%;
+        outline: none;
+        border: none;
       }
       .title {
         color: #dbdbdb;
@@ -230,9 +247,7 @@
             cursor: pointer;
             background-color: #1a1a1a;
             border-radius: 5px;
-            a {
-              color: #ffffff;
-            }
+            color: #ffffff;
           }
         }
       }

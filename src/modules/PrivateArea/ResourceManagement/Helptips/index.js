@@ -8,12 +8,13 @@ import ViewHelpTips from "./ViewHelpTips";
 import EditHelpTips from "./EditHelpTips";
 import { Button, Modal } from "antd";
 import View from "./View";
+import SuccessfulModal from "../SuccessfulModal";
 
 const HelpTipsView = () => {
   const location = useLocation();
   const history = useHistory();
   const issEdit = location.search.split("=")[1];
-
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [previewDatas, setPreviewDatas] = useState();
   const showModal = () => {
@@ -29,6 +30,18 @@ const HelpTipsView = () => {
   };
   const previewData = (data) => {
     setPreviewDatas(data);
+  };
+  const showModalSuccess = () => {
+    setIsSuccessModal(true);
+  };
+  const handleOkSuccess = () => {
+    setIsSuccessModal(false);
+    history.push("/resource-management");
+  };
+
+  const handleCancelSuccess = () => {
+    setIsSuccessModal(false);
+    history.push("/resource-management");
   };
 
   return (
@@ -64,7 +77,12 @@ const HelpTipsView = () => {
           </div>
         </div>
         {issEdit ? (
-          <EditHelpTips showModal={showModal} previewData={previewData} />
+          <EditHelpTips
+            showModal={showModal}
+            previewData={previewData}
+            showModalSuccess={showModalSuccess}
+            handleCancelSuccess={handleCancelSuccess}
+          />
         ) : (
           <ViewHelpTips />
         )}
@@ -72,12 +90,26 @@ const HelpTipsView = () => {
         <Modal
           width="70%"
           height="100%"
+          style={{ paddingLeft: "210px" }}
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
         >
           <div className="viewHelpTips">
             <View veiwData={previewDatas} />
+          </div>
+        </Modal>
+
+        <Modal
+          width="50%"
+          height="50%"
+          style={{ paddingTop: "150px", paddingLeft: "200px" }}
+          visible={isSuccessModal}
+          onOk={handleOkSuccess}
+          onCancel={handleCancelSuccess}
+        >
+          <div className="ViewBlog">
+            <SuccessfulModal title="Help Tips Has Been Updated" />
           </div>
         </Modal>
       </div>

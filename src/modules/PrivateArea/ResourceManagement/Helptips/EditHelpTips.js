@@ -1,13 +1,31 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import { Select } from "antd";
 const { Option, OptGroup } = Select;
 
-const EditHelpTips = ({ showModal, previewData }) => {
+const EditHelpTips = ({
+  showModal,
+  previewData,
+  showModalSuccess,
+  handleCancelSuccess,
+}) => {
+  const [editContents, setEditContents] = useState({
+    subject: "",
+    category: "",
+    question: "",
+    answer:""
+  });
 
-  const handleChange = (value) => {
+  const handleCategory = (value) => {
     console.log(`selected ${value}`);
+     setEditContents({ ...editContents, category : value });
+  };
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+
+    setEditContents({ ...editContents, [name]: value });
+    console.log(editContents, "editContents log");
   };
 
   const helpTipData = {
@@ -15,13 +33,28 @@ const EditHelpTips = ({ showModal, previewData }) => {
     cover_img: "about1",
     text: "Mauris neque nisi, faucibus non elementum in, convallis et eros. Sed pretium sem libero, vel pellentesque purus ultrices ut. In quis leo id massa pulvinar euismod cursus non justo. Sed sagittis et urna non efficitur. Nulla nec lacus tincidunt, rutrum arcu in, euismod diam. Donec neque tellus, congue sed velit sed, scelerisque scelerisque urna. Praesent mi sem, tincidunt eget facilisis in, pharetra et sapien. Proin sagittis erat magna, id eleifend ante posuere nec. Suspendisse potenti. Suspendisse tincidunt sed tortor at porta. Donec a molestie lectus, ac laoreet tellus. Nullam non rutrum velit, in lacinia diam. Nam vulputate elit sit amet orci mattis faucibus. Nam auctor eu eros in vehicula. Donec non risus id lacus aliquet.",
   };
-  
+
+  const saveEditedHelpTip = async () => {
+    showModalSuccess();
+    await axios.post("apems.co/post", editContents);
+    console.log(editContents, "editContents log");
+    // history.pushState("/resource-management");
+    handleCancelSuccess();
+  };
+
   return (
     <div className="editHelpTips">
       <form>
         <div className="subject">
           <h3>Add a Subject</h3>
-          <input type="text" placeholder="Type in a Subject" />
+
+          <input
+            type="text"
+            placeholder="Type in a Subject"
+            name="subject"
+            onChange={handleEditChange}
+            value={editContents.subject}
+          />
         </div>
         <div className="subject">
           <h3>Add a Category</h3>
@@ -30,7 +63,9 @@ const EditHelpTips = ({ showModal, previewData }) => {
             style={{
               width: "100%",
             }}
-            onChange={handleChange}
+            onChange={handleCategory}
+            // value={editContents.category}
+            name="category"
           >
             <option value="---Choose Category---">---Choose Category---</option>
             <option value="About Oasis">About Oasis</option>
@@ -60,11 +95,23 @@ const EditHelpTips = ({ showModal, previewData }) => {
           </div>
           <div>
             <h3>Question</h3>
-            <input type="text" placeholder="Type in Question" />
+            <input
+              type="text"
+              name="question"
+              placeholder="Type in Question"
+              onChange={handleEditChange}
+              value={editContents.question}
+            />
           </div>
           <div>
             <h3>Answer</h3>
-            <input type="text" placeholder="Type in Your Answer" />
+            <input
+              type="text"
+              placeholder="Type in Your Answer"
+              name="answer"
+              onChange={handleEditChange}
+              value={editContents.answer}
+            />
           </div>
         </div>
 
@@ -81,9 +128,8 @@ const EditHelpTips = ({ showModal, previewData }) => {
             <button type="button">
               <Link to="/resource-management/help-tip/1">Cancel</Link>
             </button>
-
-            <button type="submit">
-              <Link to="/resource-management/help-tip/1">Update Help Tip</Link>
+            <button type="button" onClick={saveEditedHelpTip}>
+              Update Help Tip
             </button>
           </div>
         </div>
