@@ -58,7 +58,7 @@ metadata:
       [{"field":"host-header","hostHeaderConfig":{"values":["admin-dashboard.vozze.com.ng"]}}]
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-2:821511923493:certificate/6cc1c5a0-9f4d-42ef-a99f-036702d01f96
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/group.name: mojec-group
+    alb.ingress.kubernetes.io/group.name: vozze-test
     alb.ingress.kubernetes.io/ssl-redirect: '443' 
     
 spec:
