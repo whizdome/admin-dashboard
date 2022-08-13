@@ -55,15 +55,15 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/conditions.admin-dashboard-svc: |
-      [{"field":"host-header","hostHeaderConfig":{"values":["admin-dashboard.vozze.com.ng"]}}]
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-2:821511923493:certificate/6cc1c5a0-9f4d-42ef-a99f-036702d01f96
+      [{"field":"host-header","hostHeaderConfig":{"values":["vozze.com.ng"]}}]
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:209992271656:certificate/631d9ecb-7b41-4b3d-8f95-6404aa0be8aa
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/group.name: vozze-test
     alb.ingress.kubernetes.io/ssl-redirect: '443' 
     
 spec:
   rules:
-    - host: "admin-dashboard.vozze.com.ng"
+    - host: "vozze.com.ng"
     - http: 
         paths:
         - path: "/"
