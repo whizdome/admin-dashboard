@@ -1,71 +1,54 @@
-name: dev-deployment 
+name: Build Docker image and push to repo.
 on:
-  workflow_dispatch:
-    inputs:
-      trigger:
-        description: 'Manual trigger'
-        default: 'true'
-        required: true
+  push:
+    branches: [ dev ]
   pull_request:
-    types:
-      - opened
-      - synchronize
-  push: 
-    branches: 
-      - dev
+    branches: [ dev ]
+
+  workflow_dispatch:
 
 jobs:
-  Build:
-    name: Build
-    if: | 
-      github.event_name == 'push' ||
-      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize'))
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-    
-      - name: docker login 
-        uses: azure/docker-login@v1
-        with: 
-          login-server: devapems.azurecr.io
-          username: ${{ secrets.APEMS_DEV_ACR_USERNAME }}
-          password: ${{ secrets.APEMS_DEV_ACR_PASSWORD }}
 
-      - name: build docker image
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY}}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: eu-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+
+      - name: Build, tag, and push image to Amazon ECR
+        uses: actions/checkout@v2
+      - env:
+           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+           ECR_REPOSITORY: vozze-admin-dashboard
+           IMAGE_TAG1: ${{ github.sha }}
+           IMAGE_TAG2: latest
         run: |
-          docker build . --file Dockerfile --tag devapems.azurecr.io/dev-apems-admin-dashboard:latest
-          docker push devapems.azurecr.io/dev-apems-admin-dashboard:latest
-
-  Deploy:
-    name: Deploy
-    needs: Build
-    if: |
-      github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: Azure Kubernetes set context
-        uses: azure/k8s-set-context@v1
+           docker build . --file Dockerfile --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG1 --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG2
+           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG1
+           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG2
+           
+      - name: Deploy to cluster
+        uses: azure/setup-kubectl@v2.0
         with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.DEV_KUBE_CONFIG }}
-          context: afp-dev-cluster
-        id: login
-
-        # Deploy to k8s cluster
-      - name: Deploy to Kubernetes cluster
-        uses: Azure/k8s-deploy@v1.4
-        with:
-          manifests: |
-            K8s/dev/deployment.yaml
-            K8s/dev/ingress.yaml
-          images: 'devapems.azurecr.io/dev-apems-admin-dashboard:latest'
-          imagepullsecrets: apems-dev
-          namespace: apems
-          action: deploy
-
-      # restart pods
+          version: 'v1.23.6'
+          id: installer
+      - env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: vozze-admin-dashboard
+          IMAGE_TAG: latest #${{ github.sha }}
+        run: |
+           aws eks update-kubeconfig --name vozze-cluster
+           kubectl apply -f K8s/dev/deployment.yaml
+           
+          # restart service
       - run: | 
-          kubectl -n apems rollout restart deployment apems-admin-dashboard
+           kubectl -n dev-env rollout restart deployment admin-dashboard

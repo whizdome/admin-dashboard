@@ -1,37 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apems-admin-dashboard
-  namespace: apems
+  name: admin-dashboard
+  labels:
+    app: admin-dashboard
+    tier: fronend
+  namespace: dev-env
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
   selector:
     matchLabels:
-      app: apems-admin-dashboard
+      app: admin-dashboard
+
   template:
     metadata:
       labels:
-        app: apems-admin-dashboard
+        app: admin-dashboard
     spec:
-      containers:
-      - image: devapems.azurecr.io/dev-apems-admin-dashboard:latest
-        name: apems-admin-dashboard
+     containers:
+      - name: admin-dashboard
+        image: "209992271656.dkr.ecr.eu-west-1.amazonaws.com/vozze-admin-dashboard"
         ports:
         - containerPort: 3000
-        imagePullPolicy: Always
-      imagePullSecrets:
-        - name: apems-dev
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: apems-admin-dashboard
-  namespace: apems
+  name: admin-dashboard-svc
+  namespace: dev-env
+  labels:
+    app: admin-dashboard
 spec:
-  ports:
-  - port: 3000
-    targetPort: 3000
+  type: NodePort
   selector:
-    app: apems-admin-dashboard
+    app: admin-dashboard
+  ports:
+    - port: 3000
+      targetPort: 3000
