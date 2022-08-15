@@ -46,7 +46,7 @@ jobs:
           ECR_REPOSITORY: vozze-admin-dashboard
           IMAGE_TAG: latest #${{ github.sha }}
         run: |
-           aws eks update-kubeconfig --name vozze-cluster
+           aws eks update-kubeconfig --name vozze-cluster --region aws-region: eu-west-2
            kubectl apply -f K8s/dev/deployment.yaml
            
           # restart service
