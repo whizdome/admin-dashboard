@@ -17,7 +17,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY}}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: eu-west-1
+          aws-region: eu-west-2
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -46,7 +46,7 @@ jobs:
           ECR_REPOSITORY: vozze-admin-dashboard
           IMAGE_TAG: latest #${{ github.sha }}
         run: |
-           aws eks update-kubeconfig --name vozze-cluster --region aws-region: eu-west-2
+           aws eks update-kubeconfig --name vozze-cluster
            kubectl apply -f K8s/dev/deployment.yaml
            
           # restart service
