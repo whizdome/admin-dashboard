@@ -1,23 +1,29 @@
 variable "region" {
-  default = "eu-west-2"
+  description = "The AWS region to deploy to"
+  type        = string
 }
 
 variable "cluster_name" {
-  default = "my-eks-cluster"
+  description = "The name of the EKS cluster"
+  type        = string
 }
 
 variable "node_group_name" {
-  default = "my-eks-nodes"
+  description = "The name of the EKS node group"
+  type        = string
 }
 
 variable "desired_size" {
-  default = 2
+  description = "The desired size of the node group"
+  type        = number
 }
 
 variable "max_size" {
-  default = 4
+  description = "The maximum size of the node group"
+  type        = number
 }
 
 variable "min_size" {
-  default = 1
+  description = "The minimum size of the node group"
+  type        = number
 }
