@@ -87,7 +87,6 @@ Breakpoint aurgument
   position: absolute;
   top: 4.5rem;
   right: 2rem;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
@@ -105,10 +104,6 @@ Breakpoint aurgument
   height: 33px;
 }
 .acct_management .acct_management_buttons .ant-input-affix-wrapper-lg input::-moz-placeholder {
-  color: #b7b7b7;
-  font-size: 1.3rem;
-}
-.acct_management .acct_management_buttons .ant-input-affix-wrapper-lg input:-ms-input-placeholder {
   color: #b7b7b7;
   font-size: 1.3rem;
 }

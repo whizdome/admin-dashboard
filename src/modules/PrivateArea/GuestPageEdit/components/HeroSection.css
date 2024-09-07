@@ -1,0 +1,62 @@
+.heroSection {
+  color: white;
+  width: 100%;
+  height: 622px;
+  position: relative;
+}
+.heroSection p {
+  font-size: 1.5em;
+}
+.heroSection h1 {
+  font-size: 4.2em;
+  font-size: 4em;
+  line-height: 75px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: white;
+}
+.heroSection h3 {
+  font-size: 1.6em;
+  color: white;
+}
+.heroSection .coverImage {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.heroSection .overlay {
+  position: sticky;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.heroSection .heroContents {
+  width: 90%;
+  margin: 0 auto;
+}
+.heroSection .heroContents .edit {
+  text-align: right;
+  cursor: pointer;
+}
+.heroSection .heroContents .edit img {
+  width: 12px;
+  height: 12px;
+  margin-left: 7px;
+}
+.heroSection .heroContents .texts {
+  display: flex;
+  justify-content: space-between;
+}
+.heroSection .heroContents .texts > div:nth-child(1) {
+  width: 55%;
+}
+.heroSection .heroContents .texts > div:nth-child(2) {
+  opacity: 0.5;
+  width: 45%;
+}/*# sourceMappingURL=HeroSection.css.map */

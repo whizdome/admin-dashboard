@@ -48,7 +48,7 @@
   margin-right: 0.5rem;
 }
 .user_step .form_container .btn_back {
-  background-color: #cdd6dc1f;
+  background-color: rgba(205, 214, 220, 0.1215686275);
   border: 1px solid #e4e8eb;
   color: #001737;
   width: 8rem;

@@ -1,0 +1,192 @@
+.guestPageLayout {
+  background-color: #ffffff;
+  width: 95%;
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+}
+.guestPageLayout header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff !important;
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+.guestPageLayout header .title {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  background-color: #ffffff !important;
+}
+.guestPageLayout header .title h1 {
+  font-size: 22px;
+}
+.guestPageLayout header .title .back {
+  width: 51px;
+  height: 51px;
+  border-radius: 50px;
+  background: #fcfcfc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.1490196078);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+}
+.guestPageLayout header .title .back svg {
+  fill: black;
+  width: 13px;
+}
+.guestPageLayout header .title .back:hover {
+  background-color: #d90b2c;
+}
+.guestPageLayout header .title .back:hover svg {
+  fill: white;
+}
+
+.aboutPageWrapper {
+  width: 80%;
+  margin: 40px auto;
+}
+.aboutPageWrapper p {
+  font-size: 20px;
+}
+.aboutPageWrapper h1 {
+  font-size: 4em;
+}
+.aboutPageWrapper .edit {
+  color: #d90b2c;
+}
+.aboutPageWrapper .edit p {
+  cursor: pointer;
+}
+.aboutPageWrapper .section1 > div {
+  display: flex;
+  justify-content: space-between;
+}
+.aboutPageWrapper .section1 > div > p {
+  width: 85%;
+}
+
+.privacy p {
+  font-size: 18px;
+}
+.privacy h1 {
+  font-size: 4em;
+}
+.privacy .hero {
+  background-color: #fafafa;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.privacy .hero div {
+  width: 60%;
+  margin: 0 auto;
+  z-index: 2;
+}
+.privacy .hero div p {
+  position: sticky;
+  z-index: 1;
+}
+.privacy .hero div .bg_vector {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 400px;
+  height: 400px;
+}
+.privacy .privacy_body {
+  display: flex;
+  width: 70%;
+  margin: 40px auto;
+}
+.privacy .privacy_body .edit {
+  width: 20%;
+  color: #d90b2c;
+  cursor: pointer;
+}
+.privacy .privacy_body .accordion_head {
+  display: flex;
+  justify-content: space-between;
+}
+.privacy .privacy_body .accordion_head h3 {
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.termsOfUse p {
+  font-size: 18px;
+}
+.termsOfUse h1 {
+  font-size: 4em;
+}
+.termsOfUse .hero {
+  background-color: #fafafa;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.termsOfUse .hero div {
+  width: 70%;
+  margin: 0 auto;
+  z-index: 2;
+}
+.termsOfUse .hero div p {
+  position: sticky;
+  z-index: 1;
+}
+.termsOfUse .hero div .bg_vector {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 400px;
+  height: 400px;
+}
+.termsOfUse .termsOfUse_body {
+  width: 70%;
+  margin: 40px auto;
+}
+.termsOfUse .termsOfUse_body .edit {
+  color: #d90b2c;
+  text-align: right;
+  padding: 10px 0;
+}
+.termsOfUse .termsOfUse_body .edit span {
+  cursor: pointer;
+}
+
+.Faqs p {
+  font-size: 18px;
+}
+.Faqs h1 {
+  font-size: 4em;
+}
+.Faqs .hero {
+  background-color: #fafafa;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.Faqs .hero div {
+  width: 60%;
+  margin: 0 auto;
+  z-index: 2;
+  text-align: center;
+}
+.Faqs .hero div p {
+  position: sticky;
+  z-index: 1;
+}
+.Faqs .hero div .bg_vector {
+  position: absolute;
+  left: 50px;
+  top: 0px;
+  width: 400px;
+  height: 400px;
+}/*# sourceMappingURL=GuestPage.css.map */

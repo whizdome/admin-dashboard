@@ -1,0 +1,41 @@
+.cardSectionWrapper {
+  margin: 50px 0;
+}
+.cardSectionWrapper img {
+  max-width: 100%;
+}
+.cardSectionWrapper p {
+  font-size: 18px;
+}
+.cardSectionWrapper .edit {
+  text-align: right;
+  color: #D90B2C;
+}
+.cardSectionWrapper .edit p {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.cardSectionWrapper .edit p img {
+  width: 12px;
+  height: 12px;
+  margin-left: 7px;
+}
+.cardSectionWrapper .subWrapper {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+.cardSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardSection .box {
+  width: 40%;
+}
+.cardSection .box2 h1 {
+  font-size: 2.5em;
+}/*# sourceMappingURL=CardSection.css.map */

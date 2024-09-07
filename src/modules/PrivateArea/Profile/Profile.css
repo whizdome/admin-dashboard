@@ -25,7 +25,7 @@ Breakpoint aurgument
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #e8e7e7;
-  box-shadow: 0px 10px 50px #0000000d;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.0509803922);
 }
 .profile .profile_header .user_details {
   display: flex;
@@ -36,7 +36,7 @@ Breakpoint aurgument
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background-color: #b7b7b729;
+  background-color: rgba(183, 183, 183, 0.1607843137);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -300,7 +300,7 @@ Breakpoint aurgument
   margin-bottom: 0.5rem;
 }
 #payout_account .profile_body_details_row .column_right .input_icon div {
-  background-color: #09974e13;
+  background-color: rgba(9, 151, 78, 0.0745098039);
   color: #09974d;
   pointer-events: none;
   position: relative;

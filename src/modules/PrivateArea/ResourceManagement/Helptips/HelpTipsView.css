@@ -1,0 +1,164 @@
+.helpTipsView .head {
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.0509803922);
+  background-color: #ffffff;
+  position: sticky;
+  top: 0px;
+}
+.helpTipsView .head > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+}
+.helpTipsView .head > div .box1 {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.helpTipsView .head > div .box1 .back {
+  border-right: 1px solid #b7b7b7;
+  padding-right: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.helpTipsView .head > div .box1 .back img {
+  width: 21px;
+  transform: rotate(180deg);
+  margin-right: 5px;
+  margin-top: -5px;
+}
+.helpTipsView .head > div .box1 p {
+  font-size: 14px;
+  color: #707070;
+}
+.helpTipsView .head > div .box1 p span {
+  color: #d90b2c;
+}
+.helpTipsView .head > div .box2 {
+  width: 40%;
+  display: flex;
+}
+.helpTipsView .head > div .box2 button,
+.helpTipsView .head > div .box2 a {
+  padding: 18px 0px;
+  width: 235px;
+  border-radius: 5px;
+  border: none;
+  font-size: 18px;
+  background-color: #ffffff;
+  text-align: center;
+}
+.helpTipsView .head > div .box2 a {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin-left: 20px;
+}
+.helpTipsView .viewHelpTips {
+  width: 71%;
+  padding: 30px 0;
+  padding-left: 7%;
+}
+.helpTipsView .viewHelpTips .img_cover {
+  width: 100%;
+  height: 417px !important;
+}
+.helpTipsView .viewHelpTips .img_cover img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+.helpTipsView .editHelpTips {
+  width: 71%;
+  padding: 30px 0;
+  padding-top: 50px;
+  padding-left: 7%;
+}
+.helpTipsView .editHelpTips h3 {
+  color: #0d0f12;
+}
+.helpTipsView .editHelpTips input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #f7f7f7;
+  padding: 18px 18px;
+}
+.helpTipsView .editHelpTips input::-moz-placeholder {
+  color: #b9b9b9;
+}
+.helpTipsView .editHelpTips input::placeholder {
+  color: #b9b9b9;
+}
+.helpTipsView .editHelpTips ::-moz-placeholder {
+  font-size: 18px;
+}
+.helpTipsView .editHelpTips p,
+.helpTipsView .editHelpTips h3,
+.helpTipsView .editHelpTips button,
+.helpTipsView .editHelpTips option,
+.helpTipsView .editHelpTips ::placeholder {
+  font-size: 18px;
+}
+.helpTipsView .editHelpTips form > div {
+  margin-bottom: 35px;
+}
+.helpTipsView .editHelpTips form .upload_img {
+  margin-bottom: 100px;
+}
+.helpTipsView .editHelpTips form .possible_question {
+  background-color: #fcfcfc;
+}
+.helpTipsView .editHelpTips form .possible_question .head {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fcfcfc;
+}
+.helpTipsView .editHelpTips form .possible_question > div {
+  margin-bottom: 40px;
+}
+.helpTipsView .editHelpTips form .submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.helpTipsView .editHelpTips form .submit h3 {
+  color: #d90b2c;
+  cursor: pointer;
+}
+.helpTipsView .editHelpTips form .submit div button {
+  padding: 18px 0;
+  width: 200px;
+  font-size: 18px;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+.helpTipsView .editHelpTips form .submit div button a {
+  color: #000000;
+}
+.helpTipsView .editHelpTips form .submit div > button:nth-child(2) {
+  background-color: #1a1a1a;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.ant-modal {
+  height: 100% !important;
+  margin-top: -80px !important;
+}
+
+.ant-modal-wrap {
+  padding: 0 !important;
+}
+
+.img_cover {
+  width: 100%;
+  height: 417px !important;
+  margin-bottom: 20px;
+}
+.img_cover img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}/*# sourceMappingURL=HelpTipsView.css.map */

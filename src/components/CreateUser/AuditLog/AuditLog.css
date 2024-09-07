@@ -1,0 +1,134 @@
+.auditLogs {
+  width: 90%;
+  border: 2px solid #F0EFEF;
+  background-color: #ffffff;
+  padding: 20px;
+}
+.auditLogs .auditWrapper {
+  width: 95%;
+  margin: 0 auto;
+}
+.auditLogs .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.auditLogs .head div h3 {
+  border-bottom: 2px solid #D9363E;
+  padding-right: 30px;
+  padding-bottom: 3px;
+}
+.auditLogs .head .exportLog {
+  border: 1px solid #D5D5D5;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 700ms ease-in-out;
+}
+.auditLogs .head .exportLog:hover {
+  border-color: #23980E;
+  box-shadow: 2px 2px 25px rgba(119, 119, 119, 0.2), -2px -2px 25px rgba(119, 119, 119, 0.2);
+}
+.auditLogs .head .exportLog svg {
+  margin-right: 20px;
+}
+.auditLogs .auditBody .auditLogGrid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ECECEC;
+  margin: 5px 0;
+  align-items: center;
+  padding: 10px 15px;
+}
+.auditLogs .auditBody .auditLogGrid:hover {
+  background-color: rgba(170, 170, 170, 0.1);
+  cursor: pointer;
+}
+.auditLogs .auditBody .auditLogGrid > div:nth-child(1) {
+  width: 4%;
+}
+.auditLogs .auditBody .auditLogGrid > div:nth-child(1) span {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border: 1px solid #AAAAAA;
+  border-radius: 2px;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(2) {
+  width: 4%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(3) {
+  width: 15%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(4) {
+  width: 15%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(5) {
+  width: 15%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(6) {
+  width: 20%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(7) {
+  width: 12%;
+}
+.auditLogs .auditBody .auditLogGrid > h4:nth-child(8) {
+  width: 13%;
+}
+.auditLogs .auditBody .auditLogHead {
+  border: none;
+}
+.auditLogs .auditBody .auditLogHead:hover {
+  background-color: initial;
+  cursor: initial;
+}
+.auditLogs .auditBody .auditLog h4 {
+  font-weight: 400;
+  color: #ACACAC;
+  font-size: 12px;
+}
+.auditLogs .auditBody .auditLog h4 img {
+  width: 25px;
+  height: 25px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.dropdown_bubble .dropdown_menu {
+  position: absolute;
+  margin-top: 1em;
+  background-color: #1a1a1a;
+  color: #fff;
+  border-radius: 10px;
+  width: 15rem;
+  padding: 1.3rem 0.9rem;
+  font-size: 1.3rem;
+}
+.dropdown_bubble .dropdown_menu:before, .dropdown_bubble .dropdown_menu:after {
+  content: " ";
+  display: block;
+  border-style: solid;
+  border-width: 0 0.5em 0.8em 0.5em;
+  border-color: transparent;
+  position: absolute;
+  left: 45%;
+}
+.dropdown_bubble .dropdown_menu:before {
+  top: -0.8em;
+  border-bottom-color: #1a1a1a;
+}
+.dropdown_bubble .dropdown_menu:after {
+  top: -0.7em;
+  border-bottom-color: #1a1a1a;
+}
+.dropdown_bubble .dropdown_menu li {
+  border-bottom: 1px solid #3c3c3c;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.dropdown_bubble .dropdown_menu li span, .dropdown_bubble .dropdown_menu li a {
+  color: #999999;
+}/*# sourceMappingURL=AuditLog.css.map */

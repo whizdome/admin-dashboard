@@ -1,0 +1,347 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.resourceManagement {
+  color: #707070;
+}
+.resourceManagement h1,
+.resourceManagement h2,
+.resourceManagement h3 {
+  color: #707070;
+}
+.resourceManagement p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.resourceManagement img {
+  max-width: 100%;
+}
+.resourceManagement ul {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 2px solid #f2f1f1;
+}
+.resourceManagement ul li {
+  display: inline-block;
+  margin-right: 90px;
+  padding: 0 10px;
+  cursor: pointer;
+  padding-bottom: 8px;
+  font-size: 18px;
+}
+.resourceManagement ul .active {
+  border-bottom: 5px solid #d90b2c;
+  font-weight: 700;
+}
+
+.resourceHeader {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #f2f1f1;
+}
+.resourceHeader div {
+  display: flex;
+  justify-content: space-between;
+}
+.resourceHeader div h3 {
+  font-weight: 600;
+}
+.resourceHeader div button {
+  background-color: black;
+  border: none;
+  background: #1a1a1a;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 15px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.resourceBody {
+  border: 1px solid #f2f1f1;
+  padding: 40px 0;
+}
+.resourceBody ul {
+  padding-left: 10px;
+}
+
+.landingCards {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.landingCards h3 {
+  font-size: 22px;
+}
+.landingCards .landingCard {
+  width: 300px;
+  height: 242px;
+  margin-top: 30px;
+  background-color: white;
+  box-shadow: 2px 2px 1px #f2f1f1, -2px -2px 1px #f2f1f1;
+}
+.landingCards .landingCard img {
+  height: 150px;
+  width: 100%;
+}
+.landingCards .landingCard div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+}
+.landingCards .landingCard div h3 {
+  width: 70%;
+  line-height: 25px;
+}
+.landingCards .landingCard div a {
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  color: black;
+}
+.landingCards .landingCard div a .editIcon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  margin-top: -10px;
+}
+
+.helpCards {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.helpCards .helpCard {
+  width: 300px;
+  height: 307px;
+  margin-top: 30px;
+  background-color: white;
+  box-shadow: 2px 2px 1px #f2f1f1, -2px -2px 1px #f2f1f1;
+  cursor: pointer;
+}
+.helpCards .helpCard img {
+  height: 150px;
+  width: 100%;
+}
+.helpCards .helpCard > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  font-size: 16px;
+}
+.helpCards .helpCard > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.helpCards .helpCard > div .checkedIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+.helpCards .helpCard > div .view {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.helpCards .helpCard > div .view .viewMore {
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.helpCards .helpCard > div .view .viewMore .editIcon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+.helpCards .helpCard > div .view .viewMore a {
+  color: #000000;
+}
+.helpCards .helpCard > div .view span {
+  font-size: 25px;
+  font-weight: 700;
+}
+.helpCards .dropdown_bubble {
+  position: relative;
+}
+.helpCards .dropdown_bubble .dropdown_menu {
+  position: absolute;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.0509803922);
+  background-color: #1a1a1a;
+  color: #fff;
+  top: -120px;
+  left: -40px;
+  width: 130px;
+}
+.helpCards .dropdown_bubble .dropdown_menu:before, .helpCards .dropdown_bubble .dropdown_menu:after {
+  content: " ";
+  display: block;
+  border-style: solid;
+  border-color: transparent;
+  position: absolute;
+  left: 45%;
+  left: 75%;
+  transform: rotate(180deg);
+  top: 87px;
+  border-bottom-color: #1a1a1a;
+}
+.helpCards .dropdown_bubble .dropdown_menu li {
+  border-bottom: 1px solid #3c3c3c;
+  width: 100%;
+  font-size: 12px;
+  cursor: pointer;
+  color: #999999;
+}
+.helpCards .dropdown_bubble .dropdown_menu li span,
+.helpCards .dropdown_bubble .dropdown_menu li a {
+  color: #999999;
+}
+
+.blogCardsWrapper ul {
+  list-style-type: none;
+  padding: 0;
+  border-width: 0px;
+}
+.blogCardsWrapper ul li {
+  display: inline-block;
+  margin-right: 40px;
+  padding: 0 10px;
+  cursor: pointer;
+  padding-bottom: 3px;
+}
+.blogCardsWrapper ul .active {
+  border-bottom: 2px solid #d90b2c;
+  font-weight: 700;
+}
+.blogCardsWrapper .blogCards {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.blogCardsWrapper .blogCards .blogCard {
+  width: 300px;
+  height: 307px;
+  margin-top: 30px;
+  background-color: white;
+  box-shadow: 2px 2px 1px #f2f1f1, -2px -2px 1px #f2f1f1;
+  cursor: pointer;
+}
+.blogCardsWrapper .blogCards .blogCard img {
+  height: 150px;
+  width: 100%;
+}
+.blogCardsWrapper .blogCards .blogCard > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+.blogCardsWrapper .blogCards .blogCard > div small {
+  color: #b7b7b7;
+  font-size: 14px;
+}
+.blogCardsWrapper .blogCards .blogCard .checkedIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+.blogCardsWrapper .blogCards .blogCard .view {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.blogCardsWrapper .blogCards .blogCard .view .viewMore {
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.blogCardsWrapper .blogCards .blogCard .view .viewMore .editIcon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+.blogCardsWrapper .blogCards .blogCard .view .viewMore a {
+  color: #000000;
+}
+.blogCardsWrapper .blogCards .blogCard .view span {
+  font-size: 25px;
+  font-weight: 700;
+}
+.blogCardsWrapper .blogCards .dropdown_bubble {
+  position: relative;
+}
+.blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu {
+  position: absolute;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.0509803922);
+  background-color: #1a1a1a;
+  color: #fff;
+  top: -120px;
+  left: -15px;
+  width: 130px;
+}
+.blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu:before, .blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu:after {
+  content: " ";
+  display: block;
+  border-style: solid;
+  border-color: transparent;
+  position: absolute;
+  left: 45%;
+  left: 75%;
+  transform: rotate(180deg);
+  top: 87px;
+  border-bottom-color: #1a1a1a;
+}
+.blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu li {
+  border-bottom: 1px solid #3c3c3c;
+  width: 100%;
+  font-size: 12px;
+  cursor: pointer;
+  color: #999999;
+}
+.blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu li span,
+.blogCardsWrapper .blogCards .dropdown_bubble .dropdown_menu li a {
+  color: #999999;
+}
+
+.successContents {
+  text-align: center;
+  width: 60%;
+  margin: 50px auto;
+}
+.successContents .checked {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  margin: 20px auto;
+  border: 2px solid #3EA200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}/*# sourceMappingURL=resourceManagement.css.map */

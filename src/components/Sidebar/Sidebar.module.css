@@ -1,0 +1,34 @@
+/*
+0 - 600px phone
+600px - 900px  Tablet Protraits
+900px - 1200px  Tablet Landscape
+1200px - 1800 current style apply
+1800+ Big desktop
+*/
+/*
+Breakpoint aurgument
+- Phone
+- Tablet-protrait
+- Tablet-landscape
+- big Desktop
+
+*/
+.pro-sidebar > .pro-sidebar-inner,
+.sidebar > .pro-sidebar-inner {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.header img {
+  height: 3rem;
+  margin: 3rem 2rem;
+}
+
+.content {
+  margin-top: 2rem;
+}
+
+.sidebar svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}/*# sourceMappingURL=Sidebar.module.css.map */

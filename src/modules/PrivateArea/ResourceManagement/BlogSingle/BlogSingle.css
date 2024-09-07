@@ -1,0 +1,255 @@
+.blogSingle .head {
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.0509803922);
+  background-color: #ffffff;
+  position: sticky;
+  top: 0px;
+}
+.blogSingle .head > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+}
+.blogSingle .head > div .box1 {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.blogSingle .head > div .box1 .back {
+  border-right: 1px solid #b7b7b7;
+  padding-right: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.blogSingle .head > div .box1 .back img {
+  width: 21px;
+  transform: rotate(180deg);
+  margin-right: 5px;
+  margin-top: -5px;
+}
+.blogSingle .head > div .box1 p {
+  font-size: 14px;
+  color: #707070;
+}
+.blogSingle .head > div .box1 p span {
+  color: #d90b2c;
+}
+.blogSingle .head > div .box2 {
+  width: 40%;
+  display: flex;
+}
+.blogSingle .head > div .box2 button,
+.blogSingle .head > div .box2 a {
+  padding: 18px 0px;
+  width: 235px;
+  border-radius: 5px;
+  border: none;
+  font-size: 18px;
+  background-color: #ffffff;
+  text-align: center;
+}
+.blogSingle .head > div .box2 a {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin-left: 20px;
+}
+.blogSingle .viewBlog {
+  width: 65%;
+  padding: 30px 0;
+  padding-left: 11%;
+}
+.blogSingle .viewBlog h1,
+.blogSingle .viewBlog h2 {
+  color: #000000;
+  font-weight: 700;
+}
+.blogSingle .viewBlog .img_cover {
+  width: 100%;
+  height: 417px !important;
+}
+.blogSingle .viewBlog .img_cover img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+.blogSingle .viewBlog .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+.blogSingle .viewBlog .info > div:nth-child(1) span {
+  color: #adadad;
+}
+.blogSingle .viewBlog .info > div:nth-child(2) span {
+  margin: 0 20px;
+  color: #adadad;
+}
+.blogSingle .editBlog {
+  width: 80%;
+  padding: 30px 0;
+  padding-left: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+.blogSingle .editBlog ul {
+  width: 20%;
+}
+.blogSingle .editBlog ul li {
+  padding-left: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.blogSingle .editBlog ul .active {
+  border-left: 2px solid #d90b2c;
+}
+.blogSingle .editBlog .relative {
+  position: relative;
+  margin: 50px 0;
+  border: 1px dashed #cccccc;
+  padding: 10px 0;
+}
+.blogSingle .editBlog .relative img {
+  width: 100%;
+}
+.blogSingle .editBlog .relative .edit_del {
+  text-align: right;
+  position: absolute;
+  right: -95px;
+  top: -35px;
+}
+.blogSingle .editBlog .relative .edit_del div {
+  width: 54px;
+  height: 54px;
+  background-color: #ebebeb;
+  border-radius: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.blogSingle .editBlog .relative .edit_del div img {
+  max-width: 100%;
+  width: 50%;
+}
+.blogSingle .editBlog .relative .edit_del .del {
+  top: 0px;
+  transition: top 1s ease-in-out;
+}
+.blogSingle .editBlog .relative .edit_del .del:hover::after {
+  content: "delete";
+  color: #acacac;
+  position: absolute;
+  top: 55px;
+}
+.blogSingle .editBlog .relative .edit_del .edit {
+  top: 0px;
+  transition: top 1s ease-in-out;
+}
+.blogSingle .editBlog .relative .edit_del .edit:hover::after {
+  content: "edit";
+  color: #acacac;
+  position: absolute;
+  top: 55px;
+}
+.blogSingle .editBlog .box4 {
+  text-align: center;
+}
+.blogSingle .editBlog .box4 .edit_del {
+  right: -30px;
+  top: 0px;
+}
+.blogSingle .editBlog .box5 .edit_del {
+  right: -30px;
+  top: 30px;
+}
+.blogSingle .editBlog form {
+  width: 75%;
+  border: 1px dashed #cccccc;
+  border-top: none;
+}
+.blogSingle .editBlog form h2 {
+  font-size: 30px;
+}
+.blogSingle .editBlog form .title_input {
+  font-size: 50px;
+}
+.blogSingle .editBlog form .title_h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+.blogSingle .editBlog form textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  height: auto;
+}
+.blogSingle .editBlog form input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+.blogSingle .editBlog form .title {
+  color: #dbdbdb;
+  border-left: 1px solid #707070;
+  padding: 0;
+  margin: 0;
+}
+.blogSingle .editBlog form > div {
+  margin-bottom: 35px;
+}
+.blogSingle .editBlog form .upload_img {
+  margin-bottom: 100px;
+}
+.blogSingle .editBlog form .possible_question {
+  background-color: #fcfcfc;
+}
+.blogSingle .editBlog form .possible_question .head {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fcfcfc;
+}
+.blogSingle .editBlog form .possible_question > div {
+  margin-bottom: 40px;
+}
+.blogSingle .editBlog form .submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.blogSingle .editBlog form .submit h3 {
+  color: #d90b2c;
+  cursor: pointer;
+}
+.blogSingle .editBlog form .submit div button {
+  padding: 18px 0;
+  width: 200px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.ant-modal {
+  height: 100% !important;
+  margin-top: -80px !important;
+}
+
+.ant-modal-wrap {
+  padding: 0 !important;
+}
+
+.img_cover {
+  width: 100%;
+  height: 417px !important;
+  margin-bottom: 20px;
+}
+.img_cover img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}/*# sourceMappingURL=BlogSingle.css.map */

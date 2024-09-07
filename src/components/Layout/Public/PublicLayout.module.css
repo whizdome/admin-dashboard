@@ -37,7 +37,6 @@ Breakpoint aurgument
 }
 .screen_layout .reset {
   position: absolute;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   bottom: 25%;
