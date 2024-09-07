@@ -21,7 +21,7 @@ jobs:
       run: npm install
 
     - name: Build Docker image
-      run: docker build -t my-app:latest .
+      run: docker build --no-cache -t my-app:latest .
 
     - name: Install Trivy
       run: |
